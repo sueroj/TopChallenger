@@ -5,6 +5,7 @@ import './App.css';
 
 import Home from './pages/Home';
 import About from './pages/About';
+//import Test from './pages/Test';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
 
       <Router>
         <Switch>
+          {/* <Route path="/test">
+            <Test />
+          </Route> */}
           <Route path="/about">
             <About />
           </Route>
