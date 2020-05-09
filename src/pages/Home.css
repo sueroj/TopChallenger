@@ -1,0 +1,10 @@
+.home {
+    background-color: rgb(65, 68, 68);
+}
+
+.login-content {
+    margin: 100px auto;
+    width: 400px;
+    background-color: rgb(155, 155, 155);
+    border-radius: 5px;
+}

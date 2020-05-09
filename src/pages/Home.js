@@ -1,14 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Login from '../components/Login'
+import Login from '../components/Login';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import './Home.css';
 
 function Home() {
   return (
-    <div className="Home">
-      <h1>Home page</h1>
-      <Login />
-      <Link to="/about">Go to About page</Link>
-      <Link to="/test">Go to Test page</Link>
+    <div className="home">
+      <Container>
+        <Row>
+            <Col>
+              
+                <div className="login-content">
+                  <h1>Login</h1>
+                  <Login />
+                </div>
+            </Col>
+        </Row>
+      </Container>
     </div>
   )
 }

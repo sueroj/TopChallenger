@@ -16,17 +16,19 @@ function App() {
       <Router>
         <Switch>
           <Route path="/">
-        <header className="">
-      <TopNavBar />
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      </header>
-      </Route>
-          <Route path="/about">
-            <About />
+            <header>
+            <TopNavBar />
+            {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            </header>
+            <Home />
           </Route>
           <Route path="/home">
             <Home />
           </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+
         </Switch>
       </Router>
     </div>
