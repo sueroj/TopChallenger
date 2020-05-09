@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 
 function syncRequest() {
+    window.location.href = "http://www.strava.com/oauth/authorize";
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
   
