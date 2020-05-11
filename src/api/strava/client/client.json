@@ -1,0 +1,5 @@
+{
+    "CLIENT_ID": 44126,
+    "REDIRECT_URI": "http://localhost:3000/dashboard",
+    "CLIENT_SECRET": "918f1df7b54be8693b1eb3f63d8201a9a4289e29"
+}
