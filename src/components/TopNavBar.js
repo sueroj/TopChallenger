@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import './TopNavBar.css';
+import './css/TopNavBar.css';
 //import { Link } from 'react-router-dom';
 
 class TopNavBar extends React.Component {
@@ -10,6 +10,7 @@ class TopNavBar extends React.Component {
 
 
 render(){
+    console.log("Debug: rendering TopNavBar");
     return(
         <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand href="/dashboard">React-Bootstrap</Navbar.Brand>
@@ -29,8 +30,8 @@ render(){
                     </NavDropdown>
                 </Navbar.Collapse>
         </Navbar>
-        );
-    }
+        );   
+    }  
 }
 
 export default TopNavBar;
