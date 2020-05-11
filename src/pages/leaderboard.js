@@ -4,7 +4,7 @@ import React from 'react';
 // import Col from 'react-bootstrap/Col';
 import './css/dashboard.css';
 
-class Explorer extends React.Component{
+class Leaderboard extends React.Component{
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,7 +12,7 @@ class Explorer extends React.Component{
 
   render () {
     return (
-        <h1>Explorer [{this.props.userData}]</h1>
+        <h1>Leaderboard [{this.props.userData}]</h1>
     //   <div className="home">
     //     {/* <Container>
     //       <Row>
@@ -29,4 +29,4 @@ class Explorer extends React.Component{
   }
 }
 
-export default Explorer;
+export default Leaderboard;
