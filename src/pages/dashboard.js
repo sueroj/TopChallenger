@@ -5,19 +5,28 @@ import React from 'react';
 import './css/dashboard.css';
 
 class Dashboard extends React.Component{
-//   constructor() {
-//     super();
-//     let auth = new URLSearchParams(document.location.href);
-//     this.token = auth.get("code");
-//     this.scope = auth.get("scope");
+  constructor(props) {
+    super(props);
+    this.state= {data: this.props.userData};
+    console.log(this.props.userData); //dev only
+    console.log(this.state.data); //dev only
 
-//     console.log(this.token);
-//     console.log(this.scope);
-//   }
+  }
+
+  componentDidMount(props) {
+    //console.log("property_id",this.props.location.state.property_id);
+    this.setState(state => ({
+      data: this.props.userData
+    }));
+  }
 
   render () {
     return (
-        <h1>Dashboard</h1>
+
+        
+        <h1>Dashboard [{this.state.data}]</h1>
+
+
     //   <div className="home">
     //     {/* <Container>
     //       <Row>
@@ -30,6 +39,7 @@ class Dashboard extends React.Component{
     //       </Row>
     //     </Container>
     //   </div> */}
+
     )
   }
 }
