@@ -2,10 +2,8 @@
 
 # dependencies
 /node_modules
-/api
 /src/api/client/client.json
 /src/api/strava/client.json
-/api/
 /.pnp
 .pnp.js
 

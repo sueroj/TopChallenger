@@ -1,7 +1,5 @@
 import React from 'react';
 import Profile from './Profile';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
 import './css/Focus.css';
 
 class Focus extends React.Component {

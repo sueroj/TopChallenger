@@ -5,15 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import Sync from './api/strava/sync';
 import data from './api/strava/fakeAuthReturn.json';
+import Navigation from './components/Navigation';
 
 import Home from './pages/home';
-import Navigation from './components/Navigation';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
-//import About from './pages/about';
 
 function App() {
   console.log("Sync Start");
@@ -37,7 +35,6 @@ function App() {
           isLoggedIn = true; //dev only; sessions will be used out of dev
           sessionStorage.setItem('userData', data);
           sessionStorage.setItem('isLoggedIn', true);
-
       }
 
   return (
@@ -55,7 +52,7 @@ function App() {
         <Switch>
           <Route path="/dashboard">
             {/* <Row> */}
-              <Dashboard userData={data}/>
+              <Dashboard userData={data} />
             {/* </Row> */}
           </Route>
           <Route path="/leaderboard">
