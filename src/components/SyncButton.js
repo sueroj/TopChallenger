@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
-import { CLIENT_ID, REDIRECT_URI } from '../api/client/client.json';
+import { CLIENT_ID, REDIRECT_URI } from '../api/strava/client.json';
 
 function syncRequest() {
     console.log("Redirecting..."); //dev only

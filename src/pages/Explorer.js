@@ -12,19 +12,19 @@ class Explorer extends React.Component{
 
   render () {
     return (
-        <h1>Explorer [{this.props.userData}]</h1>
-    //   <div className="home">
-    //     {/* <Container>
-    //       <Row>
-    //           <Col>
+        <h1>Explorer {this.props.userData}</h1>
+      // <div className="home">
+      //   <Container>
+      //     <Row>
+      //         <Col>
                 
-    //               <div className="login-content">
-    //                 <h1>Dashboard</h1>
-    //               </div>
-    //           </Col>
-    //       </Row>
-    //     </Container>
-    //   </div> */}
+      //             <div className="login-content">
+      //               <h1>Dashboard</h1>
+      //             </div>
+      //         </Col>
+      //     </Row>
+      //   </Container>
+      // </div>
     )
   }
 }

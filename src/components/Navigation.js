@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown'
+import Image from 'react-bootstrap/Image';
+import Preferences from '../static/preferences.png';
 import './css/Navigation.css';
 
-class TopNavBar extends React.Component {
+class Navigation extends React.Component {
     constructor(props){
         super(props)
         this.state = {};
@@ -28,12 +29,9 @@ render(){
                                         <Link to="/explorer">Explorer</Link></> 
                                         : null }
                     </Nav>
-                        { isLoggedIn ? <><NavDropdown title="Strava Img Here" id="basic-nav-dropdown">
-                                        <NavDropdown.Item href="#action/3.1">Preferences</NavDropdown.Item>
-                                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                                        <NavDropdown.Divider />
-                                        <NavDropdown.Item href="#action/3.4">Sign Out</NavDropdown.Item>
-                                        </NavDropdown></> 
+                        { isLoggedIn ? <><Image className="nav-img" src={this.props.userData.athlete.profile_medium} alt={this.props.userData.athlete.firstname} roundedCircle />
+                                        <Image className="nav-img" src={Preferences} alt="Preferences" />
+                                        <Image  alt="Sign Out" /></>
                                         : null }
                 </Navbar.Collapse>
         </Navbar>
@@ -41,4 +39,4 @@ render(){
     }  
 }
 
-export default TopNavBar;
+export default Navigation;

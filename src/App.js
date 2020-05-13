@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import Sync from './api/strava/sync';
@@ -34,19 +37,26 @@ function App() {
           isLoggedIn = true; //dev only; sessions will be used out of dev
           sessionStorage.setItem('userData', data);
           sessionStorage.setItem('isLoggedIn', true);
+
       }
 
   return (
     <Router>
+      <Container fluid>
       <div className="App">
-        <header>
-          {/*         isLoggedIn = temporary to verify log in, use session            */}
-          <Navigation userData="data" isLoggedIn={isLoggedIn}/>
-        </header>
-
+        <Row>
+          <Col>
+          <header>
+            {/*         isLoggedIn = temporary to verify log in, use session            */}
+            <Navigation userData={data} isLoggedIn={isLoggedIn}/>
+          </header>
+          </Col>
+        </Row>
         <Switch>
           <Route path="/dashboard">
-            <Dashboard userData="data"/>
+            {/* <Row> */}
+              <Dashboard userData={data}/>
+            {/* </Row> */}
           </Route>
           <Route path="/leaderboard">
             <Leaderboard userData="data"/>
@@ -59,6 +69,7 @@ function App() {
           </Route>
         </Switch>
      </div>
+     </Container>
     </Router>
   );
 }
