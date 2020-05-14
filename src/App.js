@@ -7,6 +7,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import data from './api/strava/fakeAuthReturn.json';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
@@ -50,21 +51,30 @@ function App() {
           </Col>
         </Row>
         <Switch>
-          <Route path="/dashboard">
-            {/* <Row> */}
-              <Dashboard userData={data} />
-            {/* </Row> */}
-          </Route>
-          <Route path="/leaderboard">
-            <Leaderboard userData="data"/>
-          </Route>
-          <Route path="/explorer">
-            <Explorer userData="data"/>
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <div className="content">
+            <Route path="/dashboard">
+              {/* <Row> */}
+                <Dashboard userData={data} />
+              {/* </Row> */}
+            </Route>
+            <Route path="/leaderboard">
+              <Leaderboard userData="data"/>
+            </Route>
+            <Route path="/explorer">
+              <Explorer userData="data"/>
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </div>
         </Switch>
+        <Row>
+          <Col>
+          <header>
+            <Footer userData={data} isLoggedIn={isLoggedIn}/>
+          </header>
+          </Col>
+        </Row>
      </div>
      </Container>
     </Router>

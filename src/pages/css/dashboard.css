@@ -1,3 +1,5 @@
-.dashboard-content {
-    margin-top: 3px;
+.dashboard-focus {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 1200px;
 }

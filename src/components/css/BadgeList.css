@@ -1,0 +1,53 @@
+.badge-list-wrapper {
+    margin-top: 3px;
+    color: orangered;
+}
+
+.badge-list-header {
+    text-align: left;
+    font-size: 24px;
+    height: 40px;
+    width: 100%;
+    margin-inline: 20px;
+    border-bottom: 1px solid orangered;
+}
+
+.header-arrow-wrapper {
+    display: inline-block;
+}
+
+.header-title-wrapper {
+    display: inline-block;
+    margin-inline: 10px;
+}
+
+.header-line {
+    display: inline-block;
+    height: 1px;
+    background-color: orangered;
+    margin: 5px;
+
+}
+
+.header-stats-wrapper {
+    display: inline-block;
+    float: right;
+}
+
+.badge-table {
+    margin: 10px;
+    max-height: 500px;
+    text-align: left;
+    overflow-y: auto;
+}
+
+.badge-wrapper {
+    display: inline-block;
+    margin: 1px;
+    width: 100px;
+    height: 100px;
+}
+
+.img-badge {
+    background-color: rgba(red, green, blue, 0.0);
+}

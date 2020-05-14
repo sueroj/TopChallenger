@@ -24,7 +24,6 @@ class Profile extends React.Component {
 
     render(){
         return(
-            // <h1>Dashboard [{this.state.data.athlete.firstname}]</h1>
             <div className="profile-background-img">
            <Row>
                 <Col sm={3}>

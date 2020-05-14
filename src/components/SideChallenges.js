@@ -1,8 +1,7 @@
 import React from 'react';
-import Profile from './Profile';
-import './css/Focus.css';
+import './css/SideView.css';
 
-class Focus extends React.Component {
+class SideChallenges extends React.Component {
     constructor(props) {
     super(props);
     this.state= {data: this.props.userData};
@@ -20,11 +19,12 @@ class Focus extends React.Component {
 
     render(){
         return(
-                <div className="focus-profile">
-                    <Profile userData={this.state.data} />
+                <div className="side-view">
+                    
+                    
                 </div>     
             ); 
         }  
     }
 
-export default Focus;
+export default SideChallenges;

@@ -1,5 +1,5 @@
 a {
-    color:yellow;
+    color: orangered;
     font-size: 20px;
     display: block;
     padding: .5rem 1rem;
@@ -7,7 +7,14 @@ a {
     padding-left: .5rem;
 }
 
+.navbar {
+    padding-inline: 100px;
+}
+
 .nav-img {
     height: 40px;
     width: 40px;
+}
+
+.footer {
 }

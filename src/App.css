@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgb(65, 68, 68);
 }
 
 .App-logo {
@@ -24,10 +25,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -38,5 +35,14 @@
 }
 
 .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
   background-color: rgb(65, 68, 68);
+}
+
+.content {
+  padding-top: 3px;
+  max-width: 1300px;
+  margin: auto;
+  height: 1200px;
 }

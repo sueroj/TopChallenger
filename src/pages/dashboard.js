@@ -1,7 +1,8 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Focus from "../components/Focus";
+import FocusView from "../components/FocusView";
+import SideView from "../components/SideView";
 import './css/dashboard.css';
 
 class Dashboard extends React.Component{
@@ -24,14 +25,14 @@ class Dashboard extends React.Component{
     return (
       <div className="dashboard-content">
          <Row>
-           <Col sm={8}>         
+           <Col sm={9}>         
                <div className="dashboard-focus">
-               <Focus userData={this.state.data} />
+               <FocusView userData={this.state.data} />
                </div>
            </Col>
-           <Col sm={4}>
+           <Col sm={3}>
              <div className="dashboard-side">
-              <h1>Sidebar</h1>
+                <SideView userData={this.state.data} />
              </div>
            </Col>
          </Row>
