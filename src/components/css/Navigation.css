@@ -9,6 +9,7 @@ a {
 
 .navbar {
     padding-inline: 100px;
+    border-radius: 3px;   
 }
 
 .nav-img {
@@ -16,5 +17,7 @@ a {
     width: 40px;
 }
 
-.footer {
+.footer, .footer-logo, .footer-links {
+    display: inline-block;
+    margin: auto;
 }

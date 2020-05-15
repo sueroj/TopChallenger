@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   background-color: rgb(65, 68, 68);
+  box-shadow: inset 0 40px 20px -100px rgba(0, 0, 0, 0.35),
+  inset 0 -20px 50px -100px rgba(0, 0, 0, 0.35);
 }
 
 .App-logo {
@@ -12,17 +14,6 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 @keyframes App-logo-spin {

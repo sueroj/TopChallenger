@@ -5,10 +5,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import data from './api/strava/fakeAuthReturn.json';
+//import {CLIENT_ID, CLIENT_SECRET} from './api/strava/client.json'; *** Works, comment out save usage rate ***
+import {SERVER_LOCATION} from './api/TopChallengerDB/config.json';
+import data from './api/strava/fakeAuthReturn.json'; //dev only - fake return from strava
+
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
-
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
@@ -32,6 +34,11 @@ function App() {
           //    method: 'POST' });
           // const data = await response.json(); *** Works, comment out save usage rate ***
           
+          //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
+          //  also check if server is up before proceeding to dashboard page. 
+          //const response = await fetch(`{SERVER_LOCATION}/api?athleteId={data.athlete.id}`, {
+          //    method: 'POST' });
+
           console.log(data); //dev only
           isLoggedIn = true; //dev only; sessions will be used out of dev
           sessionStorage.setItem('userData', data);
@@ -53,9 +60,7 @@ function App() {
         <Switch>
           <div className="content">
             <Route path="/dashboard">
-              {/* <Row> */}
                 <Dashboard userData={data} />
-              {/* </Row> */}
             </Route>
             <Route path="/leaderboard">
               <Leaderboard userData="data"/>

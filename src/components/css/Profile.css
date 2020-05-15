@@ -1,18 +1,21 @@
 .profile-background-img {
     /* dev only */
-    background-image: url('./tempProfilePic.png');
+    background-image: url('../static/tempProfilePic.png');
     background-repeat: no-repeat;
     background-size: cover;
     height: 400px;
     padding:10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px black;
+    margin-inline: 2px;
     
 }
 
 .profile-main-wrapper {
-    margin-top: 20%;
-    margin-inline: auto;
+    color: white;
+    margin-top: 3%;
     border-radius: 5px;
-
+    float: left;
 }
 
 .profile-name {
@@ -29,11 +32,9 @@
 .profile-rank-wrapper {
     display: flex;
     flex-direction: row;
-    width: 95%;
+    width: 100%;
     height: 50px;
     margin: center;
-    position: absolute;
-    bottom: 0;
 }
 
 .profile-rank-bar {
@@ -42,6 +43,10 @@
     margin: auto;
     border-radius: 5px;
     background-color: #282c34;
+}
+
+.bg-warning {
+    background-color: orangered !important;
 }
 
 .rank-img {

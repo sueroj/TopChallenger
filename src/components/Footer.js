@@ -16,14 +16,13 @@ componentDidMount(props) {
 render(){
     return(
         <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="/dashboard">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                                        <><Nav.Link href="/guide">User Guide</Nav.Link>
-                                        <Link to="/explorer">Explorer</Link></>
-                    </Nav>
-                </Navbar.Collapse>
+            <div className="footer">
+            <Navbar.Brand className="footer-logo" href="/dashboard">React-Bootstrap</Navbar.Brand>
+                <Nav className="footer-links">
+                                    <><Nav.Link className="footer-links" href="/guide">User Guide</Nav.Link>
+                                    <Link className="footer-links" to="/explorer">Explorer</Link></>
+                </Nav>
+            </div>
         </Navbar>
         );   
     }  

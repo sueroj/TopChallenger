@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image';
-import arrowUp from './css/arrowUp.png';
+import arrowUp from './static/arrowUp.png';
 import Row from 'react-bootstrap/Row';
 import './css/BadgeList.css';
 

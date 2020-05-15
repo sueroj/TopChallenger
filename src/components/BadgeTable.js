@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image';
-import fakeBadge from './css/fakeBadge.png'; //dev only
+import fakeBadge2 from './static/fakeBadge2.png'; //dev only
 import './css/BadgeList.css';
 
 class BadgeTable extends React.Component {
@@ -20,37 +20,37 @@ class BadgeTable extends React.Component {
         return(
             <div className="badge-table">
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
                 <div className="badge-wrapper">
-                    <Image  className="img-badge" src={fakeBadge} alt="Badge" rounded/>
+                    <Image  className="img-badge" src={fakeBadge2} alt="Badge" rounded/>
                 </div>
             </div>
         );   

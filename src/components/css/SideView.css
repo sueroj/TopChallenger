@@ -1,7 +1,8 @@
 .side-view {
     height: 290px;
     width: 100%;
-    background-color: orangered;
+    background-color: rgb(59, 43, 38);
     border-radius: 3px;
     margin-bottom: 10px;
+    box-shadow: 2px 2px 2px black;
 }
