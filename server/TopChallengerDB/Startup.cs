@@ -26,6 +26,14 @@ namespace TopChallengerDB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", cors =>
+                        cors.AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +43,8 @@ namespace TopChallengerDB
             {
                 app.UseDeveloperExceptionPage(); //dev only exception page
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

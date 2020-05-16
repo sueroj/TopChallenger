@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Development\\topchallenger\\src\\api\\TopChallengerDB\\TopChallengerDB\\TopChallengerDB.csproj": {}
+    "D:\\Development\\topchallenger\\server\\TopChallengerDB\\TopChallengerDB.csproj": {}
   },
   "projects": {
-    "D:\\Development\\topchallenger\\src\\api\\TopChallengerDB\\TopChallengerDB\\TopChallengerDB.csproj": {
+    "D:\\Development\\topchallenger\\server\\TopChallengerDB\\TopChallengerDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Development\\topchallenger\\src\\api\\TopChallengerDB\\TopChallengerDB\\TopChallengerDB.csproj",
+        "projectUniqueName": "D:\\Development\\topchallenger\\server\\TopChallengerDB\\TopChallengerDB.csproj",
         "projectName": "TopChallengerDB",
-        "projectPath": "D:\\Development\\topchallenger\\src\\api\\TopChallengerDB\\TopChallengerDB\\TopChallengerDB.csproj",
+        "projectPath": "D:\\Development\\topchallenger\\server\\TopChallengerDB\\TopChallengerDB.csproj",
         "packagesPath": "C:\\Users\\Suero\\.nuget\\packages\\",
-        "outputPath": "D:\\Development\\topchallenger\\src\\api\\TopChallengerDB\\TopChallengerDB\\obj\\",
+        "outputPath": "D:\\Development\\topchallenger\\server\\TopChallengerDB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

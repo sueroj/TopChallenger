@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import {CLIENT_ID, CLIENT_SECRET} from './api/strava/client.json'; *** Works, comment out save usage rate ***
-import {SERVER_LOCATION} from './api/TopChallengerDB/config.json';
+import {SERVER_LOCATION} from './api/strava/config.json';
 import data from './api/strava/fakeAuthReturn.json'; //dev only - fake return from strava
 
 import Navigation from './components/Navigation';
@@ -35,10 +35,12 @@ function App() {
           // const data = await response.json(); *** Works, comment out save usage rate ***
           
           //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
-          //  also check if server is up before proceeding to dashboard page. 
-          //const response = await fetch(`{SERVER_LOCATION}/api?athleteId={data.athlete.id}`, {
-          //    method: 'POST' });
+          //  also check if server is up before proceeding to dashboard page.
+          // 
+          const response = fetch(`http://localhost:4000/api/topchallenger/athleteId/11112222`, {
+              method: 'POST' });
 
+          console.log(response); 
           console.log(data); //dev only
           isLoggedIn = true; //dev only; sessions will be used out of dev
           sessionStorage.setItem('userData', data);

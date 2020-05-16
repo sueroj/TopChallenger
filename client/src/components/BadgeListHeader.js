@@ -23,7 +23,7 @@ class BadgeListHeader extends React.Component {
             <Row>
                 <div className="badge-list-header">
                     <div className="header-arrow-wrapper">
-                        <Image className="header-arrow" src={arrowUp} Alt="Header Arrow" />
+                        <Image className="header-arrow" src={arrowUp} alt="Header Arrow" />
                     </div>
                     <div className="header-title-wrapper">
                         {this.state.type}

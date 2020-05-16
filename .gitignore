@@ -1,15 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/src/api/client/client.json
-/src/api/strava/client.json
-/src/api/TopChallengerDB/TopChallengerDB/bin
-/src/api/TopChallengerDB/.vs
-/src/api/TopChallengerDB/TopChallengerDB.sln
-/src/api/TopChallengerDB/config.json
-/.pnp
-.pnp.js
+client/node_modules
+client/src/api/config.json
+client/.pnp
+client/.pnp.js
+server/.vs
+server/TopChallengerDB/bin
 
 # testing
 /coverage
@@ -18,12 +15,12 @@
 /build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+client/.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*

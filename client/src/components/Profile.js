@@ -37,7 +37,7 @@ class Profile extends React.Component {
                     <div class="profile-rank-wrapper">
                         
                             <Image className="rank-img" src={fakeRank1} alt="Current Rank" roundedCircle/>
-                            <div class="profile-rank-bar">
+                            <div className="profile-rank-bar">
                                 {/* progress color changed via varient prop */}
                             <ProgressBar className="profile-rank-bar" variant="warning" animated now={50} label={"50"} />
                             </div>
