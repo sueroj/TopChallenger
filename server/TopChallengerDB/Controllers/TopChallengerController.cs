@@ -23,21 +23,38 @@ namespace TopChallengerDB.Controllers
         public TopChallengerController(ILogger<TopChallengerController> logger)
         {
             _logger = logger;
-            //client = new MongoClient("localhost");
-            //database = client.GetDatabase("topchallengerdb");
-            //collection = database.GetCollection<BsonDocument>("profiles");
+            client = new MongoClient("mongodb://localhost:27017");
+            database = client.GetDatabase("topchallengerdb");
+            collection = database.GetCollection<BsonDocument>("profiles");
         }
 
-        [HttpPost("athleteId/{id}")]
-        public async Task<IActionResult> Login(int id)
+        //[HttpPost("athleteId/{id}")]
+        //public async Task<IActionResult> Login(int id)
+        //{
+        //    var document = new BsonDocument
+        //    {
+        //        { "athleteId", id }
+        //    };
+        //    await collection.InsertOneAsync(document);
+
+        //    _logger.LogInformation(id.ToString());
+
+        //    return Ok();
+        //}
+
+        [HttpPost("profile/{athleteId}")]
+        public async Task<IActionResult> getProfile(int athleteId)
         {
+            var filter = Builders<BsonDocument>.Filter.Eq("athleteId", athleteId);
+            var result = collection.Find(filter).ToList();
+
             //var document = new BsonDocument
             //{
-            //    { "athleteId", athleteId }
+            //    { "athleteId", model.AthleteId }
             //};
             //await collection.InsertOneAsync(document);
 
-            _logger.LogInformation(id.ToString());
+            _logger.LogInformation(athleteId.ToString());
 
             return Ok();
         }

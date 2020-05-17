@@ -1,7 +1,5 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './css/Profile.css';
 import fakeRank1 from './static/fakeRank1.png'; //dev only
@@ -34,7 +32,7 @@ class Profile extends React.Component {
                     <Image className="profile-img" src={this.state.data.athlete.profile} alt="Profile Image" roundedCircle />
                 </div>
 
-                    <div class="profile-rank-wrapper">
+                    <div className="profile-rank-wrapper">
                         
                             <Image className="rank-img" src={fakeRank1} alt="Current Rank" roundedCircle/>
                             <div className="profile-rank-bar">

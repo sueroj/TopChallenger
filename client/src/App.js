@@ -5,9 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import {CLIENT_ID, CLIENT_SECRET} from './api/strava/client.json'; *** Works, comment out save usage rate ***
-import {SERVER_LOCATION} from './api/strava/config.json';
-import data from './api/strava/fakeAuthReturn.json'; //dev only - fake return from strava
+//import {CLIENT_ID, CLIENT_SECRET} from './api/config.json'; *** Works, comment out save usage rate ***
+import {SERVER_LOCATION} from './api/config.json';
+import data from './api/fakeAuthReturn.json'; //dev only - fake return from strava
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -26,7 +26,7 @@ function App() {
       //Enter user resolution here
       console.log("API access denied. Possible user decline."); //dev only
     } else if (state === "newauth") {
-        let code = url.get("code");
+        //let code = url.get("code"); *** Works, comment out save usage rate ***
 
         console.log("Access granted by user."); //dev only
 
@@ -36,15 +36,20 @@ function App() {
           
           //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
           //  also check if server is up before proceeding to dashboard page.
-          // 
-          const response = fetch(`http://localhost:4000/api/topchallenger/athleteId/11112222`, {
+          //
+          try {
+            const response = fetch(`${SERVER_LOCATION}/api/topchallenger/athleteId/11112233`, {
               method: 'POST' });
-
-          console.log(response); 
+            console.log(response);
+          }
+          catch (e) {
+            console.log(e);
+          } 
+ 
           console.log(data); //dev only
           isLoggedIn = true; //dev only; sessions will be used out of dev
-          sessionStorage.setItem('userData', data);
-          sessionStorage.setItem('isLoggedIn', true);
+          // sessionStorage.setItem('userData', data);
+          // sessionStorage.setItem('isLoggedIn', true);
       }
 
   return (

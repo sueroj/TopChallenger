@@ -7,8 +7,22 @@ namespace TopChallengerDB.Models
 {
     public class Profile
     {
-        public int UniqueId;
-        public int AthleteId;
+        private readonly int UniqueId;
+        public int AthleteId { get; set; }
+        public int Rank { get; set; }
+        public int TotalExp { get; set; }
+        public string BadgeString { get; set; }
+        public string Background { get; set; }
+
+        public string Title { get; set; }
+
+        public DateTime DateFirstCreated
+        {
+            get => dateFirstCreated;
+            set { dateFirstCreated = DateTime.Now; }
+        }
+
+        private DateTime dateFirstCreated;
 
     }
 }
