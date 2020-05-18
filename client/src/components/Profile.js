@@ -8,8 +8,10 @@ import fakeRank2 from './static/fakeRank2.png'; //dev only
 class Profile extends React.Component {
     constructor(props) {
     super(props);
-    this.state= {data: this.props.userData};
-
+    this.state= {
+        data: this.props.userData,
+        profile: this.props.userProfile
+        }
     }
 
     componentDidMount(props) {
@@ -21,15 +23,17 @@ class Profile extends React.Component {
 
 
     render(){
+        const { data } = this.state;
+        const { profile } = this.state;
         return(
             <div className="profile-background-img">
 
                 <div className="profile-main-wrapper">
                     <div className="profile-name">
-                    <h1>{this.state.data.athlete.firstname} {this.state.data.athlete.lastname}</h1>
-                    Title Here
+                    <h1>{data.athlete.firstname} {data.athlete.lastname}</h1>
+                        <span>{profile.title}</span>
                     </div>
-                    <Image className="profile-img" src={this.state.data.athlete.profile} alt="Profile Image" roundedCircle />
+                    <Image className="profile-img" src={data.athlete.profile} alt="Profile Image" roundedCircle />
                 </div>
 
                     <div className="profile-rank-wrapper">

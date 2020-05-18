@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
-using MongoDB.Bson;
 using TopChallengerDB.Models;
 using TopChallengerDB.Services;
 
@@ -49,35 +46,23 @@ namespace TopChallengerDB.Controllers
             return CreatedAtRoute("GetProfile", new { id = profile.Id.ToString() }, profile);
         }
 
-        //[HttpPost("athleteId/{id}")]
-        //public async Task<IActionResult> Login(int id)
+        //[HttpPut("new-challenge")]
+        //public async Task<ActionResult<Challenge>> CreateChallenge(Challenge challenge)
         //{
-        //    try
-        //    {
-        //        var filter = Builders<BsonDocument>.Filter.Eq("athleteId", id);
-        //        var result = collection.Find(filter).CountDocuments();
+        //    await _topChallengerService.CreateChallenge(challenge);
+        //    Console.WriteLine($"New Challenge: {challenge}");
 
-        //        if (result > 0)
-        //        {
-        //            _logger.LogInformation("Profile retrieved: " + result.ToString());
-        //        }
-        //        else
-        //        {
-        //            var document = new BsonDocument
-        //        {
-        //            { "athleteId", id }
-        //        };
-        //            await collection.InsertOneAsync(document);
-        //            _logger.LogInformation("Profile created: " + id.ToString());
-        //        }
-        //    } catch (Exception e)
-        //    {
-        //        _logger.LogInformation("Failed to read from database: " + e.Message);
-        //    }
-
-        //    _logger.LogInformation(id.ToString());
-
-        //    return Ok();
+        //    return CreatedAtRoute("GetProfile", new { id = challenge.ChallengeId.ToString() }, challenge);
         //}
+
+        [HttpPost("new-challenge/{challenge}")]
+        public async Task<ActionResult<Challenge>> CreateChallenge(Challenge challenge)
+        {
+            await _topChallengerService.CreateChallenge(challenge);
+            Console.WriteLine($"New Challenge: {challenge}");
+
+            return Created("new-challenge", challenge);
+        }
+
     }
 }

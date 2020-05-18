@@ -1,0 +1,6 @@
+
+//Change this to correct JSON post https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+//
+// const response = await fetch(`https://www.strava.com/oauth/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code`, {
+//    method: 'POST' });
+// const data = await response.json(); *** Works, comment out save usage rate ***

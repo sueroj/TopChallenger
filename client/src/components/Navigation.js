@@ -9,14 +9,28 @@ import './css/Navigation.css';
 class Navigation extends React.Component {
     constructor(props){
         super(props)
-        this.state = {};
+        this.state = {
+            // isLoggedIn: this.props.loggedInStatus dev only
+            isLoggedIn: true //dev only
+        };
     }
 
-componentDidMount(props) {
+componentDidMount() {
+    // this.setState((state) => ({
+    //     isLoggedIn: this.state
+    //   }));
+}
+
+componentDidUpdate(prevProps){
+    if (this.props.loggedInStatus !== prevProps.loggedInStatus) {
+        this.setState((state) => ({
+            isLoggedIn: this.props
+        }));
+    }
 }
 
 render(){
-    const isLoggedIn = this.props.isLoggedIn; //gets logged in status from App.js parent
+    const { isLoggedIn } = this.state; //gets logged in status from App.js parent
     return(
         <Navbar bg="dark" variant="dark" expand="lg">
             <Navbar.Brand href="/dashboard">React-Bootstrap</Navbar.Brand>

@@ -37,7 +37,8 @@ namespace TopChallengerDB
 
             services.AddSingleton<TopChallengerService>();
 
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(options => options.UseMemberCasing());
 
             services.AddCors(options =>
             {

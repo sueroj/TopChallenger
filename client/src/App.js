@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -15,38 +15,25 @@ import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
+import Loader from './pages/loader.dev'; // dev only
 
-function App() {
-  console.log("App Start");
-  let url = new URLSearchParams(document.location.search);
-  let state = url.get("state");
-  let isLoggedIn = false;
-  let serverStatus = true;
-  // let profile = null;
-   const [profile, setProfile] = useState(null);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+      serverStatus: true,
+      profile: JSON.parse(sessionStorage.getItem('localSessionProfile'))
+            ? JSON.parse(sessionStorage.getItem('localSessionProfile'))
+            : null,
+      isLoaded: false
+    }
+  }
 
-   //stopped here.
-
-    fetch(`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`, {
-      method: 'POST' }).then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if(profile === null) {
-        setProfile(data);
-      }
-    })
-    .catch(error => {
-      console.error('Could not connect to server:', error);
-      alert("Could not connect to server. Now entering offline mode.");
-      serverStatus = false;
-    });
-    console.log(profile);
-
-
+  componentDidMount(){
+    console.log("App Start");
+    let url = new URLSearchParams(document.location.search);
+    let state = url.get("state");
 
     if (url.get("error" === "access_denied")) {
       //Enter user resolution here
@@ -55,88 +42,81 @@ function App() {
         //let code = url.get("code"); *** Works, comment out save usage rate ***
 
         console.log("Access granted by user."); //dev only
-        //Change this to correct JSON post https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        //
-        // const response = await fetch(`https://www.strava.com/oauth/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code`, {
-        //    method: 'POST' });
-        // const data = await response.json(); *** Works, comment out save usage rate ***
+
         
         //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
         //  also check if server is up before proceeding to dashboard page.
         //-------------------
         // TO ADD: limit client interaction to profile view only if server is down
-       
-        // profile = postLogin(SERVER_LOCATION, data.athlete.id);
-        // console.log(profile);
 
-        //kind of works
-        //
-        // fetch(`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`, {
-        //   method: 'POST' }).then(response => {
-        //   if (!response.ok) {
-        //     throw new Error('Network response was not ok');
-        //   }
-        //   return response.json();
-        // })
-        // .then(data => {
-        //   if(profile === null) {
-        //     setProfile(data);
-        //   }
-        // })
-        // .catch(error => {
-        //   console.error('Could not connect to server:', error);
-        //   alert("Could not connect to server. Now entering offline mode.");
-        //   serverStatus = false;
-        // });
-        // console.log(profile);
-
-        isLoggedIn = true;
-        // sessionStorage.setItem('userData', data);
-        // sessionStorage.setItem('isLoggedIn', true);
+        fetch((`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`), { 
+          method: 'POST' })
+        .then(response => { if (!response.ok) {
+               throw new Error('Network response was not ok');}  
+               return response.json(); })
+        .then(data => this.setState({ profile: data }))
+        .then(() => this.setState({ isLoaded: true, isLoggedIn: true }))
+        .then(() => {
+          sessionStorage.setItem('localSessionData', JSON.stringify(this.state.data));
+          sessionStorage.setItem('localSessionProfile', JSON.stringify(this.state.profile));
+        })
+        .catch(error => {
+          console.error('Could not connect to server:', error);
+          alert("Could not connect to server. Now entering offline mode.");
+          this.setState({serverStatus: false});
+        });
       }
+    }
 
-  return (
-    <Router>
-      <Container fluid>
-      <div className="App">
-        <Row>
-          <Col>
-          <header>
-            {/*         isLoggedIn = temporary to verify log in, use session            */}
-            <Navigation userData={data} isLoggedIn={isLoggedIn} serverStatus={serverStatus}/>
-          </header>
-          </Col>
-        </Row>
-        <Switch>
-          <div className="content">
-            <Route path="/dashboard">
-                <Dashboard userData={data} userProfile={profile}/>
-            </Route>
-            <Route path="/leaderboard">
-              <Leaderboard userData="data"/>
-            </Route>
-            <Route path="/explorer">
-              <Explorer userData="data"/>
-            </Route>
-            <Route path="/login">
-              <Redirect to="/dashboard" />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-          </div>
-        </Switch>
-        <Row>
-          <Col>
-          <header>
-            <Footer userData={data} isLoggedIn={isLoggedIn}/>
-          </header>
-          </Col>
-        </Row>
-     </div>
-     </Container>
-    </Router>
-  );
+  render(){
+    const { profile } = this.state;
+    const { isLoggedIn } = this.state;
+    const { serverStatus} = this.state;
+    const { isLoaded } = this.state;
+    return (
+      <Router>
+        <Container fluid>
+        <div className="App">
+          <Row>
+            <Col>
+            <header>
+              {/*         isLoggedIn = temporary to verify log in, use session            */}
+              <Navigation userData={data} loggedInStatus={isLoggedIn} serverStatus={serverStatus}/>
+            </header>
+            </Col>
+          </Row>
+          <Switch>
+            <div className="content">
+              <Route path="/dashboard">
+                  <Dashboard userData={data} userProfile={profile} />
+              </Route>
+              <Route path="/leaderboard">
+                <Leaderboard userData="data"/>
+              </Route>
+              <Route path="/explorer">
+                <Explorer userData="data"/>
+              </Route>
+              {/* //dev only */}
+              <Route path="/loader">
+                <Loader />
+              </Route>
+              <Route exact path="/">
+                { isLoaded ? <Redirect to="/dashboard" /> : <Home />}
+              </Route>
+            </div>
+          </Switch>
+          <Row>
+            <Col>
+            <header>
+              <Footer userData={data} isLoggedIn={isLoggedIn}/>
+            </header>
+            </Col>
+          </Row>
+      </div>
+      </Container>
+      </Router>
+    );
+  }
 }
 
 export default App;

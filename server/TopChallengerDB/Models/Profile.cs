@@ -24,6 +24,7 @@ namespace TopChallengerDB.Models
 
         public DateTime DateLastLogin { get; set; }
 
+        //Initial values for new profiles
         public Profile(int athleteId)
         {
             AthleteId = athleteId;

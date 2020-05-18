@@ -3,3 +3,9 @@
     overflow-x: hidden;
     max-height: 1200px;
 }
+
+.loader {
+    margin: auto;
+    width: 350px;
+    margin-top: 50px;
+}

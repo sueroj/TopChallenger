@@ -12,31 +12,36 @@ class Dashboard extends React.Component{
       data: this.props.userData,
       profile: this.props.userProfile
     };
-    console.log(this.state.data); //dev only
-    console.log(this.state.profile); //dev only
-
+    // if (this.state.profile === null) {
+    //   this.state.profile = JSON.parse(sessionStorage.getItem('localSessionProfile'));
+    // }
   }
 
-  componentDidMount(props) {
-    //console.log("property_id",this.props.location.state.property_id);
-    this.setState(state => ({
-      data: this.props.userData,
-      profile: this.props.userProfile
-    }));
+  componentDidMount() {
+    // sessionStorage.setItem('localSessionData', JSON.stringify(this.state.data));
+    // sessionStorage.setItem('localSessionProfile', JSON.stringify(this.state.profile));
+  }
+
+  componentDidUpdate(prevProps) {
+
   }
 
   render () {
+    const { data } = this.state;
+    const { profile } = this.state;
     return (
+      console.log(this.state.data),
+      console.log(this.state.profile),
       <div className="dashboard-content">
          <Row>
            <Col sm={9}>         
                <div className="dashboard-focus">
-               <FocusView userData={this.state.data} />
+               <FocusView userData={data} userProfile={profile}/>
                </div>
            </Col>
            <Col sm={3}>
              <div className="dashboard-side">
-                <SideView userData={this.state.data} />
+                <SideView userData={data} />
              </div>
            </Col>
          </Row>
