@@ -8,16 +8,20 @@ import './css/dashboard.css';
 class Dashboard extends React.Component{
   constructor(props) {
     super(props);
-    this.state= {data: this.props.userData};
-    console.log(this.props.userData); //dev only
+    this.state= {
+      data: this.props.userData,
+      profile: this.props.userProfile
+    };
     console.log(this.state.data); //dev only
+    console.log(this.state.profile); //dev only
 
   }
 
   componentDidMount(props) {
     //console.log("property_id",this.props.location.state.property_id);
     this.setState(state => ({
-      data: this.props.userData
+      data: this.props.userData,
+      profile: this.props.userProfile
     }));
   }
 

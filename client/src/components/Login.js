@@ -5,8 +5,6 @@ import SyncButton from './SyncButton';
 import './css/Login.css';
 
 function Login() {
-
-    console.log("Debug: render Login Form");
     return (
             <Form className="login-form">
                 <Form.Group controlId="formBasicEmail">

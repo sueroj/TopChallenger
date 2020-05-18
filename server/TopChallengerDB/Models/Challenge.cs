@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TopChallengerDB.Models
 {
-    public class Challenge
+    public class Challenge //Consider using Abstract or Interface for the various categories, tiers, etc.
     {
         public int ChallengeId;
         public int BadgeId;

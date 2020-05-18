@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,10 +17,36 @@ import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
 
 function App() {
-  console.log("Sync Start");
+  console.log("App Start");
   let url = new URLSearchParams(document.location.search);
   let state = url.get("state");
   let isLoggedIn = false;
+  let serverStatus = true;
+  // let profile = null;
+   const [profile, setProfile] = useState(null);
+
+   //stopped here.
+
+    fetch(`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`, {
+      method: 'POST' }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(profile === null) {
+        setProfile(data);
+      }
+    })
+    .catch(error => {
+      console.error('Could not connect to server:', error);
+      alert("Could not connect to server. Now entering offline mode.");
+      serverStatus = false;
+    });
+    console.log(profile);
+
+
 
     if (url.get("error" === "access_denied")) {
       //Enter user resolution here
@@ -29,27 +55,44 @@ function App() {
         //let code = url.get("code"); *** Works, comment out save usage rate ***
 
         console.log("Access granted by user."); //dev only
+        //Change this to correct JSON post https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        //
+        // const response = await fetch(`https://www.strava.com/oauth/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code`, {
+        //    method: 'POST' });
+        // const data = await response.json(); *** Works, comment out save usage rate ***
+        
+        //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
+        //  also check if server is up before proceeding to dashboard page.
+        //-------------------
+        // TO ADD: limit client interaction to profile view only if server is down
+       
+        // profile = postLogin(SERVER_LOCATION, data.athlete.id);
+        // console.log(profile);
 
-          // const response = await fetch(`https://www.strava.com/oauth/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&grant_type=authorization_code`, {
-          //    method: 'POST' });
-          // const data = await response.json(); *** Works, comment out save usage rate ***
-          
-          //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
-          //  also check if server is up before proceeding to dashboard page.
-          //
-          try {
-            const response = fetch(`${SERVER_LOCATION}/api/topchallenger/athleteId/11112233`, {
-              method: 'POST' });
-            console.log(response);
-          }
-          catch (e) {
-            console.log(e);
-          } 
- 
-          console.log(data); //dev only
-          isLoggedIn = true; //dev only; sessions will be used out of dev
-          // sessionStorage.setItem('userData', data);
-          // sessionStorage.setItem('isLoggedIn', true);
+        //kind of works
+        //
+        // fetch(`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`, {
+        //   method: 'POST' }).then(response => {
+        //   if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        //   }
+        //   return response.json();
+        // })
+        // .then(data => {
+        //   if(profile === null) {
+        //     setProfile(data);
+        //   }
+        // })
+        // .catch(error => {
+        //   console.error('Could not connect to server:', error);
+        //   alert("Could not connect to server. Now entering offline mode.");
+        //   serverStatus = false;
+        // });
+        // console.log(profile);
+
+        isLoggedIn = true;
+        // sessionStorage.setItem('userData', data);
+        // sessionStorage.setItem('isLoggedIn', true);
       }
 
   return (
@@ -60,20 +103,23 @@ function App() {
           <Col>
           <header>
             {/*         isLoggedIn = temporary to verify log in, use session            */}
-            <Navigation userData={data} isLoggedIn={isLoggedIn}/>
+            <Navigation userData={data} isLoggedIn={isLoggedIn} serverStatus={serverStatus}/>
           </header>
           </Col>
         </Row>
         <Switch>
           <div className="content">
             <Route path="/dashboard">
-                <Dashboard userData={data} />
+                <Dashboard userData={data} userProfile={profile}/>
             </Route>
             <Route path="/leaderboard">
               <Leaderboard userData="data"/>
             </Route>
             <Route path="/explorer">
               <Explorer userData="data"/>
+            </Route>
+            <Route path="/login">
+              <Redirect to="/dashboard" />
             </Route>
             <Route exact path="/">
               <Home />
