@@ -1,0 +1,10 @@
+{
+  "ChallengeId": 100001,
+  "Name": "Rolling Thunder",
+  "Type": 0,
+  "Tier": 1,
+  "BadgeId": 22,
+  "Description": "Cycle 40 Miles in under 2 hours",
+  "Time": 7200,
+  "Distance": 40
+}

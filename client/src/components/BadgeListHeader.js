@@ -7,18 +7,36 @@ import './css/BadgeList.css';
 class BadgeListHeader extends React.Component {
     constructor(props) {
     super(props);
-    this.state= {type: this.props.type};
-
+        this.state= {
+            type: this.props.type,
+            header: this.props.header,
+            profile: this.props.profile,
+            challenges: this.props.challenges,
+            totalComplete: this.props.profile.TotalComplete,
+            totalChallenges: 0
+        };
     }
 
-    componentDidMount(props) {
-    //console.log("property_id",this.props.location.state.property_id);
-    this.setState(state => ({
-        type: this.props.type
-    }));
+    componentDidMount() {
+        var count = 0;
+        this.state.challenges.forEach(element =>
+            {if (element.Type === this.state.type) 
+            count++; }
+            )
+        this.setState({ totalChallenges: count });          
+    }
+
+    componentDidUpdate(){
+        // var count = 0;
+        // this.state.challenges.forEach(element =>
+        //     {if (element.Type === this.state.type) 
+        //     count++; }
+        //     )
+        // this.setState({ totalChallenges: count });
     }
 
     render(){
+        const { header } = this.state;
         return(
             <Row>
                 <div className="badge-list-header">
@@ -26,11 +44,11 @@ class BadgeListHeader extends React.Component {
                         <Image className="header-arrow" src={arrowUp} alt="Header Arrow" />
                     </div>
                     <div className="header-title-wrapper">
-                        {this.state.type}
+                        {header}
                     </div>
 
                     <div className="header-stats-wrapper">
-                        02/80
+                    {this.state.totalComplete}/{this.state.totalChallenges}
                     </div>
                 </div>
             </Row>

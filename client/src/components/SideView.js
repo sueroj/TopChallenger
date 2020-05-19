@@ -8,14 +8,14 @@ import './css/SideView.css';
 class SideView extends React.Component {
     constructor(props) {
     super(props);
-    this.state= {data: this.props.userData};
+    this.state= {user: this.props.user};
 
     }
 
     componentDidMount(props) {
     //console.log("property_id",this.props.location.state.property_id);
     this.setState(state => ({
-        data: this.props.userData
+        user: this.props.user
     }));
     }
 
@@ -24,10 +24,10 @@ class SideView extends React.Component {
     render(){
         return( 
                 <>
-                <SideRewards className="side-view" userData={this.state.data} />
-                <SideChallenges className="side-view" userData={this.state.data} />
-                <SideProgression className="side-view" userData={this.state.data} />
-                <SideFriends className="side-view" userData={this.state.data} />
+                <SideRewards className="side-view" user={this.state.user} />
+                <SideChallenges className="side-view" user={this.state.user} />
+                <SideProgression className="side-view" user={this.state.user} />
+                <SideFriends className="side-view" user={this.state.user} />
                 </>
             ); 
         }  

@@ -6,8 +6,9 @@ class FocusView extends React.Component {
     constructor(props) {
     super(props);
     this.state= {
-        data: this.props.userData,
-        profile: this.props.userProfile
+        user: this.props.user,
+        profile: this.props.profile,
+        challenges: this.props.challenges
         };
     }
 
@@ -20,11 +21,12 @@ class FocusView extends React.Component {
 
 
     render(){
-        const { data } = this.state;
+        const { user } = this.state;
         const { profile } = this.state;
+        const { challenges } = this.state;
         return(
-                <><Profile userData={data} userProfile={profile}/>
-                <BadgeList userData={data} userProfile={profile}/></>
+                <><Profile user={user} profile={profile} />
+                <BadgeList user={user} profile={profile} challenges={challenges}/></>
             ); 
         }  
     }

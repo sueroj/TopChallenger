@@ -12,7 +12,7 @@ class Explorer extends React.Component{
 
   render () {
     return (
-        <h1>Explorer {this.props.userData}</h1>
+        <h1>Explorer {this.props.user}</h1>
       // <div className="home">
       //   <Container>
       //     <Row>

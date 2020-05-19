@@ -32,7 +32,7 @@ class Loader extends React.Component{
 
   handleSubmit(event) {
 
-    fetch((`${SERVER_LOCATION}/api/topchallenger/new-challenge/:challenge`), { 
+    fetch((`${SERVER_LOCATION}/new-challenge/:challenge`), { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

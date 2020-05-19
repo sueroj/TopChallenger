@@ -43,7 +43,7 @@ render(){
                                         <Link to="/explorer">Explorer</Link></> 
                                         : null }
                     </Nav>
-                        { isLoggedIn ? <><Image className="nav-img" src={this.props.userData.athlete.profile_medium} alt={this.props.userData.athlete.firstname} roundedCircle />
+                        { isLoggedIn ? <><Image className="nav-img" src={this.props.user.athlete.profile_medium} alt={this.props.user.athlete.firstname} roundedCircle />
                                         <Image className="nav-img" src={Preferences} alt="Preferences" />
                                         <Image  alt="Sign Out" /></>
                                         : null }

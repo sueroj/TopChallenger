@@ -46,20 +46,19 @@ namespace TopChallengerDB.Controllers
             return CreatedAtRoute("GetProfile", new { id = profile.Id.ToString() }, profile);
         }
 
-        //[HttpPut("new-challenge")]
-        //public async Task<ActionResult<Challenge>> CreateChallenge(Challenge challenge)
-        //{
-        //    await _topChallengerService.CreateChallenge(challenge);
-        //    Console.WriteLine($"New Challenge: {challenge}");
 
-        //    return CreatedAtRoute("GetProfile", new { id = challenge.ChallengeId.ToString() }, challenge);
-        //}
+        [HttpGet("challenges")]
+        public ActionResult<List<Challenge>> GetChallenges() =>
+        _topChallengerService.GetChallenges();
 
         [HttpPost("new-challenge/{challenge}")]
         public async Task<ActionResult<Challenge>> CreateChallenge(Challenge challenge)
         {
-            await _topChallengerService.CreateChallenge(challenge);
-            Console.WriteLine($"New Challenge: {challenge}");
+            if(await _topChallengerService.CreateChallenge(challenge) == null)
+            {
+                Console.WriteLine($"Null Return: Duplicate Challenge ID");
+            }
+            else Console.WriteLine($"New Challenge: {challenge}");
 
             return Created("new-challenge", challenge);
         }

@@ -4,22 +4,35 @@ import Row from 'react-bootstrap/Row';
 import FocusView from "../components/FocusView";
 import SideView from "../components/SideView";
 import './css/dashboard.css';
+import {SERVER_LOCATION} from "../api/config.json";
+
 
 class Dashboard extends React.Component{
   constructor(props) {
     super(props);
     this.state= {
-      data: this.props.userData,
-      profile: this.props.userProfile
+      user: this.props.user,
+      profile: this.props.profile,
+      challenges: this.props.challenges,
+      // challenges: JSON.parse(sessionStorage.getItem('sessionChallenges'))
+      //   ? JSON.parse(sessionStorage.getItem('sessionChallenges'))
+      //   : null
     };
-    // if (this.state.profile === null) {
-    //   this.state.profile = JSON.parse(sessionStorage.getItem('localSessionProfile'));
-    // }
   }
 
   componentDidMount() {
-    // sessionStorage.setItem('localSessionData', JSON.stringify(this.state.data));
-    // sessionStorage.setItem('localSessionProfile', JSON.stringify(this.state.profile));
+    // fetch((`${SERVER_LOCATION}/challenges`), { 
+    //   method: 'GET' })
+    // .then(response => { if (!response.ok) {
+    //        throw new Error('Network response was not ok');}  
+    //        return response.json(); })
+    // .then(data => this.setState({ challenges: data }))
+    // .then(() => {
+    //   sessionStorage.setItem('sessionChallenges', JSON.stringify(this.state.challenges));
+    // })
+    // .catch(error => {
+    //   console.error('Could not retrieve challenge list:', error);
+    // });
   }
 
   componentDidUpdate(prevProps) {
@@ -27,21 +40,22 @@ class Dashboard extends React.Component{
   }
 
   render () {
-    const { data } = this.state;
+    const { user } = this.state;
     const { profile } = this.state;
+    const { challenges } = this.state;
     return (
-      console.log(this.state.data),
+      console.log(this.state.user),
       console.log(this.state.profile),
       <div className="dashboard-content">
          <Row>
            <Col sm={9}>         
                <div className="dashboard-focus">
-               <FocusView userData={data} userProfile={profile}/>
+               <FocusView user={user} profile={profile} challenges={challenges}/>
                </div>
            </Col>
            <Col sm={3}>
              <div className="dashboard-side">
-                <SideView userData={data} />
+                <SideView user={user} challenges={challenges}/>
              </div>
            </Col>
          </Row>

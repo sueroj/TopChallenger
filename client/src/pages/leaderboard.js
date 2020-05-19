@@ -11,7 +11,7 @@ class Leaderboard extends React.Component{
 
   render () {
     return (
-        <h1>Leaderboard [{this.props.userData}]</h1>
+        <h1>Leaderboard [{this.props.user}]</h1>
     //   <div className="home">
     //     {/* <Container>
     //       <Row>

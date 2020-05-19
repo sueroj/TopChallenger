@@ -15,6 +15,7 @@ namespace TopChallengerDB.Models
         public int AthleteId { get; set; }
         public int Rank { get; set; }
         public int TotalExp { get; set; }
+        public int TotalComplete { get; set; }
         public string BadgeString { get; set; }
         public int[] Monitor { get; set; }
         public string Background { get; set; }
@@ -30,6 +31,7 @@ namespace TopChallengerDB.Models
             AthleteId = athleteId;
             Rank = 1;
             TotalExp = 0;
+            TotalComplete = 0;
             BadgeString = "none";
             Monitor = new int[5]; //dev only test
             Background = null; //dev only test

@@ -4,14 +4,14 @@ import './css/SideView.css';
 class SideFriends extends React.Component {
     constructor(props) {
     super(props);
-    this.state= {data: this.props.userData};
+    this.state= {user: this.props.user};
 
     }
 
     componentDidMount(props) {
     //console.log("property_id",this.props.location.state.property_id);
     this.setState(state => ({
-        data: this.props.userData
+        user: this.props.user
     }));
     }
 
@@ -20,7 +20,7 @@ class SideFriends extends React.Component {
     render(){
         return(
                 <div className="side-view">
-                    
+                    <h1>Friends</h1>
                     
                 </div>     
             ); 

@@ -7,7 +7,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import {CLIENT_ID, CLIENT_SECRET} from './api/config.json'; *** Works, comment out save usage rate ***
 import {SERVER_LOCATION} from './api/config.json';
-import data from './api/fakeAuthReturn.json'; //dev only - fake return from strava
+import user from './api/fakeAuthReturn.json'; //dev only - fake return from strava
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -22,9 +22,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      serverStatus: true,
-      profile: JSON.parse(sessionStorage.getItem('localSessionProfile'))
-            ? JSON.parse(sessionStorage.getItem('localSessionProfile'))
+      serverStatus: false,
+      profile: JSON.parse(sessionStorage.getItem('sessionProfile'))
+            ? JSON.parse(sessionStorage.getItem('sessionProfile'))
+            : null,
+      challenges: JSON.parse(sessionStorage.getItem('sessionChallenges'))
+            ? JSON.parse(sessionStorage.getItem('sessionChallenges'))
             : null,
       isLoaded: false
     }
@@ -42,14 +45,13 @@ class App extends React.Component {
         //let code = url.get("code"); *** Works, comment out save usage rate ***
 
         console.log("Access granted by user."); //dev only
-
         
         //Top Challenger Server Connect here: Send logged in user ID to be checked with server for new profile creation
         //  also check if server is up before proceeding to dashboard page.
         //-------------------
         // TO ADD: limit client interaction to profile view only if server is down
 
-        fetch((`${SERVER_LOCATION}/api/topchallenger/login/${data.athlete.id}`), { 
+        fetch((`${SERVER_LOCATION}/login/${user.athlete.id}`), { 
           method: 'POST' })
         .then(response => { if (!response.ok) {
                throw new Error('Network response was not ok');}  
@@ -57,12 +59,27 @@ class App extends React.Component {
         .then(data => this.setState({ profile: data }))
         .then(() => this.setState({ isLoaded: true, isLoggedIn: true }))
         .then(() => {
-          sessionStorage.setItem('localSessionData', JSON.stringify(this.state.data));
-          sessionStorage.setItem('localSessionProfile', JSON.stringify(this.state.profile));
+          sessionStorage.setItem('sessionData', JSON.stringify(this.state.user));
+          sessionStorage.setItem('sessionProfile', JSON.stringify(this.state.profile));
         })
         .catch(error => {
           console.error('Could not connect to server:', error);
-          alert("Could not connect to server. Now entering offline mode.");
+          
+          this.setState({serverStatus: true});
+        });
+
+        //Gets Challenges as json list.
+        fetch((`${SERVER_LOCATION}/challenges`), { 
+          method: 'GET' })
+        .then(response => { if (!response.ok) {
+               throw new Error('Network response was not ok');}  
+               return response.json(); })
+        .then(data => this.setState({ challenges: data }))
+        .then(() => {
+          sessionStorage.setItem('sessionChallenges', JSON.stringify(this.state.challenges));
+        })
+        .catch(error => {
+          console.error('Could not retrieve challenge list:', error);
           this.setState({serverStatus: false});
         });
       }
@@ -73,6 +90,7 @@ class App extends React.Component {
     const { isLoggedIn } = this.state;
     const { serverStatus} = this.state;
     const { isLoaded } = this.state;
+    const { challenges } = this.state;
     return (
       <Router>
         <Container fluid>
@@ -81,34 +99,35 @@ class App extends React.Component {
             <Col>
             <header>
               {/*         isLoggedIn = temporary to verify log in, use session            */}
-              <Navigation userData={data} loggedInStatus={isLoggedIn} serverStatus={serverStatus}/>
+              <Navigation user={user} loggedInStatus={isLoggedIn} serverStatus={serverStatus}/>
             </header>
             </Col>
           </Row>
           <Switch>
             <div className="content">
               <Route path="/dashboard">
-                  <Dashboard userData={data} userProfile={profile} />
+                  <Dashboard user={user} profile={profile} challenges={challenges} />
               </Route>
               <Route path="/leaderboard">
-                <Leaderboard userData="data"/>
+                <Leaderboard user="data"/>
               </Route>
               <Route path="/explorer">
-                <Explorer userData="data"/>
+                <Explorer user="data"/>
               </Route>
               {/* //dev only */}
               <Route path="/loader">
                 <Loader />
               </Route>
-              <Route exact path="/">
-                { isLoaded ? <Redirect to="/dashboard" /> : <Home />}
+              <Route exact path="/">           
+                {/* { isLoaded ? ( serverStatus ? <Redirect to="/dashboard" /> : <Home />) : <Home />} */}
+                { isLoaded ? <Redirect to="/dashboard" /> : <Home /> }
               </Route>
             </div>
           </Switch>
           <Row>
             <Col>
             <header>
-              <Footer userData={data} isLoggedIn={isLoggedIn}/>
+              <Footer user={user} isLoggedIn={isLoggedIn}/>
             </header>
             </Col>
           </Row>

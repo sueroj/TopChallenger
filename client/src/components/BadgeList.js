@@ -7,32 +7,36 @@ import BadgeTable from './BadgeTable';
 class BadgeList extends React.Component {
     constructor(props) {
     super(props);
-    this.state= {data: this.props.userData};
+    this.state= {
+        user: this.props.user,
+        profile: this.props.profile,
+        challenges: this.props.challenges
+    };
 
     }
 
     componentDidMount(props) {
-    //console.log("property_id",this.props.location.state.property_id);
-    this.setState(state => ({
-        data: this.props.userData
-    }));
+
     }
 
 
     render(){
+        const { user } = this.state;
+        const { profile } = this.state;
+        const { challenges } = this.state;
         return(
             <div className="badge-list-wrapper">
-                <BadgeListHeader type="Milestone" />
-                <BadgeTable type="Milestone"/>
+                <BadgeListHeader type={0} header="Milestone" profile={profile} challenges={challenges}/>
+                <BadgeTable type="Milestone" user={user} profile={profile} challenges={challenges}/>
 
-                <BadgeListHeader type="Exploration" />
-                <BadgeTable type="Exploration"/>
+                <BadgeListHeader type={1} header="Exploration" profile={profile} challenges={challenges}/>
+                <BadgeTable type="Exploration" user={user} profile={profile} challenges={challenges}/>
 
-                <BadgeListHeader type="Time Trials" />
-                <BadgeTable type="Time Trials"/>
+                <BadgeListHeader type={2} header="Time Trials" profile={profile} challenges={challenges}/>
+                <BadgeTable type="Time Trials"  user={user} profile={profile} challenges={challenges}/>
 
-                <BadgeListHeader type="Endurance" />
-                <BadgeTable type="Endurance"/>
+                <BadgeListHeader type={3} header="Endurance" profile={profile} challenges={challenges}/>
+                <BadgeTable type="Endurance" user={user} profile={profile} challenges={challenges}/>
             </div>
         );   
     }  

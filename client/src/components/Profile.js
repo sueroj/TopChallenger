@@ -9,31 +9,31 @@ class Profile extends React.Component {
     constructor(props) {
     super(props);
     this.state= {
-        data: this.props.userData,
-        profile: this.props.userProfile
+        user: this.props.user,
+        profile: this.props.profile
         }
     }
 
     componentDidMount(props) {
     //console.log("property_id",this.props.location.state.property_id);
     this.setState(state => ({
-        data: this.props.userData
+        user: this.props.user
     }));
     }
 
 
     render(){
-        const { data } = this.state;
+        const { user } = this.state;
         const { profile } = this.state;
         return(
             <div className="profile-background-img">
 
                 <div className="profile-main-wrapper">
                     <div className="profile-name">
-                    <h1>{data.athlete.firstname} {data.athlete.lastname}</h1>
-                        <span>{profile.title}</span>
+                    <h1>{user.athlete.firstname} {user.athlete.lastname}</h1>
+                        <span>{profile.Title}</span>
                     </div>
-                    <Image className="profile-img" src={data.athlete.profile} alt="Profile Image" roundedCircle />
+                    <Image className="profile-img" src={user.athlete.profile} alt="Profile Image" roundedCircle />
                 </div>
 
                     <div className="profile-rank-wrapper">
