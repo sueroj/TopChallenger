@@ -6,8 +6,9 @@ import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import {CLIENT_ID, CLIENT_SECRET} from './api/config.json'; *** Works, comment out save usage rate ***
-import {SERVER_LOCATION} from './api/config.json';
+import {SERVER_URL} from './api/config.json';
 import user from './api/fakeAuthReturn.json'; //dev only - fake return from strava
+import axios from 'axios';
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -23,12 +24,11 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: false,
       serverStatus: false,
-      profile: JSON.parse(sessionStorage.getItem('sessionProfile'))
-            ? JSON.parse(sessionStorage.getItem('sessionProfile'))
-            : null,
-      challenges: JSON.parse(sessionStorage.getItem('sessionChallenges'))
-            ? JSON.parse(sessionStorage.getItem('sessionChallenges'))
-            : null,
+      profile: null,
+      challenges: null,
+      // challenges: JSON.parse(sessionStorage.getItem('sessionChallenges'))
+      //   ? JSON.parse(sessionStorage.getItem('sessionChallenges'))
+      //   : null
       isLoaded: false
     }
   }
@@ -51,37 +51,27 @@ class App extends React.Component {
         //-------------------
         // TO ADD: limit client interaction to profile view only if server is down
 
-        fetch((`${SERVER_LOCATION}/login/${user.athlete.id}`), { 
-          method: 'POST' })
-        .then(response => { if (!response.ok) {
-               throw new Error('Network response was not ok');}  
-               return response.json(); })
-        .then(data => this.setState({ profile: data }))
-        .then(() => this.setState({ isLoaded: true, isLoggedIn: true }))
-        .then(() => {
-          sessionStorage.setItem('sessionData', JSON.stringify(this.state.user));
+        axios.get(`${SERVER_URL}/login?athleteId=${user.athlete.id}`)
+        .then((response) => { 
+          this.setState({profile: response.data });
+          sessionStorage.setItem('sessionUser', JSON.stringify(user)); //dev only - change user to strava creds.
           sessionStorage.setItem('sessionProfile', JSON.stringify(this.state.profile));
         })
-        .catch(error => {
-          console.error('Could not connect to server:', error);
-          
-          this.setState({serverStatus: true});
-        });
+        .then(() => this.setState({isLoaded: true}))
+        .catch ((e) => {
+            console.log("Could not connect to server:", e);
+            this.setState({serverStatus: false});
+        })
 
         //Gets Challenges as json list.
-        fetch((`${SERVER_LOCATION}/challenges`), { 
-          method: 'GET' })
-        .then(response => { if (!response.ok) {
-               throw new Error('Network response was not ok');}  
-               return response.json(); })
-        .then(data => this.setState({ challenges: data }))
-        .then(() => {
-          sessionStorage.setItem('sessionChallenges', JSON.stringify(this.state.challenges));
+        axios.get(`${SERVER_URL}/challenges`)
+        .then((response) => { 
+          this.setState({challenges: response.data })
         })
-        .catch(error => {
-          console.error('Could not retrieve challenge list:', error);
+        .catch ((e) => {
+          console.log("Could not connect to server:", e);
           this.setState({serverStatus: false});
-        });
+        })
       }
     }
 

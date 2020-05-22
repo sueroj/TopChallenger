@@ -28,23 +28,32 @@ namespace TopChallengerDB.Controllers
         //Login: Check database for athlete ID, if does not exist, create one.
         //       If it does exist, pull profile from db and send to client.
 
-        [HttpPost("login/{athleteId}")]
+        //[HttpPost("login/{athleteId}")]
+        //public ActionResult<Profile> Login(int athleteId)
+        //{
+
+        //    var profile = _topChallengerService.CreateNew(athleteId);
+        //    Console.WriteLine($"Login: {athleteId}");
+
+        //    return Ok(profile);
+        //}
+        [HttpGet]
+        [Route("login")]
         public ActionResult<Profile> Login(int athleteId)
         {
-
             var profile = _topChallengerService.CreateNew(athleteId);
             Console.WriteLine($"Login: {athleteId}");
 
             return Ok(profile);
         }
 
-        [HttpPost("profile")]
-        public ActionResult<Profile> Create(Profile profile)
-        {
-            _topChallengerService.Create(profile);
+        //[HttpPost("profile")]
+        //public ActionResult<Profile> Create(Profile profile)
+        //{
+        //    _topChallengerService.Create(profile);
 
-            return CreatedAtRoute("GetProfile", new { id = profile.Id.ToString() }, profile);
-        }
+        //    return CreatedAtRoute("GetProfile", new { id = profile.Id.ToString() }, profile);
+        //}
 
 
         [HttpGet("challenges")]

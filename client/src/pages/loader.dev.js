@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './css/dashboard.css';
-import {SERVER_LOCATION} from '../api/config.json';
+import {SERVER_URL} from '../api/config.json';
 
 class Loader extends React.Component{
   constructor(props) {
@@ -32,7 +32,7 @@ class Loader extends React.Component{
 
   handleSubmit(event) {
 
-    fetch((`${SERVER_LOCATION}/new-challenge/:challenge`), { 
+    fetch((`${SERVER_URL}/new-challenge/:challenge`), { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

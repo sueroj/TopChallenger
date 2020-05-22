@@ -1,18 +1,36 @@
+import {SERVER_LOCATION} from "../api/config.json";
+import axios from "axios";
 
-function postLogin(url, body) {
-    fetch(`${url}/api/topchallenger/login/${body}`, {
-        method: 'POST' }).then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
+
+export default class Services {
+
+    getProfile(id){
+        axios.get(`${SERVER_LOCATION}/login?athleteId=${id}`)
+        .then((response) => { 
+          return response.data;
         })
-        .then(profile => {
-            console.log(profile);
+        .catch ((e) => {
+            console.log("Could not connect to server:", e);
         })
-        .catch(error => {
-        console.error('Could not connect to server:', error);
-    });
+    }
+
+    getUser(id){
+        axios.get(`${SERVER_LOCATION}/login?athleteId=${id}`)
+        .then((response) => {
+            return response;
+        }) 
+        .catch ((e) => {
+            console.log("Could not connect to server:", e);
+        })
+    }
+
+    async getChallenges(){
+        await axios.get(`${SERVER_LOCATION}/challenges`)
+        .then((response) => {
+            return response;
+        }) 
+        .catch ((e) => {
+            console.log("Could not retrieve challenge list:", e);
+        })
+    }
 }
-
-export default postLogin;

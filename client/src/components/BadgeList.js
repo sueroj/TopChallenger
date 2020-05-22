@@ -1,45 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './css/BadgeList.css';
 
-import BadgeListHeader from './BadgeListHeader';
-import BadgeTable from './BadgeTable';
+import Badges from './Badges';
 
-class BadgeList extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state= {
-        user: this.props.user,
-        profile: this.props.profile,
-        challenges: this.props.challenges
-    };
+function BadgeList(props) {
+    // const [user, setUser] = useState(props.user);
+    // const [profile, setProfile] = useState(props.profile);
+    const [challenges, setChallenges] = useState(props.challenges);
+    
+    useEffect(() => {
+        setChallenges(props.challenges)
+    }, [props.challenges]
+  );
 
-    }
+    return(
+        <div className="badge-list-wrapper">
+            <Badges type={0} header="Milestone" user={props.user} profile={props.profile} challenges={challenges}/>
+            <Badges type={1} header="Exploration" user={props.user} profile={props.profile} challenges={challenges}/>
+            <Badges type={2} header="Time Trials"  user={props.user} profile={props.profile} challenges={challenges}/>
+            <Badges type={3} header="Endurance" user={props.user} profile={props.profile} challenges={challenges}/>
+        </div>
+    );   
+}  
 
-    componentDidMount(props) {
-
-    }
-
-
-    render(){
-        const { user } = this.state;
-        const { profile } = this.state;
-        const { challenges } = this.state;
-        return(
-            <div className="badge-list-wrapper">
-                <BadgeListHeader type={0} header="Milestone" profile={profile} challenges={challenges}/>
-                <BadgeTable type="Milestone" user={user} profile={profile} challenges={challenges}/>
-
-                <BadgeListHeader type={1} header="Exploration" profile={profile} challenges={challenges}/>
-                <BadgeTable type="Exploration" user={user} profile={profile} challenges={challenges}/>
-
-                <BadgeListHeader type={2} header="Time Trials" profile={profile} challenges={challenges}/>
-                <BadgeTable type="Time Trials"  user={user} profile={profile} challenges={challenges}/>
-
-                <BadgeListHeader type={3} header="Endurance" profile={profile} challenges={challenges}/>
-                <BadgeTable type="Endurance" user={user} profile={profile} challenges={challenges}/>
-            </div>
-        );   
-    }  
-}
 
 export default BadgeList;

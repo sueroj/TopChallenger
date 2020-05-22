@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'react-bootstrap/Image';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './css/Profile.css';
-import fakeRank1 from './static/fakeRank1.png'; //dev only
-import fakeRank2 from './static/fakeRank2.png'; //dev only
+import fakeRank1 from '../assets/ranks/fakeRank1.png'; //dev only
+import fakeRank2 from '../assets/ranks/fakeRank2.png'; //dev only
 
 class Profile extends React.Component {
     constructor(props) {

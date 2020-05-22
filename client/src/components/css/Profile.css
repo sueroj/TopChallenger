@@ -1,6 +1,6 @@
 .profile-background-img {
     /* dev only */
-    background-image: url('../static/tempProfilePic.png');
+    background-image: url('./tempProfilePic.png');
     background-repeat: no-repeat;
     background-size: cover;
     height: 400px;

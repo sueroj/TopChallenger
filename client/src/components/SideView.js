@@ -1,36 +1,31 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import SideRewards from './SideRewards';
 import SideChallenges from './SideChallenges';
 import SideProgression from './SideProgression';
 import SideFriends from './SideFriends';
 import './css/SideView.css';
 
-class SideView extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state= {user: this.props.user};
+function SideView(props) {
+    // const [user, setUser] = useState(props.user);
+    // const [profile, setProfile] = useState(props.profile);
+    const [challenges, setChallenges] = useState(props.challenges);
 
-    }
+    useEffect(() => {
+        setChallenges(props.challenges);
 
-    componentDidMount(props) {
-    //console.log("property_id",this.props.location.state.property_id);
-    this.setState(state => ({
-        user: this.props.user
-    }));
-    }
+        },[props.challenges]
+    );
 
 
 
-    render(){
-        return( 
-                <>
-                <SideRewards className="side-view" user={this.state.user} />
-                <SideChallenges className="side-view" user={this.state.user} />
-                <SideProgression className="side-view" user={this.state.user} />
-                <SideFriends className="side-view" user={this.state.user} />
-                </>
-            ); 
-        }  
-    }
+    return( 
+            <>
+            <SideRewards className="side-view" user={props.user} />
+            <SideChallenges className="side-view" user={props.user} profile={props.profile} challenges={challenges}/>
+            <SideProgression className="side-view" user={props.user} profile={props.profile}/>
+            <SideFriends className="side-view" user={props.user} profile={props.profile}/>
+            </>
+        ); 
+    }  
 
 export default SideView;

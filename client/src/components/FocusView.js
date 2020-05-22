@@ -1,34 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Profile from './Profile';
 import BadgeList from './BadgeList';
 
-class FocusView extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state= {
-        user: this.props.user,
-        profile: this.props.profile,
-        challenges: this.props.challenges
-        };
-    }
+function FocusView(props) {
+    // const [user, setUser] = useState(props.user)
+    // const [profile, setProfile] = useState(props.profile)
+    const [challenges, setChallenges] = useState(props.challenges)
 
-    componentDidMount(props) {
-    // this.setState(state => ({
-    //     data: this.props.userData
-    // }));
-    }
+    useEffect(() => {
+          setChallenges(props.challenges)
+      }, [props.challenges]
+    );
 
 
-
-    render(){
-        const { user } = this.state;
-        const { profile } = this.state;
-        const { challenges } = this.state;
-        return(
-                <><Profile user={user} profile={profile} />
-                <BadgeList user={user} profile={profile} challenges={challenges}/></>
-            ); 
-        }  
-    }
+    return(
+            <><Profile user={props.user} profile={props.profile} />
+            <BadgeList user={props.user} profile={props.profile} challenges={challenges}/></>
+        ); 
+}  
 
 export default FocusView;

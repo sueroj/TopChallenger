@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import './css/Navigation.css';
 
@@ -15,6 +17,9 @@ componentDidMount(props) {
 
 render(){
     return(
+        <Row>
+        <Col>
+
         <Navbar bg="dark" variant="dark" expand="lg">
             <div className="footer">
             <Navbar.Brand className="footer-logo" href="/dashboard">React-Bootstrap</Navbar.Brand>
@@ -24,6 +29,9 @@ render(){
                 </Nav>
             </div>
         </Navbar>
+
+        </Col>
+        </Row>
         );   
     }  
 }

@@ -1,58 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './css/BadgeList.css';
 
-import BadgeListHeader from './BadgeListHeader';
-import BadgeTable from './BadgeTable';
+import Badges from './Badges';
 
-class BadgeModal extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state= {
-        user: this.props.user,
-        profile: this.props.profile,
-        challenges: this.props.challenges,
-        onHide: this.props.onHide
-        };
-    }
+function BadgeModal(props) {
+    const [user, setUser] = useState(props.user);
+    const [profile, setProfile] = useState(props.profile);
+    const [challenges, setChallenges] = useState(props.challenges);
 
-    componentDidMount() {
-    }
+    useEffect(() => {
+        setChallenges(props.challenges)
+    }, [props.challenges]
+  );
 
-
-    render(){
-        const { user } = this.state;
-        const { profile } = this.state;
-        const { challenges } = this.state;
-        return(
-            <div className="badge-modal-wrapper">
-                    <Modal
-                        {...this.props}
-                        size="lg"
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered
-                        >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="contained-modal-title-vcenter">
-                            Modal heading
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <h4>Centered Modal</h4>
-                            <p>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                            consectetur ac, vestibulum at eros.
-                            </p>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.props.onHide}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
-            </div>
-        );   
-    }  
+    return(
+        <Modal className="badge-modal"
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                props.challenges.Type[TBD]
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <h4>props.challenges.Name</h4>
+                <p>
+                props.challenges.Description[TBD]
+                props.challenges.Time[TBD]
+                props.challenges.Distance[TBD]
+                </p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    ); 
 }
 
 export default BadgeModal;
