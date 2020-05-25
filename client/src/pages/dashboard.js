@@ -11,14 +11,24 @@ import SERVER_URL from '../api/config.json';
 
 
 function Dashboard(props) {
-      const [user, setUser] = useState(props.user);
+      const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser')));
       const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('sessionProfile')));
       const [challenges, setChallenges] = useState(props.challenges);
+      let checkActivities = true;
+
+      // if (checkActivities)
+      // {
+      //   getActivities();
+      //   checkActivities = false;
+      // }
 
       useEffect(() => {
-        if (props.challenges === null){
+        setChallenges(props.challenges);
+
+        if (challenges.length === 0){
           getChallenges();
         }
+
       }, [props.challenges]
       );
 
@@ -33,11 +43,42 @@ function Dashboard(props) {
     })
   }
 
+  // function getProfile() {
+  //   // Get Top Challenger profile.
+  //   axios.get(`${SERVER_URL}/login?athleteId=${user.athlete.id}`)
+  //   .then((response) => { 
+  //     setProfile(response.data);
+  //     sessionStorage.setItem('sessionUser', JSON.stringify(this.state.user)); //dev only - change user to strava creds.
+  //     sessionStorage.setItem('sessionProfile', JSON.stringify(this.state.profile));
+  //   })
+  //   .catch ((e) => {
+  //       console.log("Could not connect to server:", e);
+  //   })
+  // }
+
+  // Dashboard should display a modal upon first login that checks for new activities
+  // and looks for any complete challenges, use web hooks eventually to skip notify TC that
+  // new activities were uploaded to strava and force getActivities() on next login.
+  function getActivities() {
+    let d = new Date();
+    const beforeDate = d.valueOf();
+    const afterDate = d.valueOf() - 604800;
+    axios.get((`https://www.strava.com/api/v3/athlete/activities`), {
+      headers: {Authorization: `Bearer ${user.access_token}`},
+      params: {
+        before: beforeDate,
+        after: afterDate
+      }
+    })
+    .then((response) => { 
+      console.log(response.data);
+    })
+    .catch ((e) => {
+      console.log("Could not connect to server:", e);
+    })
+  }
 
     return (
-      console.log(user),
-      console.log(profile),
-      console.log(challenges),
       <div className="dashboard-content">
          <Row>
            <Col sm={9}>         

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Profile from './Profile';
-import BadgeList from './BadgeList';
+import BadgeWindow from './BadgeWindow';
 
 function FocusView(props) {
     // const [user, setUser] = useState(props.user)
@@ -15,7 +15,7 @@ function FocusView(props) {
 
     return(
             <><Profile user={props.user} profile={props.profile} />
-            <BadgeList user={props.user} profile={props.profile} challenges={challenges}/></>
+            <BadgeWindow user={props.user} profile={props.profile} challenges={challenges}/></>
         ); 
 }  
 

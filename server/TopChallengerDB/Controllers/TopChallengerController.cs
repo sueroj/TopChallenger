@@ -41,8 +41,9 @@ namespace TopChallengerDB.Controllers
         [Route("login")]
         public ActionResult<Profile> Login(int athleteId)
         {
-            var profile = _topChallengerService.CreateNew(athleteId);
+            var profile = _topChallengerService.Login(athleteId);
             Console.WriteLine($"Login: {athleteId}");
+            //Get Activities Query here.
 
             return Ok(profile);
         }
@@ -72,5 +73,34 @@ namespace TopChallengerDB.Controllers
             return Created("new-challenge", challenge);
         }
 
+        [HttpPut]
+        [Route("monitor/{id}")]
+        public ActionResult<Profile> PutMonitor(string id, Profile profileIn)
+        {
+            Profile profile = _topChallengerService.Get(id);
+
+            Console.WriteLine($"Profile: {profile.AthleteId}");
+
+            if (id != profile.Id)
+            {
+                return BadRequest();
+            }
+
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            if (id == null)
+            {
+                profileIn.Id = id;
+            }
+
+            Console.WriteLine(_topChallengerService.Update(id, profileIn));
+
+            Console.WriteLine($"Activity Monitor Update: {id}");
+
+            return NoContent();
+        }
     }
 }

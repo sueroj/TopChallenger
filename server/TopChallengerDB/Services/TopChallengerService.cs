@@ -27,14 +27,19 @@ namespace TopChallengerDB.Services
         public Profile Get(string id) =>
             _profiles.Find<Profile>(profile => profile.Id == id).FirstOrDefault();
 
-        //Creates a new profile using with athleteID
-        public Profile CreateNew(int athleteId)
+        //Creates a new profile using with athleteID if does not exist.
+        //And/or Login.
+        public Profile Login(int athleteId)
         {
             Profile profile = _profiles.Find<Profile>(profile => profile.AthleteId == athleteId).FirstOrDefault();
             if (profile == null)
             {
                 profile = new Profile(athleteId);
                 Create(profile);
+
+                //Constructor 2.
+                //profile = new Profile(athleteId, 0, 0, 0, null, null, null, "Default");
+                //Create(profile);
             }
             profile.SetLastLogin(DateTime.Now);
             Update(profile.Id, profile);
@@ -47,11 +52,23 @@ namespace TopChallengerDB.Services
             return profile;
         }
 
-        public void Update(string id, Profile profileIn) =>
-            _profiles.ReplaceOne(profile => profile.Id == id, profileIn);
+        public string Update(string id, Profile profileIn)
+        {
+            try
+            {
+                _profiles.ReplaceOne(profile => profile.Id == id, profileIn);
+            }
+            catch (Exception e)
+            {
+                return $"Error trying to replace: {e}";
+            }
+            return "Successful replace.";
+        }
+            
 
-        public void Remove(Profile bookIn) =>
-            _profiles.DeleteOne(profile => profile.Id == bookIn.Id);
+
+        public void Remove(Profile profileIn) =>
+            _profiles.DeleteOne(profile => profile.Id == profileIn.Id);
 
         public void Remove(string id) =>
             _profiles.DeleteOne(profile => profile.Id == id);

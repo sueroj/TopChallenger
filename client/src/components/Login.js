@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import SyncButton from './SyncButton';
 import './css/Login.css';
 
-function Login() {
+function Login(props) {
     return (
             <Form className="login-form">
                 <Form.Group controlId="formBasicEmail">

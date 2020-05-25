@@ -1,30 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './css/SideView.css';
 
-class SideProgression extends React.Component {
-    constructor(props) {
-    super(props);
-    this.state= {user: this.props.user};
+function SideProgression(props) {
+    // const [user, setUser] = useState(props.user);
+    // const [challenges, setChallenges] = useState(props.challenges);
+    // const [profile, setProfile] = useState(props.profile);
 
-    }
+    // useEffect(() => {
+    //     setChallenges(props.challenges);
 
-    componentDidMount(props) {
-    //console.log("property_id",this.props.location.state.property_id);
-    this.setState(state => ({
-        user: this.props.user
-    }));
-    }
+    //     },[props.challenges]
+    // );
 
+    return(
+            <div className="side-view">
+                <h1>Progression</h1>
+                <span>Challenges complete: {props.profile.TotalComplete}</span>
 
+                
+            </div>     
+        ); 
+    }  
 
-    render(){
-        return(
-                <div className="side-view">
-                    <h1>Progression</h1>
-                    
-                </div>     
-            ); 
-        }  
-    }
 
 export default SideProgression;

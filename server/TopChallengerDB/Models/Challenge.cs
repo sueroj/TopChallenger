@@ -37,8 +37,12 @@ namespace TopChallengerDB.Models
 
         [JsonProperty("Distance")]
         public int Distance { get; set; }
+        [JsonProperty("MapId")]
+        public string MapId { get; set; }
+        [JsonProperty("Polyline")]
+        public string Polyline { get; set; }
 
-        
+
         //public Challenge(Challenge challenge)
         //{
         //    ChallengeId = challenge.ChallengeId;

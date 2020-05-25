@@ -51,6 +51,10 @@ class Loader extends React.Component{
     event.preventDefault();
   }
 
+  handleSubscription() {
+    console.log("hello");
+  }
+
   render() {
     return (
       <Form className="loader" onSubmit={this.handleSubmit}>
