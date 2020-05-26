@@ -10,6 +10,7 @@ namespace TopChallengerDB.Models
 {
     public class Profile
     {
+        // Note: JSON Property is the name used for outgoing JSON tags.
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
@@ -23,8 +24,8 @@ namespace TopChallengerDB.Models
         public int TotalComplete { get; set; }
         [JsonProperty("BadgeString")]
         public string BadgeString { get; set; }
-        [JsonProperty("Monitor")]
-        public int[] Monitor { get; set; }
+        [JsonProperty("Tracked")]
+        public Challenge[] Tracked { get; set; }
         [JsonProperty("Background")]
         public string Background { get; set; }
         [JsonProperty("Title")]
@@ -42,7 +43,7 @@ namespace TopChallengerDB.Models
             TotalExp = 0;
             TotalComplete = 0;
             BadgeString = "none";
-            Monitor = new int[5]; //dev only test
+            Tracked = new Challenge[5]; //dev only test
             Background = null; //dev only test
             Title = Reward.Title[0];
             DateFirstCreated = DateTime.Now;
@@ -74,21 +75,5 @@ namespace TopChallengerDB.Models
         {
             DateLastLogin = dateTime;
         }
-
-        //public void SetMonitor(int[] monitor)
-        //{
-        //    for (int x = 0; x < monitor.Length; x++)
-        //    {
-        //        Monitor[x] = monitor[x];
-        //    }
-        //    //for (int x=0;x<monitor.Length;x++)
-        //    //{
-        //    //    if (Monitor[x] == 0)
-        //    //    {
-        //    //        Monitor[x] = 
-        //    //    }
-        //    //}
-        //}
-
     }
 }

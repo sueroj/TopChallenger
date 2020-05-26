@@ -17,14 +17,27 @@ function SideChallenges(props) {
     return(
             <div className="side-view">
                 <h1>Challenges</h1>
-                <Row>
-                    {profile.Monitor[0] === 0 ? <Badge className="side-badge-shadow" challenges={challenges} profile={profile}/> : <Badge className="side-badge" challenges={props.challenges} profile={profile}/>}
-                    {profile.Monitor[1] === 0 ? <Badge className="side-badge-shadow" challenges={challenges} profile={profile}/> : <Badge className="side-badge" challenges={props.challenges} profile={profile}/>}
-                    {profile.Monitor[2] === 0 ? <Badge className="side-badge-shadow" challenges={challenges} profile={profile}/> : <Badge className="side-badge" challenges={props.challenges} profile={profile}/>}
-                    {profile.Monitor[3] === 0 ? <Badge className="side-badge-shadow" challenges={challenges} profile={profile}/> : <Badge className="side-badge" challenges={props.challenges} profile={profile}/>}
-                    {profile.Monitor[4] === 0 ? <Badge className="side-badge-shadow" challenges={challenges} profile={profile}/> : <Badge className="side-badge" challenges={props.challenges} profile={profile}/>}
-                </Row>
-                
+
+                    <div className="side-challenges-list-row">
+                    {profile.Tracked[0] !== null ? <Badge className="side-badge" focus={false} challenge={props.profile.Tracked[0]} profile={profile}/> : null }
+                    </div>
+
+                    <div className="side-challenges-list-row">
+                    {profile.Tracked[1] !== null ? <Badge className="side-badge" focus={false} challenge={props.profile.Tracked[1]} profile={profile}/> : null }
+                    </div>
+
+                    <div className="side-challenges-list-row">
+                    {profile.Tracked[2] !== null ? <Badge className="side-badge" focus={false} challenge={props.profile.Tracked[2]} profile={profile}/> : null }
+                    </div>
+                    
+                    <div className="side-challenges-list-row">
+                    {profile.Tracked[3] !== null ? <Badge className="side-badge" focus={false} challenge={props.profile.Tracked[3]} profile={profile}/> : null }
+                    </div>
+                    
+                    <div className="side-challenges-list-row">
+                    {profile.Tracked[4] !== null ? <Badge className="side-badge" focus={false} challenge={props.profile.Tracked[4]} profile={profile}/> : null }
+                    </div>
+
             </div>     
         ); 
     }  

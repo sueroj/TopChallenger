@@ -8,6 +8,13 @@
     color: white;
 }
 
+.side-challenges-list-row {
+    padding-inline: 5px;
+    display: inline-flexbox;
+    flex-direction: column;
+    text-align: left;
+}
+
 .side-badge {
     height: 30px;
     width: 30px;

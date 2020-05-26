@@ -9,6 +9,7 @@ import {CLIENT_ID, CLIENT_SECRET} from './api/config.json'; //*** Works, comment
 import {SERVER_URL} from './api/config.json';
 // import user from './api/fakeAuthReturn.json'; //dev only - fake return from strava
 import axios from 'axios';
+import { createStore } from 'redux';
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -18,13 +19,14 @@ import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
 import Loader from './pages/loader.dev'; // dev only
 import Webhook from './pages/webhook.dev'; //dev only
-import ApiTest from './pages/ApiTest.dev'; //dev only
 import Login from './components/Login';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [serverStatus, setServerStatus] = useState(true);
-  const [isLoaded, setLoaded] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+  const [challengesLoaded, setChallengesLoaded] = useState(false);
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
   const [challenges, setChallenges] = useState([]);
@@ -34,23 +36,26 @@ function App() {
   let state = url.get("state");
   
   useEffect(() => {
-    if (isLoaded === true) {
+    if (isLoggedIn === true) {
       sessionStorage.setItem('sessionUser', JSON.stringify(user));
       sessionStorage.setItem('sessionProfile', JSON.stringify(profile));
+      console.log("User: "+user)
+      console.log("Profile: "+profile);
+      console.log("Challenges: "+challenges);
+
     }
 
-    if (isLoggedIn === false) {
+    if (userLoaded === false) {
       getAthlete();
     }
     else {
-      if (isLoaded === false) {
+      if (user.length !== 0) {
         getProfile();
         getChallenges();
-        Login();
       }
     }
 
-    }, [isLoggedIn, profile]
+    }, [isLoggedIn, userLoaded]
   );
 
 function getAthlete() {
@@ -78,8 +83,8 @@ function getAthlete() {
       .then((response) => {
         setUser(response.data);
       })
-      .then(() => {
-        setLoggedIn(true);
+      .then(() => {  
+        setUserLoaded(true);
       })
       .catch ((e) => {
         console.log("Could not connect to server:", e);
@@ -89,18 +94,20 @@ function getAthlete() {
 }
 
   function getProfile() {
-  if (user !== null) {
     // Get user profile from Top Challenger Web API
     axios.get(`${SERVER_URL}/login?athleteId=${user.athlete.id}`)
     .then((response) => { 
     setProfile(response.data);
+    })
+    .then(() => {
+      setProfileLoaded(true);
+      setLoggedIn(true);
     })
     .catch ((e) => {
     console.log("Could not connect to server:", e);
     setServerStatus(false);
     alert("Could not connect to server.");
     });
-  }
   }
 
   function getChallenges(){
@@ -109,8 +116,8 @@ function getAthlete() {
   .then((response) => { 
     setChallenges(response.data);
   })
-  .then(() => { 
-    setLoaded(true);
+  .then(() => {
+    setChallengesLoaded(true);
   })
   .catch ((e) => {
     console.log("Could not connect to server:", e);
@@ -146,16 +153,12 @@ function getAthlete() {
                 <Loader />
               </Route>
               {/* //dev only */}
-              <Route path="/apitest">
-                <ApiTest user={user} profile={profile} challenges={challenges} />
-              </Route>
-              {/* //dev only */}
               <Route path="/webhook">
                 <Webhook />
               </Route>
               <Route exact path="/">           
-                {/* { isLoaded ? ( serverStatus ? <Redirect to="/dashboard" /> : <Home />) : <Home />} */}
-                { isLoaded ? <Redirect to="/dashboard" /> : <Home /> }
+                {/* { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> } */}
+                { user.length !== 0 && profile.length !== 0 && challenges.length !== 0 && serverStatus ? <Redirect to="/dashboard" /> : <Home /> }
               </Route>
             </div>
           </Switch>
