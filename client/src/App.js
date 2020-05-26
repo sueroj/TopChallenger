@@ -27,8 +27,8 @@ function App() {
   const [userLoaded, setUserLoaded] = useState(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
   const [challengesLoaded, setChallengesLoaded] = useState(false);
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [challenges, setChallenges] = useState([]);
   console.log("App Render");
 
@@ -49,10 +49,8 @@ function App() {
       getAthlete();
     }
     else {
-      if (user.length !== 0) {
-        getProfile();
-        getChallenges();
-      }
+      setTimeout(getProfile(), 750); //Only way to log is with a delay???
+      getChallenges();
     }
 
     }, [isLoggedIn, userLoaded]
@@ -82,6 +80,7 @@ function getAthlete() {
       })
       .then((response) => {
         setUser(response.data);
+        console.log(response.data);
       })
       .then(() => {  
         setUserLoaded(true);
@@ -104,11 +103,12 @@ function getAthlete() {
       setLoggedIn(true);
     })
     .catch ((e) => {
-    console.log("Could not connect to server:", e);
+    console.log("Could not connect to server. Reattempting...", e);
     setServerStatus(false);
-    alert("Could not connect to server.");
+    alert("Could not connect to server:"+e);
     });
   }
+  
 
   function getChallenges(){
   //Gets Challenges as json list.
@@ -158,7 +158,7 @@ function getAthlete() {
               </Route>
               <Route exact path="/">           
                 {/* { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> } */}
-                { user.length !== 0 && profile.length !== 0 && challenges.length !== 0 && serverStatus ? <Redirect to="/dashboard" /> : <Home /> }
+                { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> }
               </Route>
             </div>
           </Switch>

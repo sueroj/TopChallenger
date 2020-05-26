@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Image from 'react-bootstrap/Image';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './css/Profile.css';
@@ -6,9 +6,6 @@ import fakeRank1 from '../assets/ranks/fakeRank1.png'; //dev only
 import fakeRank2 from '../assets/ranks/fakeRank2.png'; //dev only
 
 function Profile(props) {
-    const [user, setUser] = useState(props.user);
-    const [profile, setProfile] = useState(props.profile);
-
 
     return(
         <div className="profile-background-img">

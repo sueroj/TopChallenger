@@ -5,7 +5,6 @@ import FocusView from "../components/FocusView";
 import SideView from "../components/SideView";
 import './css/dashboard.css';
 import axios from 'axios';
-import { createStore } from 'redux';
 import SERVER_URL from '../api/config.json';
 import ActivitySyncModal from '../components/ActivitySyncModal';
 // import user from '../api/fakeAuthReturn.json';
@@ -13,20 +12,20 @@ import ActivitySyncModal from '../components/ActivitySyncModal';
 
 
 function Dashboard(props) {
-      const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser')));
-      const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('sessionProfile')));
+      const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser'))? JSON.parse(sessionStorage.getItem('sessionUser')): props.user);
+      const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('sessionProfile'))? JSON.parse(sessionStorage.getItem('sessionProfile')): props.profile);
       const [challenges, setChallenges] = useState(props.challenges);
-      const [viewModal, toggleModal] = useState(true);
+      const [viewModal, toggleModal] = useState(sessionStorage.getItem('activityModal')?sessionStorage.getItem('activityModal'):true);
 
 
       useEffect(() => {
         setChallenges(props.challenges);
 
-        if (user.length === 0) {
+        if (user.length === 0 || user === null) {
           setUser(JSON.parse(sessionStorage.getItem('sessionUser')));
         }
 
-        if (profile.length === 0) {
+        if (profile.length === 0 || profile === null) {
           setProfile(JSON.parse(sessionStorage.getItem('sessionProfile')));
         }
 
@@ -48,8 +47,9 @@ function Dashboard(props) {
     })
   }
 
-  function handleModal() {
+    function handleModal() {
     toggleModal(!viewModal);
+    sessionStorage.setItem('activityModal', false);
   }
 
   // Dashboard should display a modal upon first login that checks for new activities
@@ -60,7 +60,7 @@ function Dashboard(props) {
     return (
       <div className="dashboard-content">
 
-        <ActivitySyncModal user={user} show={viewModal} onHide={handleModal}/>
+        <ActivitySyncModal user={user} profile={profile} show={viewModal} onHide={handleModal}/>
 
          <Row>
            <Col sm={9}>         

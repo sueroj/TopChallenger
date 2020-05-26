@@ -26,45 +26,34 @@ namespace TopChallengerDB.Models
         [JsonProperty("Tier")]
         public Tier Tier { get; set; }
 
-        [JsonProperty("BadgeId")]
+        [JsonProperty("BadgeId")] // **** Flagged for removal. ****
         public int BadgeId { get; set; }
 
         [JsonProperty("Description")]
         public string Description { get; set; }
 
-        [JsonProperty("Time")]
-        public int Time { get; set; }
+        [JsonProperty("MovingTime")] // in seconds
+        public int MovingTime { get; set; }
 
-        [JsonProperty("Distance")]
-        public int Distance { get; set; }
+        [JsonProperty("AverageSpeed")] // in meters per second
+        public float AverageSpeed { get; set; }
+
+        [JsonProperty("MaxSpeed")] // in meters per second
+        public float MaxSpeed { get; set; }
+
+        [JsonProperty("Distance")] // in meters
+        public float Distance { get; set; }
+
+        [JsonProperty("Elevation")] // (Total Elevation Gain) in meters
+        public float Elevation { get; set; }
+
         [JsonProperty("MapId")]
         public string MapId { get; set; }
+
+        [JsonProperty("LocationCountry")]
+        public int LocationCountry { get; set; }
+
         [JsonProperty("Polyline")]
         public string Polyline { get; set; }
-
-
-        //public Challenge(Challenge challenge)
-        //{
-        //    ChallengeId = challenge.ChallengeId;
-        //    Name = challenge.Name;
-        //    Type = challenge.Type;
-        //    Tier = challenge.Tier;
-        //    BadgeId = challenge.BadgeId;
-        //    Description = challenge.Description;
-        //    Time = challenge.Time;
-        //    Distance = challenge.Distance;
-        //}
-
-        //public Challenge(int challengeId, string name, Type type, Tier tier, int badgeId, string description, int time, int distance)
-        //{
-        //    ChallengeId = challengeId;
-        //    Name = name;
-        //    Type = type;
-        //    Tier = tier;
-        //    BadgeId = badgeId;
-        //    Description = description;
-        //    Time = time;
-        //    Distance = distance;
-        //}
     }
 }

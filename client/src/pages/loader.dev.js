@@ -14,8 +14,11 @@ class Loader extends React.Component{
       Tier: "Tier",
       BadgeId: "BadgeId",
       Description: "Description",
-      Time: "Time",
-      Distance: "Distance"
+      MovingTime: null,
+      AverageSpeed: null,
+      MaxSpeed: null,
+      Distance: null,
+      Elevation: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -60,7 +63,7 @@ class Loader extends React.Component{
       <Form className="loader" onSubmit={this.handleSubmit}>
         <Form.Group controlId="formBasicText">
             <Form.Control className="form-input" type="text" placeholder="ChallengeId" name="ChallengeId" value={this.state.ChallengeId} onChange={this.handleChange} />
-            <Form.Text className="text-muted">ChallengeId: int</Form.Text>
+            <Form.Text className="text-muted">ChallengeId: int (unique)</Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicText">
             <Form.Control className="form-input" type="text" placeholder="Name" name="Name" value={this.state.Name} onChange={this.handleChange}/>
@@ -76,20 +79,33 @@ class Loader extends React.Component{
         </Form.Group>
         <Form.Group controlId="formBasicText">
             <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.BadgeId} onChange={this.handleChange}/>
-            <Form.Text className="text-muted">BadgeId: int</Form.Text>
+            <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
         </Form.Group>
         <Form.Group controlId="Form.ControlTextarea1">
           <Form.Control as="textarea" rows="3" placeholder="Description" name="Description" value={this.state.Description} onChange={this.handleChange}/>
           <Form.Text className="text-muted">Description: string</Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicText">
-            <Form.Control className="form-input" type="text" placeholder="Time" name="Time" value={this.state.Time} onChange={this.handleChange}/>
-            <Form.Text className="text-muted">Time: int (seconds)</Form.Text>
+            <Form.Control className="form-input" type="text" placeholder="MovingTime" name="MovingTime" value={this.state.MovingTime} onChange={this.handleChange}/>
+            <Form.Text className="text-muted">MovingTime: int (in seconds)</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicText">
+            <Form.Control className="form-input" type="text" placeholder="AverageSpeed" name="AverageSpeed" value={this.state.AverageSpeed} onChange={this.handleChange}/>
+            <Form.Text className="text-muted">AverageSpeed: float (in meters per second)</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicText">
+            <Form.Control className="form-input" type="text" placeholder="MaxSpeed" name="MaxSpeed" value={this.state.MaxSpeed} onChange={this.handleChange}/>
+            <Form.Text className="text-muted">MaxSpeed: float (in meters per second)</Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicText">
             <Form.Control className="form-input" type="text" placeholder="Distance" name="Distance" value={this.state.Distance} onChange={this.handleChange}/>
-            <Form.Text className="text-muted">Distance: int (miles)</Form.Text>
+            <Form.Text className="text-muted">Distance: float (in meters)</Form.Text>
         </Form.Group>
+        <Form.Group controlId="formBasicText">
+            <Form.Control className="form-input" type="text" placeholder="Elevation" name="Elevation" value={this.state.Elevation} onChange={this.handleChange}/>
+            <Form.Text className="text-muted">Elevation: float (in meters)</Form.Text>
+        </Form.Group>
+
         <Form.Group controlId="buttons">
             <Button variant="primary" type="submit">
             Submit

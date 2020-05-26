@@ -4,15 +4,7 @@ import './css/SideView.css';
 import Badge from './Badge';
 
 function SideChallenges(props) {
-    const [user, setUser] = useState(props.user);
     const [profile, setProfile] = useState(props.profile);
-    const [challenges, setChallenges] = useState(props.challenges);
-
-    useEffect(() => {
-        setChallenges(props.challenges);
-
-        },[props.challenges]
-    );
 
     return(
             <div className="side-view">
