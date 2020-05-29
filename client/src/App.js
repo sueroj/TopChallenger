@@ -5,21 +5,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {CLIENT_ID, CLIENT_SECRET} from './api/config.json'; //*** Works, comment out save usage rate ***
-import {SERVER_URL} from './api/config.json';
-// import user from './api/fakeAuthReturn.json'; //dev only - fake return from strava
+import {SERVER_URL, CLIENT_ID, CLIENT_SECRET} from './api/config.json';
 import axios from 'axios';
-import { createStore } from 'redux';
 
-import Navigation from './components/Navigation';
-import Footer from './components/Footer';
+import Navigation from './components/shared/Navigation';
+import Footer from './components/shared/Footer';
+
 import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
 import Loader from './pages/loader.dev'; // dev only
 import Webhook from './pages/webhook.dev'; //dev only
-import Login from './components/Login';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -39,10 +36,6 @@ function App() {
     if (isLoggedIn === true) {
       sessionStorage.setItem('sessionUser', JSON.stringify(user));
       sessionStorage.setItem('sessionProfile', JSON.stringify(profile));
-      console.log("User: "+user)
-      console.log("Profile: "+profile);
-      console.log("Challenges: "+challenges);
-
     }
 
     if (userLoaded === false) {
@@ -101,6 +94,7 @@ function getAthlete() {
     .then(() => {
       setProfileLoaded(true);
       setLoggedIn(true);
+      sessionStorage.setItem("sessionExpire", Date.now() + 3.6e+6);
     })
     .catch ((e) => {
     console.log("Could not connect to server. Reattempting...", e);
@@ -132,7 +126,6 @@ function getAthlete() {
           <Row>
             <Col>
             <header>
-              {/*         isLoggedIn dev only to verify log in, use session            */}
               <Navigation user={user} isLoggedIn={isLoggedIn} serverStatus={serverStatus}/>
             </header>
             </Col>

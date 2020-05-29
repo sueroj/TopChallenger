@@ -14,25 +14,17 @@ namespace TopChallengerDB.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        [JsonProperty("AthleteId")]
         public int AthleteId { get; set; }
-        [JsonProperty("Rank")]
         public int Rank { get; set; }
-        [JsonProperty("TotalExp")]
         public int TotalExp { get; set; }
-        [JsonProperty("TotalComplete")]
-        public int TotalComplete { get; set; }
-        [JsonProperty("BadgeString")]
         public string BadgeString { get; set; }
-        [JsonProperty("Tracked")]
         public Challenge[] Tracked { get; set; }
-        [JsonProperty("Background")]
+        public List<Challenge[]> Completed { get; set; }
+        public Challenge[] Award { get; set; }
+        public int TotalCompleted { get; set; }
         public string Background { get; set; }
-        [JsonProperty("Title")]
-
         public string Title { get; set; }
         public DateTime DateFirstCreated { get; set; }
-
         public DateTime DateLastLogin { get; set; }
 
         //Initial values for new profiles
@@ -41,39 +33,25 @@ namespace TopChallengerDB.Models
             AthleteId = athleteId;
             Rank = 1;
             TotalExp = 0;
-            TotalComplete = 0;
             BadgeString = "none";
-            Tracked = new Challenge[5]; //dev only test
+            Tracked = new Challenge[5];
+            Completed = new List<Challenge[]>();
+            Award = new Challenge[1];
+            TotalCompleted = 0;
             Background = null; //dev only test
             Title = Reward.Title[0];
             DateFirstCreated = DateTime.Now;
             DateLastLogin = DateTime.Now;
         }
 
-        //Constructor 2
-        //public Profile(int athleteId, int rank, int totalExp, int totalComplete, string badgeString, int[] monitor, string background, string title)
-        //{
-        //    AthleteId = athleteId;
-        //    Rank = rank;
-        //    TotalExp = totalExp;
-        //    TotalComplete = totalComplete;
-        //    BadgeString = badgeString;
-        //    Monitor = monitor;
-        //    Background = background;
-        //    Title = title;
-        //    DateFirstCreated = DateTime.Now;
-        //    DateLastLogin = DateTime.Now;
-
-        //    if (Monitor == null)
-        //    {
-        //        int[] m = { 0, 0, 0, 0, 0 };
-        //        Monitor = m;
-        //    }       
-        //}
-
         public void SetLastLogin(DateTime dateTime)
         {
             DateLastLogin = dateTime;
+        }
+
+        public void AwardChallenge()
+        {
+            Completed.Add(Award);
         }
     }
 }

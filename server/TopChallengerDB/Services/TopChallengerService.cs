@@ -36,10 +36,6 @@ namespace TopChallengerDB.Services
             {
                 profile = new Profile(athleteId);
                 Create(profile);
-
-                //Constructor 2.
-                //profile = new Profile(athleteId, 0, 0, 0, null, null, null, "Default");
-                //Create(profile);
             }
             profile.SetLastLogin(DateTime.Now);
             Update(profile.Id, profile);
