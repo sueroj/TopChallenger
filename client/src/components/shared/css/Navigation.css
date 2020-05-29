@@ -1,0 +1,23 @@
+a {
+    color: orangered;
+    font-size: 20px;
+    display: block;
+    padding: .5rem 1rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
+
+.navbar {
+    padding-inline: 100px;
+    border-radius: 3px;   
+}
+
+.nav-img {
+    height: 40px;
+    width: 40px;
+}
+
+.footer, .footer-logo, .footer-links {
+    display: inline-block;
+    margin: auto;
+}
