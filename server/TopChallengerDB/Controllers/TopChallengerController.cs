@@ -28,15 +28,6 @@ namespace TopChallengerDB.Controllers
         //Login: Check database for athlete ID, if does not exist, create one.
         //       If it does exist, pull profile from db and send to client.
 
-        //[HttpPost("login/{athleteId}")]
-        //public ActionResult<Profile> Login(int athleteId)
-        //{
-
-        //    var profile = _topChallengerService.CreateNew(athleteId);
-        //    Console.WriteLine($"Login: {athleteId}");
-
-        //    return Ok(profile);
-        //}
         [HttpGet]
         [Route("login")]
         public ActionResult<Profile> Login(int athleteId)
@@ -74,7 +65,7 @@ namespace TopChallengerDB.Controllers
         }
 
         [HttpPut]
-        [Route("track/{id}")]
+        [Route("profile/{id}")]
         public ActionResult<Profile> PutMonitor(string id, Profile profileIn)
         {
             Profile profile = _topChallengerService.Get(id);
@@ -99,38 +90,6 @@ namespace TopChallengerDB.Controllers
             Console.WriteLine(_topChallengerService.Update(id, profileIn));
 
             Console.WriteLine($"Activity Monitor Update: {id}");
-
-            return NoContent();
-        }
-
-        [HttpPut]
-        [Route("award/{id}")]
-        public ActionResult<Profile> PutCompleted(string id, Profile profileIn)
-        {
-            Profile profile = _topChallengerService.Get(id);
-
-            Console.WriteLine($"Profile: {profile.AthleteId}");
-
-            if (id != profile.Id)
-            {
-                return BadRequest();
-            }
-
-            if (profile == null)
-            {
-                return NotFound();
-            }
-
-            if (id == null)
-            {
-                profileIn.Id = id;
-            }
-
-            profileIn.AwardChallenge();
-
-            Console.WriteLine(_topChallengerService.Update(id, profileIn));
-
-            Console.WriteLine($"Completed Challenge Update: {id}");
 
             return NoContent();
         }

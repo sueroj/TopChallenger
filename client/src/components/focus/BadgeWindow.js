@@ -5,12 +5,19 @@ import BadgeRow from './BadgeRow';
 
 function BadgeWindow(props) {
 
+    const challengeType = {
+        MILESTONE: 0,
+        EXPLORATION: 1,
+        TIMETRIAL: 2,
+        ENDURANCE: 3,
+    }
+
     return(
         <div className="badge-list-wrapper">
-            <BadgeRow type={0} header="Milestone" {...props}/>
-            <BadgeRow type={1} header="Exploration" {...props}/>
-            <BadgeRow type={2} header="Time Trials"  {...props}/>
-            <BadgeRow type={3} header="Endurance" {...props}/>
+            <BadgeRow challengeType={challengeType.MILESTONE} header="Milestone" {...props}/>
+            <BadgeRow challengeType={challengeType.EXPLORATION} header="Exploration" {...props}/>
+            <BadgeRow challengeType={challengeType.TIMETRIAL} header="Time Trials"  {...props}/>
+            <BadgeRow challengeType={challengeType.ENDURANCE} header="Endurance" {...props}/>
         </div>
     );   
 }  

@@ -20,7 +20,7 @@ class SideRewards extends React.Component {
     render(){
         return(
                 <div className="side-view">
-                    <h1>Rewards</h1>
+                    <h1>Global</h1>
                     
                 </div>     
             ); 

@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import arrowUp from "assets/nav/arrowUp.png";
 import './css/BadgeWindow.css';
 
-import Badge from './Badge';
+import Badge from '../shared/Badge';
 
 function BadgeRow(props) {
     const [totalChallenges, setTotalChallenges] = useState(0);
@@ -20,17 +20,26 @@ function BadgeRow(props) {
         function calcTotalChallenges() {
             let count = 0;
             props.challenges.forEach(element =>
-                { if (element.Type === props.type) 
+                { if (element.Type === props.challengeType) 
                 count++; })
             return count;
         }
-
     }
-    ,[props.challenges, toggleRow, props.type]
+    ,[props.challenges, props.challengeType]
     );
 
     function handleRowToggle() {
         rowIsToggled(!toggleRow);
+    }
+
+    function calcCompletedChallenge(challenge) {
+        let completedStatus = false;
+        for (let x=0;x<props.profile.Completed.length;x++) {
+            if (props.profile.Completed[x].ChallengeId === challenge.ChallengeId){
+                completedStatus = true;
+            } 
+        }
+        return completedStatus;
     }
 
     return(
@@ -53,11 +62,11 @@ function BadgeRow(props) {
         {toggleRow // display badges
         ? 
             <div className="badge-table">   
-                { props.challenges ? (props.challenges.map(challenges => {
-                    if (challenges.Type === props.type) {
-                    return <Badge focus={true} challenge={challenges} {...props}/>
+                { props.challenges ? (props.challenges.map(challenge => {
+                    if (challenge.Type === props.challengeType) {
+                    return <Badge focus={true} completed={calcCompletedChallenge(challenge)} challenge={challenge} {...props}/>
                         }
-                    else return null
+                    else return null;
                     })
                 ): null }
             </div>

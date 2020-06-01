@@ -13,7 +13,6 @@
     box-shadow: 1px 1px 1px 1px black;
 }
 
-/* Header Arrows */
 .header-arrow-wrapper {
     background-color: rgba(0,0,0,0.0);
     border: unset;
@@ -43,114 +42,5 @@
     float: right; 
 }
 
-/* Focus View Badge List */
-.badge-table {
-    margin: 10px;
-    max-height: 500px;
-    text-align: left;
-    overflow-y: auto;
-}
 
-.badge-wrapper {
-    background-color: rgba(0,0,0,0.0);
-    border: unset;
-    border-radius: 3px;
-    width: 125px;
-    height: 150px;
-    padding: 0;
-    user-select: none;
-    font-size: 12px;
-    overflow: hidden;
-    line-height: normal;
-}
 
-.badge-wrapper:focus {
-    background-color: unset;
-    box-shadow: unset;
-    border-color: unset;
-    color: unset;
-    outline: none;
-}
-
-.badge-wrapper:hover {
-    background-color: rgba(255, 68, 0, 0.275);
-}
-
-.badge-name-header {
-    font-size: 20px;
-}
-
-.badge-img {
-    background-color: rgba(red, green, blue, 0.0);
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.badge-description {
-
-}
-
-/* Badge Modal */
-
-.modal-header {
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
-.modal-title {
-    font-size: 30px;
-
-}
-
-/* .modal-content {
-
-} */
-
-.badge-modal-map {
-    margin-inline: auto;
-    height: 250px;
-    width: 90%;
-    border: 1px solid black;
-}
-
-/* Side View Badge List */
-
-.side-button-wrapper {
-    text-align: left;
-    background-color: rgba(0,0,0,0.0);
-    border: unset;
-    border-radius: 3px;
-    width: 100%;
-    padding: 0;
-    user-select: none;
-}
-
-.side-button-wrapper:focus {
-    background-color: unset;
-    box-shadow: unset;
-    border-color: unset;
-    color: unset;
-    outline: none;
-}
-
-.side-button-wrapper:hover {
-    background-color: rgba(255, 68, 0, 0.275);
-}
-
-.side-img-badge {
-    background-color: rgba(red, green, blue, 0.0);
-    width: 30px;
-    height: 30px;
-}
-
-.side-description {
-    display: inline;
-    padding-inline: 5px;
-}
-
-/* Modals */
-.modal-header, .modal-body, .modal-footer {
-    background-color: rgb(123, 128, 128);
-}
