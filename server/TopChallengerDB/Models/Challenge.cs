@@ -13,10 +13,11 @@ namespace TopChallengerDB.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public int ChallengeId { get; set;  }
+        public int ChallengeId { get; set; }
         public string Name { get; set; }
         public Type Type { get; set; }
         public Tier Tier { get; set; }
+        public int Difficulty { get; set; }
         public int BadgeId { get; set; }
         public string Description { get; set; }
         public int MovingTime { get; set; } // in seconds
@@ -27,5 +28,10 @@ namespace TopChallengerDB.Models
         public string MapId { get; set; }
         public int LocationCountry { get; set; }
         public string Polyline { get; set; }
+
+        public double StartLng { get; set; }
+        public double StartLat { get; set; }
+        public double EndLng { get; set; }
+        public double EndLat { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 /* Focus View Badge List */
 .badge-table {
-    margin: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     max-height: 500px;
     text-align: left;
     overflow-y: auto;
@@ -32,17 +33,14 @@
 }
 
 .badge-name-header {
+    height: 60px;
     font-size: 20px;
+    overflow: hidden;
 }
 
 .badge-img {
     background-color: rgba(red, green, blue, 0.0);
-    padding-top: 10px;
     padding-bottom: 10px;
-}
-
-.badge-description {
-
 }
 
 /* Badge Modal */
@@ -68,8 +66,12 @@
 .badge-modal-map {
     margin-inline: auto;
     height: 250px;
-    width: 90%;
+    width: 100%;
     border: 1px solid black;
+}
+
+.badge-modal-details {
+    padding: 10px;
 }
 
 /* Side View Badge List */

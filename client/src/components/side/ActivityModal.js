@@ -53,7 +53,7 @@ function ActivityModal(props) {
     //       console.log("Could not connect to server:", e);
     //       return false;
     //     })
-        setAllActivities(fakeActivityReturn); // test inj
+        setAllActivities(checkIfQualifies(fakeActivityReturn)); // test inj
         setNumActivities(fakeActivityReturn.length);
         props.setSync(true);
         console.log(allActivities);
@@ -63,17 +63,27 @@ function ActivityModal(props) {
 
     // Check for every activity within last 7 days.
     function submitActivities(allActivities, profile) {
+        let output = [];
         for (let list=0;list<allActivities.length;list++)
         {
             // Check activities vs. tracked challenges.
             for(let slot=0;slot<profile.TrackedChallenges.length;slot++)
             {
-                if (profile.TrackedChallenges[slot] && checkIfQualifies(allActivities[list])) { // Execute for only tracked challenges
+                if (profile.TrackedChallenges[slot]) {
                     let isComplete = null;
 
                     switch (profile.TrackedChallenges[slot].Type) {
                         case challengeType.MILESTONE:
                             isComplete = executeMilestoneMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                            break;
+                        case challengeType.EXPLORATION:
+                            // isComplete = executeMilestoneMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                            break;
+                        case challengeType.TIMETRIAL:
+                            // isComplete = executeMilestoneMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                            break;
+                        case challengeType.ENDURANCE:
+                            // isComplete = executeMilestoneMetrics(allActivities[list], profile.TrackedChallenges[slot]);
                             break;
                         default:
                             alert("An error has occurred.");
@@ -83,18 +93,16 @@ function ActivityModal(props) {
                     // upload to server
                     if (isComplete === true) {
                         profile.Completed.push(profile.TrackedChallenges[slot]);
-                        props.completeChallenge(profile.TrackedChallenges[slot]);
+                        output += (profile.TrackedChallenges[slot].Name + " completed.");
                         profile.TotalCompleted = profile.Completed.length;
                         profile.TrackedChallenges[slot] = null;
                         profile.UploadedActivities.push(allActivities[list].id);                         
                         props.updateProfile(profile);
-                        
-                    }
-                    // failed challenge output here?
-                    // setFailedResult("No challenges completed.");           
+                    }          
                 }
             }
         }
+        props.showMessageModal(output);
         props.toggleActivityModal();
     }
 
@@ -108,10 +116,14 @@ function ActivityModal(props) {
         return isComplete;
     }
 
-    function checkIfQualifies(activity) {
-        if (activity.manual !== true && activity.flagged !== true) {
-            return true;
-        } else return false;
+    function checkIfQualifies(activityList) {
+        let newActivityList = [];
+        activityList.forEach((activity) => {
+            if (activity.manual !== true && activity.flagged !== true) {
+                newActivityList.push(activity);
+            }
+        })
+        return newActivityList;
     }
 
 
@@ -160,18 +172,5 @@ function DisplayActivities(props){
         </div>
     );
 }
-
-// function Results(props) {
-//     return (
-//         <div>
-//             { props.activityResults.ChallengeId ? 
-//             props.activityResults.map(result => {
-//                 return <span>{result.Name}</span>
-//             })
-//             : <span>{props.activityResults}</span>}
-//         </div>
-//     );
-// }
-
 
 export default ActivityModal;

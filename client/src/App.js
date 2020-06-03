@@ -15,8 +15,8 @@ import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
-import Loader from './pages/loader.dev'; // dev only
-import Webhook from './pages/webhook.dev'; //dev only
+import MilestoneLoader from './common/loader0.service'; // dev only
+import ExplorationLoader from './common/loader1.service'; // dev only
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -142,15 +142,13 @@ function getAthlete() {
                 <Explorer user="data"/>
               </Route>
               {/* //dev only */}
-              <Route path="/loader">
-                <Loader />
+              <Route path="/loader0">
+                <MilestoneLoader user={user}/>
               </Route>
-              {/* //dev only */}
-              <Route path="/webhook">
-                <Webhook />
+              <Route path="/loader1">
+                <ExplorationLoader user={user}/>
               </Route>
               <Route exact path="/">           
-                {/* { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> } */}
                 { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> }
               </Route>
             </div>

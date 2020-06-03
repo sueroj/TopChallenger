@@ -1,10 +1,10 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import './css/dashboard.css';
+import '../pages/css/dashboard.css';
 import {SERVER_URL} from '../api/config.json';
 
-class Loader extends React.Component{
+class MilestoneLoader extends React.Component{
   constructor(props) {
     super(props);
     this.state = { 
@@ -12,6 +12,7 @@ class Loader extends React.Component{
       Name: "Name",
       Type: "Type",
       Tier: "Tier",
+      Difficulty: "Difficulty",
       BadgeId: "BadgeId",
       Description: "Description",
       MovingTime: null,
@@ -78,6 +79,10 @@ class Loader extends React.Component{
             <Form.Text className="text-muted">Tier: enum 0:Basic 1:Gold 2:Silver 3:Bronze</Form.Text>
         </Form.Group>
         <Form.Group controlId="formBasicText">
+            <Form.Control className="form-input" type="text" placeholder="Difficulty" name="Difficulty" value={this.state.Difficulty} onChange={this.handleChange}/>
+            <Form.Text className="text-muted">Difficulty: int 1 - 5</Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicText">
             <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.BadgeId} onChange={this.handleChange}/>
             <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
         </Form.Group>
@@ -116,4 +121,4 @@ class Loader extends React.Component{
   }
 }
 
-export default Loader;
+export default MilestoneLoader;

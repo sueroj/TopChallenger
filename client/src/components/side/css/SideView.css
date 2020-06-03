@@ -1,5 +1,17 @@
 .side-view {
-    height: 290px;
+    height: 320px;
+    width: 100%;
+    background-color: rgb(59, 43, 38);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}
+
+/* Challenges View */
+
+.challenges-content {
+    height: 530px;
     width: 100%;
     background-color: rgb(59, 43, 38);
     border-radius: 3px;
@@ -15,6 +27,10 @@
     text-align: left;
 }
 
+.challenges-tracked {
+    margin-bottom: 90%;
+}
+
 .side-badge {
     height: 30px;
     width: 30px;
@@ -26,4 +42,23 @@
 }
 
 .side-complete-button {
+    
+}
+
+.side-img-badge-empty {
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    opacity: 0.3;
+}
+
+.challenge-slot-text {
+    margin-left: 30px;
+}
+
+/* Progession View */
+
+.progression-stats {
+    margin-inline: 10px;
+    text-align: left;
 }

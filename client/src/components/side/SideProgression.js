@@ -1,18 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './css/SideView.css';
 
 function SideProgression(props) {
+    const [percentCompleted , setPercentCompleted] = useState(0);
+
+    useEffect(() => {
+        setPercentCompleted(calcPercentage(props.profile.TotalCompleted, props.challenges.length))
+
+        function calcPercentage(totalCompleted, totalChallenges) {
+            return (totalCompleted / totalChallenges) * 100;
+        }
+    }, [props.profile.TotalCompleted, props.challenges.length]
+    )
 
 
 
     return(
             <div className="side-view">
-                <h1>Progression</h1>
-                <span>Challenges complete: {props.profile.TotalCompleted}</span>
-                
+                <div className="progression-stats">
+                    <h1>Progression</h1>
+                    <p>Leaderboard Rank: 1</p>
+                    <p>Challenges complete: {props.profile.TotalCompleted} / {props.challenges.length}</p>
+                    <p>% complete: {percentCompleted} %</p>
+                    <p>Total RP Earned: {props.profile.TotalExp}</p>
+                </div>
             </div>     
         ); 
     }  
-
 
 export default SideProgression;

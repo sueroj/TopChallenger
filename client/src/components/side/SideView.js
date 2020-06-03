@@ -9,9 +9,9 @@ function SideView(props) {
 
     return( 
             <>
-            <SideRewards className="side-view" user={props.user} />
+            {/* <SideRewards className="side-view" user={props.user} /> */}
             <SideChallenges className="side-view" {...props} />
-            <SideProgression className="side-view" user={props.user} profile={props.profile}/>
+            <SideProgression className="side-view" {...props}/>
             <SideFriends className="side-view" user={props.user} profile={props.profile}/>
             </>
         ); 

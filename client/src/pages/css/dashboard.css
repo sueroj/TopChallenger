@@ -4,8 +4,30 @@
     max-height: 1200px;
 }
 
+/* Tools */
+
 .loader {
     margin: auto;
     width: 350px;
-    margin-top: 50px;
+    margin-top: 5px;
+
+}
+
+.form-control {
+    height: 25px;
+    font-size: 14px;
+}
+
+.form-text {
+    font-size: 12px;
+    margin: unset;
+}
+
+.loader1-content {
+    display: flexbox;
+    flex-direction: row;
+}
+
+.loader-get-segment {
+    display: inline;
 }

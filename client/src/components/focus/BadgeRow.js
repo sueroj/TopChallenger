@@ -54,7 +54,7 @@ function BadgeRow(props) {
                     {props.header}
                 </div>
                 <div className="header-stats-wrapper">
-                    {props.profile.TotalCompleted}/{totalChallenges}
+                    {props.profile.TotalCompleted} / {totalChallenges}
                 </div>
         </div>
         </Row>
@@ -64,7 +64,7 @@ function BadgeRow(props) {
             <div className="badge-table">   
                 { props.challenges ? (props.challenges.map(challenge => {
                     if (challenge.Type === props.challengeType) {
-                    return <Badge focus={true} completed={calcCompletedChallenge(challenge)} challenge={challenge} {...props}/>
+                    return <Badge completed={calcCompletedChallenge(challenge)} challenge={challenge} {...props}/>
                         }
                     else return null;
                     })
