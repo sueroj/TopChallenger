@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import fakeBadge2 from 'assets/badges/fakeBadge2.png';
-import fakeBadge2Complete from 'assets/badges/fakeBadge2Complete.png';
-import First20 from 'assets/backgrounds/First20.png';
 import './css/Badge.css';
 import Map from './Map';
 
@@ -24,18 +21,18 @@ function Badge(props) {
     }
 
     function checkIfTracked(profile) {
-        for (let challenge=0;challenge<profile.TrackedChallenges.length;challenge++) {
-            if (profile.TrackedChallenges[challenge]) { 
+        for (let challenge = 0; challenge < profile.TrackedChallenges.length; challenge++) {
+            if (profile.TrackedChallenges[challenge]) {
                 if (profile.TrackedChallenges[challenge].ChallengeId === props.challenge.ChallengeId) {
                     return true;
-                }   
+                }
             }
         }
         return false;
     }
 
     function checkIfCompleted(profile) {
-        for (let challenge=0;challenge<profile.Completed.length;challenge++) {
+        for (let challenge = 0; challenge < profile.Completed.length; challenge++) {
             if (profile.Completed[challenge].ChallengeId === props.challenge.ChallengeId) {
                 return true;
             }
@@ -49,9 +46,9 @@ function Badge(props) {
     function TrackChallenge(profile) {
         let isTracked = false;
         let newProfile = profile;
-        for (let slot=0; slot<profile.TrackedChallenges.length; slot++) {
+        for (let slot = 0; slot < profile.TrackedChallenges.length; slot++) {
 
-        // Check for empty slot then track
+            // Check for empty slot then track
             if (profile.TrackedChallenges[slot] === null && isTracked === false) {
                 newProfile.TrackedChallenges[slot] = props.challenge;
                 setProfile(newProfile);
@@ -66,62 +63,73 @@ function Badge(props) {
 
     function convertDifficultly(difficulty) {
         let output = [];
-        for (let i=0;i<difficulty;i++) {
+        for (let i = 0; i < difficulty; i++) {
             output.push(<span>&#x2605;</span>);
         }
         return output;
-       
+
     }
 
-    return(
+    function importAsset(type, challengeId) {
+        let banner = [];
+        try {
+            banner = require(`assets/${type}/${challengeId}.png`);
+        } catch {
+            banner = require(`assets/${type}/default.png`);
+        }
+        return banner;
+    }
+
+    return (
         <>
-        <Modal className="badge-modal" show={viewModal} onHide={handleModal} onShow={() => verifyState()}
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
+            <Modal className="badge-modal" show={viewModal} onHide={handleModal} onShow={() => verifyState()}
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
             >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                <div className="badge-modal-title">
-                {props.challenge.Name}
-                
-                </div>
-                
-                </Modal.Title>
-            </Modal.Header>
-            <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
-            <Modal.Body>
-                
-                <div id="map" className="badge-modal-map">
-                    { props.challenge.Type !== 0 ? <Map {...props} />
-                        : <Image className="badge-modal-map" src={First20} alt={props.challenge.Name} />}
-                </div>
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        <div className="badge-modal-title">
+                            {props.challenge.Name}
 
-                <div className="badge-modal-details">
-                {props.challenge.Description}
-                <span style={{float: "right"}}>0 Rank Points</span>
-                </div>
+                        </div>
 
-            </Modal.Body>
-            <Modal.Footer>
-            { completed ? <Button variant="warning" >Challenge Completed</Button> 
-                : ( tracked ? <Button variant="warning" >Challenge Tracked</Button> 
-                    : <Button variant="success" onClick={() => TrackChallenge(profile)}>Accept Challenge</Button> ) }
-                {/* <Button variant="success" onClick={() => TrackActivity(profile)}>Accept Challenge</Button> */}
-                <Button onClick={handleModal}>Back</Button>
-            </Modal.Footer>
-        </Modal>
+                    </Modal.Title>
+                </Modal.Header>
+                <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
+                <Modal.Body>
 
-        { 
-            <button className="badge-wrapper" onClick={handleModal}> 
-                { props.completed ? <Image className="badge-img" src={fakeBadge2Complete} alt={props.challenge.Name} rounded/> : 
-                    <Image className="badge-img" src={fakeBadge2} alt={props.challenge.Name} rounded/> }
-                <div className="badge-name-header">{props.challenge.Name}</div>
-            </button>
-        }     
-   </>
-    ); 
+
+                    <div id="map" className="badge-modal-map">
+                        {props.challenge.Type !== 0 ? <Map {...props} />
+                            : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
+                    </div>
+
+                    <div className="badge-modal-details">
+                        {props.challenge.Description}
+                        <span style={{ float: "right" }}>0 Rank Points</span>
+                    </div>
+
+                </Modal.Body>
+                <Modal.Footer>
+                    {completed ? <Button variant="warning" >Challenge Completed</Button>
+                        : (tracked ? <Button variant="warning" >Challenge Tracked</Button>
+                            : <Button variant="success" onClick={() => TrackChallenge(profile)}>Accept Challenge</Button>)}
+                    <Button onClick={handleModal}>Back</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {
+                <button className="badge-wrapper" onClick={handleModal}>
+                    {props.completed ? <Image className="badge-img" src={importAsset("badges/complete", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded /> :
+                        <Image className="badge-img" src={importAsset("badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />}
+                    <div className="badge-rp">10 RP</div>
+                    <div className="badge-name-header">{props.challenge.Name}</div>
+                </button>
+            }
+        </>
+    );
 }
 
 export default Badge;

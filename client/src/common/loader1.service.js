@@ -1,3 +1,4 @@
+import Polyline from '@mapbox/polyline';
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -80,13 +81,17 @@ class ExplorationService extends React.Component{
             StartLng: response.data.start_longitude,
             StartLat: response.data.start_latitude,
             EndLng: response.data.end_longitude,
-            EndLat: response.data.start_latitude
+            EndLat: response.data.end_latitude
         });
+         console.log(Polyline.decode(response.data.map.polyline));
+         console.log(Polyline.toGeoJSON(response.data.map.polyline));
     })
     .catch ((e) => {
       console.log("Could not connect to server:", e);
     })
 }
+
+
 
   render() {
     return (
@@ -187,7 +192,8 @@ class ExplorationService extends React.Component{
             </Form.Group>
         </Form>
         </Col>
-    </Row> </>
+    </Row>
+     </>
     );
   }
 }

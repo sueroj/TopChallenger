@@ -16,7 +16,7 @@ function BadgeWindow(props) {
         <div className="badge-list-wrapper">
             <BadgeRow challengeType={challengeType.MILESTONE} header="Milestone" {...props}/>
             <BadgeRow challengeType={challengeType.EXPLORATION} header="Exploration" {...props}/>
-            <BadgeRow challengeType={challengeType.TIMETRIAL} header="Time Trials"  {...props}/>
+            <BadgeRow challengeType={challengeType.TIMETRIAL} header="Time Trials / Sprints"  {...props}/>
             <BadgeRow challengeType={challengeType.ENDURANCE} header="Endurance" {...props}/>
         </div>
     );   

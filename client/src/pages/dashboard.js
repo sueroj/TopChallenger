@@ -37,8 +37,7 @@ function Dashboard(props) {
   }
 
   const updateProfile = (profile) => {
-    console.log("profile state change"); //dev only
-    
+    //Updates the global profile and props
     fetch((`${SERVER_URL}/profile/${profile.Id}`), { 
       method: 'PUT',
       headers: {

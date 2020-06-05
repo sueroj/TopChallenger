@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'react-bootstrap/Image';
-import Preferences from 'assets/nav/preferences.png';
+import Preferences from 'assets/navs/preferences.png';
 import './css/Navigation.css';
 
 function Navigation(props) {

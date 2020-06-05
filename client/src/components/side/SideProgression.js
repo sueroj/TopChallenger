@@ -8,7 +8,7 @@ function SideProgression(props) {
         setPercentCompleted(calcPercentage(props.profile.TotalCompleted, props.challenges.length))
 
         function calcPercentage(totalCompleted, totalChallenges) {
-            return (totalCompleted / totalChallenges) * 100;
+            return Math.round((totalCompleted / totalChallenges) * 100);
         }
     }, [props.profile.TotalCompleted, props.challenges.length]
     )

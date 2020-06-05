@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import arrowUp from "assets/nav/arrowUp.png";
+import arrowUp from "assets/navs/arrowUp.png";
 import './css/BadgeWindow.css';
 
 import Badge from '../shared/Badge';

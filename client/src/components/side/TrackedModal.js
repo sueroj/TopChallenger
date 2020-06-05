@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import '../shared/css/Badge.css';
-import mapboxgl from 'mapbox-gl';
 import Map from '../shared/Map';
 
 
@@ -19,10 +18,9 @@ function TrackedModal(props) {
 
         let isTracked = true;
         let newProfile = profile;
-        for (let slot=0; slot<profile.TrackedChallenges.length; slot++) {
+        for (let slot = 0; slot < profile.TrackedChallenges.length; slot++) {
 
-            if (profile.TrackedChallenges[slot])
-            {
+            if (profile.TrackedChallenges[slot]) {
                 if (profile.TrackedChallenges[slot].ChallengeId === props.challenge.ChallengeId && isTracked === true) {
                     newProfile.TrackedChallenges[slot] = null;
                     setProfile(newProfile);
@@ -38,51 +36,60 @@ function TrackedModal(props) {
 
     function convertDifficultly(difficulty) {
         let output = [];
-        for (let i=0;i<difficulty;i++) {
+        for (let i = 0; i < difficulty; i++) {
             output.push(<span>&#x2605;</span>);
         }
         return output;
-       
     }
-        
 
-    return(
+    function importAsset(type, challengeId) {
+        let banner = [];
+        try {
+            banner = require(`assets/${type}/${challengeId}.png`);
+        } catch {
+            banner = require(`assets/${type}/default.png`);
+        }
+        return banner;
+    }
+
+
+    return (
         <>
-        <Modal className="badge-modal" onHide={() => props.toggleTrackerModal()}
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
+            <Modal className="badge-modal" onHide={() => props.toggleTrackerModal()}
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
             >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                <div className="badge-modal-title">
-                {props.challenge.Name}
-                
-                </div>
-                
-                </Modal.Title>
-            </Modal.Header>
-            <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
-            <Modal.Body>
-                
-                <div id="map" className="badge-modal-map">
-                    <Map long={5} lat={34} zoom={2} />
-                {/* <Image className="badge-modal-map" src={First30} alt={props.challenge.Name} /> */}
-                </div>
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        <div className="badge-modal-title">
+                            {props.challenge.Name}
 
-                <div className="badge-modal-details">
-                {props.challenge.Description}
-                <span style={{float: "right"}}>0 Rank Points</span>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="danger" onClick={() => UntrackChallenge(profile)}>Untrack Challenge</Button>
-                <Button onClick={() => props.toggleTrackerModal()}>Back</Button>
-            </Modal.Footer>
-        </Modal>    
-   </>
-    ); 
+                        </div>
+
+                    </Modal.Title>
+                </Modal.Header>
+                <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
+                <Modal.Body>
+
+                    <div id="map" className="badge-modal-map">
+                        {props.challenge.Type !== 0 ? <Map {...props} />
+                            : <img className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
+                    </div>
+
+                    <div className="badge-modal-details">
+                        {props.challenge.Description}
+                        <span style={{ float: "right" }}>0 Rank Points</span>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={() => UntrackChallenge(profile)}>Untrack Challenge</Button>
+                    <Button onClick={() => props.toggleTrackerModal()}>Back</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
 export default TrackedModal;

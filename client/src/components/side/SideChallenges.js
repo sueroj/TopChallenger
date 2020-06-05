@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import './css/SideView.css';
 import Image from 'react-bootstrap/Image';
-import fakeBadge2 from 'assets/badges/fakeBadge2.png';
+import fakeBadge2 from 'assets/badges/default.png';
 import emptySlot from 'assets/badges/emptySlot.png';
 import ActivityModal from './ActivityModal';
 import TrackedModal from './TrackedModal';
