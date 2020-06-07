@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import './css/SideView.css';
 import Image from 'react-bootstrap/Image';
-import fakeBadge2 from 'assets/badges/default.png';
 import emptySlot from 'assets/badges/emptySlot.png';
 import ActivityModal from './ActivityModal';
 import TrackedModal from './TrackedModal';
@@ -30,6 +29,8 @@ function SideChallenges(props) {
         toggleTrackerModal(!viewTrackerModal);
     }
 
+
+
     return (
         <><ActivityModal user={props.user} profile={props.profile} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal} setSync={setSync} isSynced={isSynced} show={viewModal} toggleActivityModal={toggleActivityModal} />
             <TrackedModal profile={props.profile} challenge={tracked} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal} show={viewTrackerModal} toggleTrackerModal={toggleTrackerModal} />
@@ -42,7 +43,7 @@ function SideChallenges(props) {
                             <div className="side-challenges-list-row">
                                 {trackedChallenge ?
                                     <button className="side-button-wrapper" onClick={() => handleTrackerModal(trackedChallenge)}>
-                                        <Image className="side-img-badge" src={fakeBadge2} alt={"Badge"} rounded />
+                                        <Image className="side-img-badge" src={props.importAsset("badges", trackedChallenge.ChallengeId)} alt={"Badge"} rounded />
                                         <div className="side-description">
                                             {trackedChallenge.Description}
                                         </div>

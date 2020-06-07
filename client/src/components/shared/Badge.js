@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
@@ -67,10 +67,9 @@ function Badge(props) {
             output.push(<span>&#x2605;</span>);
         }
         return output;
-
     }
 
-    function importAsset(type, challengeId) {
+    const importAsset = (type, challengeId) => {
         let banner = [];
         try {
             banner = require(`assets/${type}/${challengeId}.png`);
@@ -86,21 +85,17 @@ function Badge(props) {
                 {...props}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
+                centered>
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                         <div className="badge-modal-title">
                             {props.challenge.Name}
-
                         </div>
-
                     </Modal.Title>
                 </Modal.Header>
+
                 <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
                 <Modal.Body>
-
-
                     <div id="map" className="badge-modal-map">
                         {props.challenge.Type !== 0 ? <Map {...props} />
                             : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
@@ -110,8 +105,8 @@ function Badge(props) {
                         {props.challenge.Description}
                         <span style={{ float: "right" }}>0 Rank Points</span>
                     </div>
-
                 </Modal.Body>
+                
                 <Modal.Footer>
                     {completed ? <Button variant="warning" >Challenge Completed</Button>
                         : (tracked ? <Button variant="warning" >Challenge Tracked</Button>

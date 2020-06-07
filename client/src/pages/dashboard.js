@@ -63,18 +63,28 @@ function Dashboard(props) {
     toggleMessageModal(!messageModal)
   }
 
+  const importAsset = (type, challengeId) => {
+    let banner = [];
+    try {
+        banner = require(`assets/${type}/${challengeId}.png`);
+    } catch {
+        banner = require(`assets/${type}/default.png`);
+    }
+    return banner;
+}
+
     return (
       <div className="dashboard-content">
         <MessageModal profile={props.profile} show={messageModal} toggleMessageModal={toggleMessageModal} modalMessage={modalMessage}/>
          <Row>
            <Col sm={9}>         
                <div className="dashboard-focus">
-               <FocusView user={user} profile={profile} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges}/>
+               <FocusView user={user} profile={profile} importAsset={importAsset} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges}/>
                </div>
            </Col>
            <Col sm={3}>
              <div className="dashboard-side">
-                <SideView user={user} profile={profile} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges}/>
+                <SideView user={user} profile={profile} importAsset={importAsset} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges}/>
              </div>
            </Col>
          </Row>
