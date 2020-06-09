@@ -39,15 +39,6 @@ namespace TopChallengerDB.Controllers
             return Ok(profile);
         }
 
-        //[HttpPost("profile")]
-        //public ActionResult<Profile> Create(Profile profile)
-        //{
-        //    _topChallengerService.Create(profile);
-
-        //    return CreatedAtRoute("GetProfile", new { id = profile.Id.ToString() }, profile);
-        //}
-
-
         [HttpGet("challenges")]
         public ActionResult<List<Challenge>> GetChallenges() =>
         _topChallengerService.GetChallenges();

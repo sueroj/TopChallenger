@@ -16,20 +16,6 @@ function Map(props) {
     const map = React.createRef;
     mapboxgl.accessToken = config.MAP_TOKEN;
 
-
-
-    const circlePaint = () => ({
-        'circle-radius': 30,
-        'circle-color': '#FF0000',
-        'circle-opacity': 0.4
-    });
-
-    const linePaint = () => ({
-        'line-width': 2,
-        'line-color': '#FF0000',
-        'line-opacity': 0.6
-    });
-
     useEffect(() => {
         const challengeType = {
             MILESTONE: 0,
@@ -38,23 +24,17 @@ function Map(props) {
             ENDURANCE: 3,
         }
 
+        const decodePolyline = () => {
+            console.log(Polyline.toGeoJSON(polyline));
+            return Polyline.toGeoJSON(polyline);
+        }
+
         const map = new mapboxgl.Map({
             container: 'map',
             center: [startLng, startLat],
             zoom: zoom,
             style: 'mapbox://styles/mapbox/streets-v9'
         });
-
-        const marker = new mapboxgl.Marker({
-            'layout': {
-                'icon-size': '0.2'
-            },
-            'paint': {
-                'icon-color': '#90EE90'
-            }
-        })
-        .setLngLat([startLng, startLat])
-        .addTo(map);
 
         switch (props.challenge.Type) {
             case challengeType.MILESTONE:
@@ -74,7 +54,6 @@ function Map(props) {
         }      
 
         function circleStyle(map) {
-            
             map.on('load', () => {
                 map.addSource('segment', {
                     'type': 'geojson',
@@ -96,6 +75,17 @@ function Map(props) {
         }
 
         function lineStyle(map) {
+            const startMarker = new mapboxgl.Marker({
+                'color': '#00FF00',
+            })
+            .setLngLat([startLng, startLat])
+            .addTo(map);
+            const finishMarker = new mapboxgl.Marker({
+                'color': '#FF0000',
+            })
+            .setLngLat([endLng, endLat])
+            .addTo(map);
+
             map.on('load', () => {
                 map.addSource('segment', {
                     'type': 'geojson',
@@ -117,9 +107,31 @@ function Map(props) {
             });
         }
 
-        const decodePolyline = () => {
-            return Polyline.toGeoJSON(polyline);
-        }
+        const circlePaint = () => ({
+            'circle-radius': {
+                'base': 30,
+                'stops': [
+                    [4,8],
+                    [12,16],
+                    [13,32],
+                    [14,64],
+                    [15,128],
+                    [16,256],
+                    [17,512],
+                    [18,1024]
+                ]
+            },
+            'circle-color': '#FF0000',
+            'circle-opacity': 0.4
+        });
+    
+        const linePaint = () => ({
+            'line-width': 2,
+            'line-color': '#FF0000',
+            'line-opacity': 0.6
+        });
+
+
 
     }, [startLng, startLat, endLng, endLat, zoom, polyline, props.challenge.Type]
     );
