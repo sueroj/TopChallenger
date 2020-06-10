@@ -22,7 +22,7 @@ function SideProgression(props) {
                     <p>Leaderboard Rank: 1</p>
                     <p>Challenges complete: {props.profile.TotalCompleted} / {props.challenges.length}</p>
                     <p>% complete: {percentCompleted} %</p>
-                    <p>Total RP Earned: {props.profile.TotalExp}</p>
+                    <p>Total RP Earned: {props.profile.TotalRp}</p>
                 </div>
             </div>     
         ); 

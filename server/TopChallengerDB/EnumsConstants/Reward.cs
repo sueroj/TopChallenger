@@ -9,7 +9,7 @@ namespace TopChallengerDB
     {
         public static string[] Title =
         {
-            "Fresh Pair Of Legs",
+            "Newcomer",
 
         };
     }

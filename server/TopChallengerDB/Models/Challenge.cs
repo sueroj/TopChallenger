@@ -18,7 +18,7 @@ namespace TopChallengerDB.Models
         public Type Type { get; set; }
         public Tier Tier { get; set; }
         public int Difficulty { get; set; }
-        public int BadgeId { get; set; }
+        public int Rp { get; set; }
         public string Description { get; set; }
         public int MovingTime { get; set; } // in seconds
         public float AverageSpeed { get; set; } // in meters per second
@@ -33,5 +33,10 @@ namespace TopChallengerDB.Models
         public double StartLat { get; set; }
         public double EndLng { get; set; }
         public double EndLat { get; set; }
+
+        public void PrepareNewChallenge(Challenge challenge)
+        {
+            Rp = challenge.Difficulty * 10;
+        }
     }
 }

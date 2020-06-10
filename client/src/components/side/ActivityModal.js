@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './css/ActivityModal.css';
 import axios from 'axios';
+import * as challengeType from 'common/challengeType.json';
 
 function ActivityModal(props) {
     const [profile, setProfile] = useState(props.profile);
@@ -11,12 +12,13 @@ function ActivityModal(props) {
     const [numActivities, setNumActivities] = useState(0);
     const isSynced = props.isSynced;
 
-    const challengeType = {
-        MILESTONE: 0,
-        EXPLORATION: 1,
-        TIMETRIAL: 2,
-        ENDURANCE: 3,
-    }
+    // const challengeType = {
+    //     MILESTONE: 0,
+    //     EXPLORATION: 1,
+    //     TIMETRIAL: 2,
+    //     ROUTE: 3,
+    //     ENDURANCE: 4
+    // }
 
   //-------------------
   // Activity check algorithm here. Each challenge type to be organized to
@@ -70,6 +72,9 @@ function ActivityModal(props) {
                             isComplete = executeExplorationMetrics(allActivities[list], profile.TrackedChallenges[slot]);
                             break;
                         case challengeType.TIMETRIAL:
+                            // 
+                            break;
+                        case challengeType.ROUTE:
                             // 
                             break;
                         case challengeType.ENDURANCE:

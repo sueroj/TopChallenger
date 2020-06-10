@@ -2,8 +2,7 @@ import React from 'react';
 import Image from 'react-bootstrap/Image';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './css/Profile.css';
-import fakeRank1 from 'assets/ranks/fakeRank1.png'; //dev only
-import fakeRank2 from 'assets/ranks/fakeRank2.png'; //dev only
+import RankCanvas from './RankCanvas';
 
 function Profile(props) {
 
@@ -20,12 +19,11 @@ function Profile(props) {
 
                 <div className="profile-rank-wrapper">
                     
-                        <Image className="rank-img" src={fakeRank1} alt="Current Rank" roundedCircle/>
+                        <RankCanvas id={"currentRank"} rank={props.profile.Rank} {...props}/>
                         <div className="profile-rank-bar">
-                            {/* progress color changed via varient prop */}
-                        <ProgressBar className="profile-rank-bar" variant="warning" animated now={50} label={"50"} />
+                        <ProgressBar className="profile-rank-bar" variant="warning" animated now={50} label={props.profile.CurrentRp} />
                         </div>
-                        <Image className="rank-img" src={fakeRank2} alt="Next Rank" roundedCircle/>
+                        <RankCanvas id={"nextRank"} rank={props.profile.Rank+1} {...props}/>
 
                 </div>
         </div>

@@ -103,7 +103,7 @@ function Badge(props) {
 
                     <div className="badge-modal-details">
                         {props.challenge.Description}
-                        <span style={{ float: "right" }}>0 Rank Points</span>
+                        <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
                     </div>
                 </Modal.Body>
                 
@@ -118,8 +118,8 @@ function Badge(props) {
             {
                 <button className="badge-wrapper" onClick={handleModal}>
                     {props.completed ? <Image className="badge-img" src={importAsset("badges/complete", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded /> :
-                        <Image className="badge-img" src={importAsset("badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />}
-                    <div className="badge-rp">10 RP</div>
+                        <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />}
+                    <div className="badge-rp">{props.challenge.Rp} RP</div>
                     <div className="badge-name-header">{props.challenge.Name}</div>
                 </button>
             }

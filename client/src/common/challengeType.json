@@ -1,0 +1,7 @@
+{
+    "MILESTONE": 0,
+    "EXPLORATION": 1,
+    "TIMETRIAL": 2,
+    "ROUTE": 3,
+    "ENDURANCE": 4  
+}

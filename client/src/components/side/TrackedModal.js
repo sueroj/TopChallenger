@@ -80,7 +80,7 @@ function TrackedModal(props) {
 
                     <div className="badge-modal-details">
                         {props.challenge.Description}
-                        <span style={{ float: "right" }}>0 Rank Points</span>
+                        <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

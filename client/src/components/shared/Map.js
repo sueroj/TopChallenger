@@ -1,8 +1,9 @@
 import Polyline from '@mapbox/polyline';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as config from 'api/config.json';
 import './css/Map.css';
 import mapboxgl from 'mapbox-gl';
+import * as challengeType from 'common/challengeType.json';
 
 function Map(props) {
     const startLng = props.challenge.StartLng;
@@ -17,12 +18,6 @@ function Map(props) {
     mapboxgl.accessToken = config.MAP_TOKEN;
 
     useEffect(() => {
-        const challengeType = {
-            MILESTONE: 0,
-            EXPLORATION: 1,
-            TIMETRIAL: 2,
-            ENDURANCE: 3,
-        }
 
         const decodePolyline = () => {
             console.log(Polyline.toGeoJSON(polyline));
@@ -36,6 +31,7 @@ function Map(props) {
             style: 'mapbox://styles/mapbox/streets-v9'
         });
 
+        // select map style.
         switch (props.challenge.Type) {
             case challengeType.MILESTONE:
                 //
@@ -46,6 +42,9 @@ function Map(props) {
             case challengeType.TIMETRIAL:
                 lineStyle(map);
                 break;
+            case challengeType.ROUTE:
+                //
+                break;
             case challengeType.ENDURANCE:
                 //
                 break;
@@ -55,49 +54,26 @@ function Map(props) {
 
         function circleStyle(map) {
             map.on('load', () => {
-                map.addSource('segment', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [startLng, startLat]
-                        }
-                    }
-                });
+                createGeojsonSource(map, 'Point', [startLng, startLat]);
                 map.addLayer({
                     'id': 'marker',
                     'type': 'circle',
-                    'source': 'segment',
+                    'source': 'base',
                     'paint': circlePaint()
                 });
             });
         }
 
         function lineStyle(map) {
-            const startMarker = new mapboxgl.Marker({
-                'color': '#00FF00',
-            })
-            .setLngLat([startLng, startLat])
-            .addTo(map);
-            const finishMarker = new mapboxgl.Marker({
-                'color': '#FF0000',
-            })
-            .setLngLat([endLng, endLat])
-            .addTo(map);
+            createMarker(startLng, startLat, map, "#00FF00");
+            createMarker(endLng, endLat, map, "#FF0000");
 
             map.on('load', () => {
-                map.addSource('segment', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'Feature',
-                        'geometry': decodePolyline()
-                    }
-                });
+                createGeojsonSource(map, 'LineString', decodePolyline());
                 map.addLayer({
-                    'id': 'route',
+                    'id': 'segment',
                     'type': 'line',
-                    'source': 'segment',
+                    'source': 'base',
                     'layout': {
                         'line-join': 'round',
                         'line-cap': 'round'
@@ -135,6 +111,31 @@ function Map(props) {
 
     }, [startLng, startLat, endLng, endLat, zoom, polyline, props.challenge.Type]
     );
+
+    function createMarker(lng, lat, map, color) {
+        new mapboxgl.Marker({
+            'color': color,
+        })
+        .setLngLat([lng, lat])
+        .addTo(map);
+    }
+
+    function createGeojsonSource(map, type, source) {
+        let geometry = (type === 'Point') ? {
+            'type': type,
+            'coordinates': source
+        }
+        :
+        source
+
+        map.addSource('base', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'geometry': geometry
+            }
+        });
+    }
 
     return (
         <div ref={map}></div>

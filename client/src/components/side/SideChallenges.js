@@ -43,7 +43,7 @@ function SideChallenges(props) {
                             <div className="side-challenges-list-row">
                                 {trackedChallenge ?
                                     <button className="side-button-wrapper" onClick={() => handleTrackerModal(trackedChallenge)}>
-                                        <Image className="side-img-badge" src={props.importAsset("badges", trackedChallenge.ChallengeId)} alt={"Badge"} rounded />
+                                        <Image className="side-img-badge" src={props.importAsset("scheme_geometric/badges", trackedChallenge.ChallengeId)} alt={"Badge"} rounded />
                                         <div className="side-description">
                                             {trackedChallenge.Description}
                                         </div>

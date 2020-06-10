@@ -16,8 +16,8 @@ namespace TopChallengerDB.Models
         public string Id { get; set; }
         public int AthleteId { get; set; }
         public int Rank { get; set; }
-        public int TotalExp { get; set; }
-        public string BadgeString { get; set; }
+        public int CurrentRp { get; set; }
+        public int TotalRp { get; set; }
         public Challenge[] TrackedChallenges { get; set; }
         public Challenge[] Completed { get; set; }
         public int TotalCompleted { get; set; }
@@ -27,13 +27,13 @@ namespace TopChallengerDB.Models
         public DateTime DateFirstCreated { get; set; }
         public DateTime DateLastLogin { get; set; }
 
-        //Initial values for new profiles
+        // Initial values for new profiles
         public Profile(int athleteId)
         {
             AthleteId = athleteId;
             Rank = 1;
-            TotalExp = 0;
-            BadgeString = "none";
+            CurrentRp = 0;
+            TotalRp = 0;
             TrackedChallenges = new Challenge[5];
             Completed = new Challenge[0];
             TotalCompleted = 0;

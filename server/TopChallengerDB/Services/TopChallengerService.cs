@@ -74,6 +74,7 @@ namespace TopChallengerDB.Services
         {
             if (_challenges.Find<Challenge>(filter => filter.ChallengeId == challenge.ChallengeId).FirstOrDefault() == null)
             {
+                challenge.PrepareNewChallenge(challenge);
                 await _challenges.InsertOneAsync(challenge);
             }
             else return null;  

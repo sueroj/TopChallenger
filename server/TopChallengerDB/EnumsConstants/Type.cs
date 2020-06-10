@@ -13,7 +13,9 @@ namespace TopChallengerDB
 
         TimeTrial = 2,
 
-        Endurance = 3
+        Route = 3,
+
+        Endurance = 4
 
     }
 }

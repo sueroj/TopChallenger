@@ -16,8 +16,8 @@ class ExplorationService extends React.Component{
         SegmentId: 'SegmentId',
         ChallengeId: 'Challenge ID',
         Name: "Name",
-        Type: "Type",
-        Tier: "Tier",
+        Type: 1,
+        Tier: 0,
         Difficulty: "Difficulty",
         BadgeId: "BadgeId",
         Description: "Description",
@@ -136,7 +136,7 @@ class ExplorationService extends React.Component{
                 <Form.Text className="text-muted">Difficulty: int 1 - 5</Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicText">
-                <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.BadgeId} onChange={this.handleChange}/>
+                <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.ChallengeId} onChange={this.handleChange}/>
                 <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
             </Form.Group>
             <Form.Group controlId="Form.ControlTextarea1">
