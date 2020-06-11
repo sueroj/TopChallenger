@@ -1,3 +1,8 @@
+// SyncButton
+// Purpose: Initiates Strava login process. Redirects user to Strava Oauth for token.
+// Export: Login
+// --TBD-- 
+// Eval refactor and lift up to Login component.
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 import { CLIENT_ID, REDIRECT_URI } from '../../api/config.json';

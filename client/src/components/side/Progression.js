@@ -1,7 +1,13 @@
+// Progression
+// Purpose: Display key stats on user profiles. 
+// Export: SideView
+// --TBD-- 
+// Font
+// Eval stats to be added.
 import React, {useState, useEffect} from 'react';
 import './css/SideView.css';
 
-function SideProgression(props) {
+function Progression(props) {
     const [percentCompleted , setPercentCompleted] = useState(0);
 
     useEffect(() => {
@@ -12,8 +18,6 @@ function SideProgression(props) {
         }
     }, [props.profile.TotalCompleted, props.challenges.length]
     )
-
-
 
     return(
             <div className="side-view">
@@ -28,4 +32,4 @@ function SideProgression(props) {
         ); 
     }  
 
-export default SideProgression;
+export default Progression;

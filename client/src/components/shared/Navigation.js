@@ -1,3 +1,9 @@
+// Navigation
+// Purpose: Display top navigation bar.
+// Export: App
+// --TBD-- 
+// Login logic and auth.
+// Review state and sessions.
 import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,7 +16,6 @@ function Navigation(props) {
     const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
     const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser'))? JSON.parse(sessionStorage.getItem('sessionUser')): props.user);
 
-
     useEffect(() => {
         sessionTimer(sessionStorage.getItem('sessionExpire'));
     }, [isLoggedIn]
@@ -22,7 +27,6 @@ function Navigation(props) {
    else
         setLoggedIn(true);
     }
-
 
     return(
         

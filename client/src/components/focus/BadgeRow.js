@@ -1,3 +1,10 @@
+// BadgeRow
+// Purpose: Draws an individual type of badges (i.e. Milestone, Exploration, etc). 
+// Export: BadgeWindow
+// --TBD-- 
+// Implementation of full header arrow functionality.
+// Eval use of Bootstrap accordion.
+// Straighten badge table margins.
 import React, { useState, useEffect } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';

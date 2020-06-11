@@ -1,3 +1,8 @@
+// Home
+// Purpose: Homepage for login component and others TDB (information banners, etc). 
+// Export: App
+// --TBD-- 
+// AWM
 import React from 'react';
 import Login from '../components/shared/Login';
 import './css/home.css';

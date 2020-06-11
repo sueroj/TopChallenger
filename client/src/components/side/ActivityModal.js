@@ -1,3 +1,10 @@
+// ActivityModal
+// Purpose: Get activities and submit for completion of challenges. Contains verification logic.
+// Export: Challenges
+// --TBD-- 
+// Implementation of completion login for all challengeTypes.
+// Consider creation of new components to seperate logic.
+// Refactor / Rebuild as necessary.
 import Polyline from '@mapbox/polyline';
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
@@ -11,14 +18,6 @@ function ActivityModal(props) {
     const [allActivities, setAllActivities] = useState([]);
     const [numActivities, setNumActivities] = useState(0);
     const isSynced = props.isSynced;
-
-    // const challengeType = {
-    //     MILESTONE: 0,
-    //     EXPLORATION: 1,
-    //     TIMETRIAL: 2,
-    //     ROUTE: 3,
-    //     ENDURANCE: 4
-    // }
 
   //-------------------
   // Activity check algorithm here. Each challenge type to be organized to
@@ -51,7 +50,6 @@ function ActivityModal(props) {
         })
     }
    }
-
 
     // Check for every activity within last 7 days.
     function submitActivities(allActivities, profile) {

@@ -1,3 +1,8 @@
+// BadgeWindow
+// Purpose: Container for the badge tables. 
+// Export: FocusView
+// --TBD-- 
+// Extract headers to common .json configuration file (similar to challengeType.json).
 import React from 'react';
 import './css/BadgeWindow.css';
 import * as challengeType from 'common/challengeType.json'

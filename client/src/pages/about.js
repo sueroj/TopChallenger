@@ -1,3 +1,8 @@
+// About
+// Purpose: Page for information about TC. 
+// Export: App
+// --TBD-- 
+// AWM
 import React from 'react';
 import { Link } from 'react-router-dom';
 

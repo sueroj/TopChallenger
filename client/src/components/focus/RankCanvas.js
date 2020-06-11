@@ -1,3 +1,9 @@
+// RankCanvas
+// Purpose: Draws rank images on html canvas to be display to left and right of progress bar.
+// Export: Profile
+// --TBD-- 
+// Circile color changes on different ranks, by reference to color scheme.
+// Text gradient and/or fill.
 import React, { useEffect } from "react";
 import './css/RankCanvas.css';
 

@@ -1,3 +1,9 @@
+// Login
+// Purpose: App login. Syncs with Strava Oauth. 
+// Export: App
+// --TBD-- 
+// Eval use of login username / password requirements.
+// (Likely) Redesign for simple one button login.
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -20,7 +26,7 @@ function Login(props) {
             </Form.Group>
             <Form.Group controlId="buttons">
                 <Button variant="primary" type="submit">
-                Submit
+                    Submit
                 </Button>
                 <SyncButton />
             </Form.Group>

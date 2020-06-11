@@ -1,18 +1,16 @@
+// TrackedModal
+// Purpose: Display modal for tracked challenges on click. 
+// Export: Challenges.
+// --TBD-- 
+// Eval merge with Badge or lift up.
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import '../shared/css/Badge.css';
 import Map from '../shared/Map';
 
-
 function TrackedModal(props) {
     const [profile, setProfile] = useState(props.profile);
-
-    // var map = new mapboxgl.Map({ 
-    //     container: 'map',
-    //     center: [52.18,0.17],
-    //     zoom: 10
-    // })
 
     function UntrackChallenge(profile) {
 
@@ -51,7 +49,6 @@ function TrackedModal(props) {
         }
         return banner;
     }
-
 
     return (
         <>

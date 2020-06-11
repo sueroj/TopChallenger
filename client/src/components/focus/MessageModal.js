@@ -1,3 +1,6 @@
+// MessageModal
+// Purpose: Display message to user on Dashboard after key events such as challenge add/remove.
+// Export: dashboard
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';

@@ -10,7 +10,6 @@ namespace TopChallengerDB.Models
 {
     public class Profile
     {
-        // Note: JSON Property is the name used for outgoing JSON tags.
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }

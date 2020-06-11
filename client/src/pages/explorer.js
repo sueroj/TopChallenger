@@ -1,7 +1,9 @@
+// Explorer
+// Purpose: Page for displaying badges in a map view for users to find challenges "nearby". 
+// Export: App
+// --TBD-- 
+// AWM
 import React from 'react';
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 import './css/dashboard.css';
 
 class Explorer extends React.Component{
@@ -13,18 +15,7 @@ class Explorer extends React.Component{
   render () {
     return (
         <h1>Explorer {this.props.user}</h1>
-      // <div className="home">
-      //   <Container>
-      //     <Row>
-      //         <Col>
-                
-      //             <div className="login-content">
-      //               <h1>Dashboard</h1>
-      //             </div>
-      //         </Col>
-      //     </Row>
-      //   </Container>
-      // </div>
+
     )
   }
 }

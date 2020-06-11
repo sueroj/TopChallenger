@@ -1,6 +1,9 @@
+// Leaderboard
+// Purpose: Page for displaying user profile leaderboards. 
+// Export: App
+// --TBD-- 
+// AWM
 import React from 'react';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 import './css/dashboard.css';
 
 class Leaderboard extends React.Component{
@@ -12,18 +15,6 @@ class Leaderboard extends React.Component{
   render () {
     return (
         <h1>Leaderboard [{this.props.user}]</h1>
-    //   <div className="home">
-    //     {/* <Container>
-    //       <Row>
-    //           <Col>
-                
-    //               <div className="login-content">
-    //                 <h1>Dashboard</h1>
-    //               </div>
-    //           </Col>
-    //       </Row>
-    //     </Container>
-    //   </div> */}
     )
   }
 }

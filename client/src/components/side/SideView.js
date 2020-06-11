@@ -1,17 +1,19 @@
+// SideView
+// Purpose: Container for all side windows.
+// Export: dashboard
 import React from 'react';
-import SideChallenges from './SideChallenges';
-import SideProgression from './SideProgression';
-import SideFriends from './SideFriends';
+import Challenges from './Challenges';
+import Progression from './Progression';
+import Friends from './Friends';
 import './css/SideView.css';
 
 function SideView(props) {
 
     return( 
             <>
-            {/* <SideRewards className="side-view" user={props.user} /> */}
-            <SideChallenges className="side-view" {...props}/>
-            <SideProgression className="side-view" {...props}/>
-            <SideFriends className="side-view" user={props.user} profile={props.profile}/>
+            <Challenges className="side-view" {...props}/>
+            <Progression className="side-view" {...props}/>
+            <Friends className="side-view" user={props.user} profile={props.profile}/>
             </>
         ); 
     }  

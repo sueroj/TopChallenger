@@ -1,3 +1,9 @@
+// Dashboard
+// Purpose: Display main dashboard for users. Holds React HOC functions.
+// Export: App
+// --TBD-- 
+// Eval moving data fetch operations to common file.
+// Widen margin by ~20px (for +1 badge to badge table row).
 import React, {useEffect, useState}from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';

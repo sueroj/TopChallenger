@@ -1,3 +1,8 @@
+// FocusView
+// Purpose: Container for Profile and BadgeWindow.
+// Export: dashboard
+// --TBD-- 
+// Eval lifting up to dashboard.
 import React from 'react';
 import Profile from './Profile';
 import BadgeWindow from './BadgeWindow';

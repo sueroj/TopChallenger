@@ -1,3 +1,8 @@
+// Challenges
+// Purpose: Display tracked challenges and complete button on side. 
+// Export: SideView
+// --TBD-- 
+// Font
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import './css/SideView.css';
@@ -6,7 +11,7 @@ import emptySlot from 'assets/badges/emptySlot.png';
 import ActivityModal from './ActivityModal';
 import TrackedModal from './TrackedModal';
 
-function SideChallenges(props) {
+function Challenges(props) {
     const [viewModal, toggleModal] = useState(false);
     const [isSynced, setIsSynced] = useState(false);
     const [viewTrackerModal, toggleTrackerModal] = useState(false);
@@ -28,8 +33,6 @@ function SideChallenges(props) {
         setTracked(trackedChallenge);
         toggleTrackerModal(!viewTrackerModal);
     }
-
-
 
     return (
         <><ActivityModal user={props.user} profile={props.profile} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal} setSync={setSync} isSynced={isSynced} show={viewModal} toggleActivityModal={toggleActivityModal} />
@@ -54,7 +57,6 @@ function SideChallenges(props) {
                     })}
                 </div>
 
-
                 <div className="side-complete-button">
                     <Button variant="success" onClick={toggleActivityModal}>Complete Challenges</Button>
                 </div>
@@ -63,4 +65,4 @@ function SideChallenges(props) {
     );
 };
 
-export default SideChallenges;
+export default Challenges;

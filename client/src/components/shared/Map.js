@@ -1,3 +1,8 @@
+// Map
+// Purpose: Displays maps for modals. (and Explorer page TBD) 
+// Export: TrackedModal / Badge
+// --TBD-- 
+// Add maps for all challengeTypes, and all others TBD.
 import Polyline from '@mapbox/polyline';
 import React, { useEffect } from 'react';
 import * as config from 'api/config.json';

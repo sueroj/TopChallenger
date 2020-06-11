@@ -1,3 +1,11 @@
+// Badge
+// Purpose: Draws badge image as button that displays modal on click. 
+// Export: BadgeRow
+// --TBD-- 
+// Add component BadgeCanvas to automate draw of badge image (similar to RankCanvas). Reference color scheme.
+// Add tooltip to display challenge description.
+// Increase image size to 60x60px.
+// Eval move to /focus.
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
