@@ -15,13 +15,25 @@ import './css/BadgeWindow.css';
 import Badge from '../shared/Badge';
 
 function BadgeRow(props) {
+    const [typeCompleted, setTypeCompleted] = useState(0);
     const [totalChallenges, setTotalChallenges] = useState(0);
     const [toggleRow, rowIsToggled] = useState(true);
 
     useEffect(() => {
 
         if (props.challenges) {
+            setTypeCompleted(calcTypeCompleted());
             setTotalChallenges(calcTotalChallenges());
+        }
+
+        function calcTypeCompleted() {
+            let count = 0;
+            for (let x = 0; x < props.profile.Completed.length; x++) {
+                if (props.profile.Completed[x].Type === props.challengeType){
+                    count++;
+                }
+            }
+            return count;
         }
 
         function calcTotalChallenges() {
@@ -33,7 +45,7 @@ function BadgeRow(props) {
             return count;
         }
     }
-        , [props.challenges, props.challengeType]
+        , [props.challenges, props.profile.Completed, props.challengeType]
     );
 
     function handleRowToggle() {
@@ -62,7 +74,7 @@ function BadgeRow(props) {
                         {props.header}
                     </div>
                     <div className="header-stats-wrapper">
-                        {props.profile.TotalCompleted} / {totalChallenges}
+                        {typeCompleted} / {totalChallenges}
                     </div>
                 </div>
             </Row>

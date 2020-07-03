@@ -16,7 +16,7 @@ import '../pages/css/dashboard.css';
 import { SERVER_URL } from '../api/config.json';
 import axios from 'axios';
 
-class TimeTrialLoader extends React.Component {
+class TTLoader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,12 +24,15 @@ class TimeTrialLoader extends React.Component {
             SegmentId: 'SegmentId',
             ChallengeId: 'Challenge ID',
             Name: "Name",
-            Type: "Type",
-            Tier: "Tier",
+            Type: 2,
+            Tier: 0,
             Difficulty: "Difficulty",
-            BadgeId: "BadgeId",
             Description: "Description",
-            MovingTime: 0,
+            TargetTime: {
+                Gold: null,
+                Silver: null,
+                Bronze: null
+            },
             AverageSpeed: 0,
             MaxSpeed: 0,
             Distance: 0,
@@ -52,7 +55,12 @@ class TimeTrialLoader extends React.Component {
         const name = target.name;
 
         this.setState({
-            [name]: value
+            [name]: value,
+            TargetTime: {
+                Gold: this.state.Gold,
+                Silver: this.state.Silver,
+                Bronze: this.state.Bronze
+            }
         });
     }
 
@@ -136,28 +144,24 @@ class TimeTrialLoader extends React.Component {
                                 <Form.Text className="text-muted">Name: string</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="Type" name="Type" value={this.state.Type} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">Type: enum 0:Milestone 1:Exploration 2:TimeTrial 3:Endurance</Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="Tier" name="Tier" value={this.state.Tier} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">Tier: enum 0:Basic 1:Gold 2:Silver 3:Bronze</Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicText">
                                 <Form.Control className="form-input" type="text" placeholder="Difficulty" name="Difficulty" value={this.state.Difficulty} onChange={this.handleChange} />
                                 <Form.Text className="text-muted">Difficulty: int 1 - 5</Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.BadgeId} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="Form.ControlTextarea1">
                                 <Form.Control as="textarea" rows="3" placeholder="Description" name="Description" value={this.state.Description} onChange={this.handleChange} />
                                 <Form.Text className="text-muted">Description: string</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="MovingTime" name="MovingTime" value={this.state.MovingTime} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">MovingTime: int (in seconds)</Form.Text>
+                                <Form.Control className="form-input" type="text" placeholder="Gold Time" name="Gold" value={this.state.Gold} onChange={this.handleChange} />
+                                <Form.Text className="text-muted">Gold Time: int (in seconds)</Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicText">
+                                <Form.Control className="form-input" type="text" placeholder="Silver Time" name="Silver" value={this.state.Silver} onChange={this.handleChange} />
+                                <Form.Text className="text-muted">Silver Time: int (in seconds)</Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicText">
+                                <Form.Control className="form-input" type="text" placeholder="Bronze Time" name="Bronze" value={this.state.Bronze} onChange={this.handleChange} />
+                                <Form.Text className="text-muted">Bronze Time: int (in seconds)</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
                                 <Form.Control className="form-input" type="text" placeholder="AverageSpeed" name="AverageSpeed" value={this.state.AverageSpeed} onChange={this.handleChange} />
@@ -210,4 +214,4 @@ class TimeTrialLoader extends React.Component {
     }
 }
 
-export default TimeTrialLoader;
+export default TTLoader;

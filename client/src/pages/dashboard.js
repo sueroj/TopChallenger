@@ -31,7 +31,7 @@ function Dashboard(props) {
   );
 
   function getChallenges() {
-    //Gets Challenges as json list. Used if data is lost due to refresh.
+    // Gets Challenges as json list. Used if data is lost due to refresh.
     axios.get(`${SERVER_URL}/challenges`)
     .then((response) => { 
       setChallenges(response.data);

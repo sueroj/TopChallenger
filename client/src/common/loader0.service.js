@@ -24,7 +24,6 @@ class MilestoneLoader extends React.Component {
       Type: "Type",
       Tier: "Tier",
       Difficulty: "Difficulty",
-      BadgeId: "BadgeId",
       Description: "Description",
       MovingTime: null,
       AverageSpeed: null,
@@ -96,10 +95,6 @@ class MilestoneLoader extends React.Component {
         <Form.Group controlId="formBasicText">
           <Form.Control className="form-input" type="text" placeholder="Difficulty" name="Difficulty" value={this.state.Difficulty} onChange={this.handleChange} />
           <Form.Text className="text-muted">Difficulty: int 1 - 5</Form.Text>
-        </Form.Group>
-        <Form.Group controlId="formBasicText">
-          <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.BadgeId} onChange={this.handleChange} />
-          <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
         </Form.Group>
         <Form.Group controlId="Form.ControlTextarea1">
           <Form.Control as="textarea" rows="3" placeholder="Description" name="Description" value={this.state.Description} onChange={this.handleChange} />

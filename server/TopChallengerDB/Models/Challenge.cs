@@ -18,9 +18,13 @@ namespace TopChallengerDB.Models
         public Type Type { get; set; }
         public Tier Tier { get; set; }
         public int Difficulty { get; set; }
-        public int Rp { get; set; }
+        private int _rp; 
+        public int Rp { 
+            get => _rp; 
+            set { _rp = Difficulty * 10; } }
         public string Description { get; set; }
         public int MovingTime { get; set; } // in seconds
+        public TargetTime TargetTime { get; set; } //int seconds [Gold, Silver, Bronze]
         public float AverageSpeed { get; set; } // in meters per second
         public float MaxSpeed { get; set; } // in meters per second
         public float Distance { get; set; } // in meters

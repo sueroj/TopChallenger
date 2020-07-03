@@ -13,32 +13,32 @@ function MessageModal(props) {
         return message.map((msg) => <p>{msg}</p>)
     }
 
-    return(
-            <Modal className="badge-modal" onHide={() => props.toggleMessageModal()}
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <h4>Challenge Update</h4>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+    return (
+        <Modal className="badge-modal" onHide={() => props.toggleMessageModal()}
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    <h4>Challenge Update</h4>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
 
-                { props.modalMessage.length !== 0 ?                           
-                                    <div>{splitMessage(props.modalMessage)}</div>
-                                    : "No changes made."
+                {props.modalMessage.length !== 0 ?
+                    <div>{splitMessage(props.modalMessage)}</div>
+                    : "No changes made."
                 }
 
-                </Modal.Body>
-                <Modal.Footer className="activity-sync-modal-footer">
+            </Modal.Body>
+            <Modal.Footer className="activity-sync-modal-footer">
                 <Button variant="success" onClick={() => props.toggleMessageModal()}>OK</Button>
-                </Modal.Footer>
-            </Modal>
-    );   
-}  
+            </Modal.Footer>
+        </Modal>
+    );
+}
 
 
 export default MessageModal;

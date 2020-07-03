@@ -32,7 +32,6 @@ class ExplorationLoader extends React.Component {
             Type: 1,
             Tier: 0,
             Difficulty: "Difficulty",
-            BadgeId: "BadgeId",
             Description: "Description",
             MovingTime: 0,
             AverageSpeed: 0,
@@ -151,10 +150,6 @@ class ExplorationLoader extends React.Component {
                             <Form.Group controlId="formBasicText">
                                 <Form.Control className="form-input" type="text" placeholder="Difficulty" name="Difficulty" value={this.state.Difficulty} onChange={this.handleChange} />
                                 <Form.Text className="text-muted">Difficulty: int 1 - 5</Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="BadgeId" name="BadgeId" value={this.state.ChallengeId} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">BadgeId: int (should be same as ChallengeId)</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="Form.ControlTextarea1">
                                 <Form.Control as="textarea" rows="3" placeholder="Description" name="Description" value={this.state.Description} onChange={this.handleChange} />

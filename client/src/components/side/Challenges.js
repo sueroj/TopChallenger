@@ -9,12 +9,12 @@ import './css/SideView.css';
 import Image from 'react-bootstrap/Image';
 import emptySlot from 'assets/badges/emptySlot.png';
 import ActivityModal from './ActivityModal';
-import TrackedModal from './TrackedModal';
+import ChallengeModal from '../shared/ChallengeModal';
 
 function Challenges(props) {
     const [viewModal, toggleModal] = useState(false);
     const [isSynced, setIsSynced] = useState(false);
-    const [viewTrackerModal, toggleTrackerModal] = useState(false);
+    const [viewChallengeModal, toggleChallengeModal] = useState(false);
     const [tracked, setTracked] = useState([]);
 
     const setSync = (sync) =>
@@ -29,14 +29,14 @@ function Challenges(props) {
     }, [props.profile]
     );
 
-    function handleTrackerModal(trackedChallenge) {
+    function handleChallengeModal(trackedChallenge) {
         setTracked(trackedChallenge);
-        toggleTrackerModal(!viewTrackerModal);
+        toggleChallengeModal(!viewChallengeModal);
     }
 
     return (
         <><ActivityModal user={props.user} profile={props.profile} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal} setSync={setSync} isSynced={isSynced} show={viewModal} toggleActivityModal={toggleActivityModal} />
-            <TrackedModal profile={props.profile} challenge={tracked} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal} show={viewTrackerModal} toggleTrackerModal={toggleTrackerModal} />
+            <ChallengeModal profile={props.profile} challenge={tracked} show={viewChallengeModal} toggleChallengeModal={toggleChallengeModal} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal}/>
 
             <div className="challenges-content">
                 <h1>Tracker</h1>
@@ -45,7 +45,7 @@ function Challenges(props) {
                         return <>
                             <div className="side-challenges-list-row">
                                 {trackedChallenge ?
-                                    <button className="side-button-wrapper" onClick={() => handleTrackerModal(trackedChallenge)}>
+                                    <button className="side-button-wrapper" onClick={() => handleChallengeModal(trackedChallenge)}>
                                         <Image className="side-img-badge" src={props.importAsset("scheme_geometric/badges", trackedChallenge.ChallengeId)} alt={"Badge"} rounded />
                                         <div className="side-description">
                                             {trackedChallenge.Description}

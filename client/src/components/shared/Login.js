@@ -4,9 +4,9 @@
 // --TBD-- 
 // Eval use of login username / password requirements.
 // (Likely) Redesign for simple one button login.
+// Buttons for other OAuth2 logins of other APIs
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import SyncButton from './SyncButton';
 import './css/Login.css';
 
@@ -21,13 +21,7 @@ function Login(props) {
                 <Form.Label>Password</Form.Label>
                 <Form.Control className="form-input" type="password" placeholder="Password" />
             </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
             <Form.Group controlId="buttons">
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
                 <SyncButton />
             </Form.Group>
         </Form>
