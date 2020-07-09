@@ -21,13 +21,13 @@ class TTLoader extends React.Component {
         super(props);
         this.state = {
             user: JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : this.props.user,
-            SegmentId: 'SegmentId',
-            ChallengeId: 'Challenge ID',
-            Name: "Name",
+            SegmentId: "",
+            ChallengeId: "",
+            Name: "",
             Type: 2,
             Tier: 0,
-            Difficulty: "Difficulty",
-            Description: "Description",
+            Difficulty: "",
+            Description: "",
             TargetTime: {
                 Gold: null,
                 Silver: null,
@@ -38,11 +38,10 @@ class TTLoader extends React.Component {
             Distance: 0,
             Elevation: 0,
             Polyline: null,
-            StartLng: 0,
-            StartLat: 0,
-            EndLng: 0,
-            EndLat: 0,
-            segmentData: []
+            StartLng: null,
+            StartLat: null,
+            EndLng: null,
+            EndLat: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,20 +51,29 @@ class TTLoader extends React.Component {
     handleChange(event) {
         const target = event.target;
         const value = target.value;
-        const name = target.name;
+        const name = target.name;  
 
         this.setState({
-            [name]: value,
-            TargetTime: {
-                Gold: this.state.Gold,
-                Silver: this.state.Silver,
-                Bronze: this.state.Bronze
-            }
+            [name]: value
         });
+
+        // handle last integer of any typed value (gets cut off otherwise due to react state)
+        switch (name){
+            case "Gold":
+                this.setState({ TargetTime: { Gold: value, Silver: this.state.Silver, Bronze: this.state.Bronze }});
+            break;
+            case "Silver":
+                this.setState({ TargetTime: { Gold: this.state.Gold, Silver: value, Bronze: this.state.Bronze }});
+            break;
+            case "Bronze":
+                this.setState({ TargetTime: { Gold: this.state.Gold, Silver: this.state.Silver, Bronze: value}});
+            break;
+            default:
+                break;
+        }
     }
 
     handleSubmit(event) {
-
         fetch((`${SERVER_URL}/new-challenge/:challenge`), {
             method: 'POST',
             headers: {
@@ -89,7 +97,6 @@ class TTLoader extends React.Component {
     }
 
     getSegment(event) {
-
         axios.get((`https://www.strava.com/api/v3/segments/${this.state.SegmentId}`), {
             headers: { Authorization: `Bearer ${this.state.user.access_token}` },
         })
@@ -103,8 +110,6 @@ class TTLoader extends React.Component {
                     EndLng: response.data.end_longitude,
                     EndLat: response.data.end_latitude
                 });
-                console.log(Polyline.decode(response.data.map.polyline));
-                console.log(Polyline.toGeoJSON(response.data.map.polyline));
             })
             .catch((e) => {
                 console.log("Could not connect to server:", e);
@@ -150,6 +155,10 @@ class TTLoader extends React.Component {
                             <Form.Group controlId="Form.ControlTextarea1">
                                 <Form.Control as="textarea" rows="3" placeholder="Description" name="Description" value={this.state.Description} onChange={this.handleChange} />
                                 <Form.Text className="text-muted">Description: string</Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicText">
+                                <Form.Control className="form-input" type="text" placeholder="Segment ID" name="SegmentId" value={this.state.SegmentId} onChange={this.handleChange} />
+                                <Form.Text className="text-muted">SegmentId: int (from Strava)</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
                                 <Form.Control className="form-input" type="text" placeholder="Gold Time" name="Gold" value={this.state.Gold} onChange={this.handleChange} />

@@ -13,6 +13,7 @@ import Image from 'react-bootstrap/Image';
 import './css/Badge.css';
 import Map from './Map';
 import ModalCanvas from './ModalCanvas';
+import * as challengeType from 'common/challengeType.json';
 
 function Badge(props) {
     const [profile, setProfile] = useState(props.profile);
@@ -93,6 +94,10 @@ function Badge(props) {
         return output;
     }
 
+    function formatTime(seconds) {
+        return new Date(seconds * 1000).toISOString().substr(11,8);
+    }
+
     const importAsset = (type, challengeId) => {
         let banner = [];
         try {
@@ -120,7 +125,7 @@ function Badge(props) {
                 <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
                 <Modal.Body>
                     <div id="map" className="badge-modal-map">
-                        {props.challenge.Type !== 0 ? <Map {...props} />
+                        {props.challenge.Type !== challengeType.MILESTONE ? <Map {...props} />
                             : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
                     </div>
 
@@ -128,6 +133,14 @@ function Badge(props) {
                         {props.challenge.Description}
                         <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
                     </div>
+
+                    {props.challenge.Type === (challengeType.TIMETRIAL || challengeType.ROUTE) ?
+                        <div className="badge-modal-times">
+                            <div className="badge-modal-medal"><Image src={importAsset("medals", "gold")} alt="gold" />{formatTime(props.challenge.TargetTime.Gold)}</div>
+                            <div className="badge-modal-medal"><Image src={importAsset("medals", "silver")} alt="silver" />{formatTime(props.challenge.TargetTime.Silver)}</div>
+                            <div className="badge-modal-medal"><Image src={importAsset("medals", "bronze")} alt="bronze" />{formatTime(props.challenge.TargetTime.Bronze)}</div>
+                        </div>
+                    : null }
                 </Modal.Body>
                 
                 <Modal.Footer>

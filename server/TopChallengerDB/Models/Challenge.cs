@@ -23,14 +23,13 @@ namespace TopChallengerDB.Models
             get => _rp; 
             set { _rp = Difficulty * 10; } }
         public string Description { get; set; }
+        public int SegmentId { get; set; }
         public int MovingTime { get; set; } // in seconds
         public TargetTime TargetTime { get; set; } //int seconds [Gold, Silver, Bronze]
         public float AverageSpeed { get; set; } // in meters per second
         public float MaxSpeed { get; set; } // in meters per second
         public float Distance { get; set; } // in meters
         public float Elevation { get; set; } // (Total Elevation Gain) in meters
-        public string MapId { get; set; }
-        public int LocationCountry { get; set; }
         public string Polyline { get; set; }
 
         public double StartLng { get; set; }

@@ -73,6 +73,14 @@
     padding: 10px;
 }
 
+.badge-modal-times {
+    text-align: center;
+}
+
+.badge-modal-medal {
+    display: inline-flex;
+    padding-inline: 80px;
+}
 /* Side View Badge List */
 
 .side-button-wrapper {
