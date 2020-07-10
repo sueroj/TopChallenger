@@ -50,9 +50,8 @@ function ActivityModal(props) {
                     console.log("Could not connect to server:", e);
                     return false; //eval req
                 })
-
-            getSegmentEfforts();
         }
+        getSegmentEfforts();
     }
 
     function getSegmentEfforts() {
@@ -199,9 +198,11 @@ function ActivityModal(props) {
     function executeTTMetrics(segmentEfforts, trackedChallenge) {
         let currentTier = null;
         for (let list = 0; list < segmentEfforts.length; list++) {
-            currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
-            currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
-            currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
+            if (segmentEfforts[list].segment.id === trackedChallenge.SegmentId) {
+                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
+                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
+                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
+            }
         }
         return currentTier;
     }
@@ -222,9 +223,6 @@ function ActivityModal(props) {
         })
         return newActivityList;
     }
-
-
-
 
     return (
         <Modal className="badge-modal" onShow={() => getActivities()}

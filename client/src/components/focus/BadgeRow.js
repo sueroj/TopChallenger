@@ -53,13 +53,17 @@ function BadgeRow(props) {
     }
 
     function calcCompletedChallenge(challenge) {
-        let completedStatus = false;
+        let completed = {
+            status : false,
+            tier : null
+        }
         for (let x = 0; x < props.profile.Completed.length; x++) {
             if (props.profile.Completed[x].ChallengeId === challenge.ChallengeId) {
-                completedStatus = true;
+                completed.status = true;
+                completed.tier = props.profile.Completed[x].Tier;
             }
         }
-        return completedStatus;
+        return completed;
     }
 
     return (
