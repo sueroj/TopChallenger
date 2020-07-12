@@ -52,6 +52,7 @@ namespace TopChallengerDB.Services
         {
             try
             {
+                profileIn.CalcRank(profileIn.TotalRp);
                 _profiles.ReplaceOne(profile => profile.Id == id, profileIn);
             }
             catch (Exception e)

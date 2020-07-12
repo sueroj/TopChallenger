@@ -16,6 +16,7 @@ namespace TopChallengerDB.Models
         public int AthleteId { get; set; }
         public int Rank { get; set; }
         public int CurrentRp { get; set; }
+        public int RpToNext { get; set; }
         public int TotalRp { get; set; }
         public Challenge[] TrackedChallenges { get; set; }
         public Challenge[] Completed { get; set; }
@@ -30,8 +31,6 @@ namespace TopChallengerDB.Models
         public Profile(int athleteId)
         {
             AthleteId = athleteId;
-            Rank = 1;
-            CurrentRp = 0;
             TotalRp = 0;
             TrackedChallenges = new Challenge[5];
             Completed = new Challenge[0];
@@ -46,6 +45,15 @@ namespace TopChallengerDB.Models
         public void SetLastLogin(DateTime dateTime)
         {
             DateLastLogin = dateTime;
+        }
+
+        public void CalcRank (int totalRp)
+        {
+            TotalRp = totalRp;
+            Rank rank = new Rank(totalRp);
+            Rank = rank.CurrentRank;
+            CurrentRp = rank.CurrentRp;
+            RpToNext = rank.RpToNext;
         }
     }
 }

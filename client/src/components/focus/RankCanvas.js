@@ -14,6 +14,7 @@ function RankCanvas(props) {
     useEffect(() => {
         let canvas = document.getElementById(id);
         let context = canvas.getContext("2d");
+        context.clearRect(0, 0, 50, 50);
         context.beginPath();
         context.arc(25,25,24,0,2*Math.PI);
         context.strokeStyle = "#00FF00";

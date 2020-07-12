@@ -13,6 +13,7 @@ import './css/ActivityModal.css';
 import axios from 'axios';
 import * as challengeType from 'common/challengeType.json';
 import * as tier from 'common/tier.json';
+import { rpLimit } from 'common/rpLimit';
 
 function ActivityModal(props) {
     const [profile, setProfile] = useState(props.profile);
@@ -129,7 +130,9 @@ function ActivityModal(props) {
                     profile.Completed.push(profile.TrackedChallenges[slot]);
                     output += (profile.TrackedChallenges[slot].Name + " completed.");
                     profile.TotalCompleted = profile.Completed.length;
+                    profile.TotalRp += profile.TrackedChallenges[slot].Rp;
                     profile.TrackedChallenges[slot] = null;
+                    profile = calcRank(profile);
                     // profile.UploadedActivities.push(activity[list].id);  multiple activity upload prevention TBD
                     props.updateProfile(profile);
                 }
@@ -137,6 +140,19 @@ function ActivityModal(props) {
         }
         props.showMessageModal(output);
         props.toggleActivityModal();
+    }
+
+    function calcRank(profile) {
+        for (let rank = 0; rank < rpLimit.length; rank++)
+        {
+            if(profile.TotalRp >= rpLimit[rank])
+            {
+                profile.Rank = rank + 1; // rank up the user
+                profile.RpToNext = rpLimit[rank + 1] - profile.TotalRp;
+                profile.CurrentRp = profile.TotalRp - rpLimit[rank];
+            }
+        }
+        return profile;
     }
 
     function executeMilestoneMetrics(activity, trackedChallenge) {

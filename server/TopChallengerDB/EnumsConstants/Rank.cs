@@ -5,33 +5,49 @@ using System.Threading.Tasks;
 
 namespace TopChallengerDB
 {
-    public enum Rank
+    public class Rank
     {
-        R0 = 1,
+        public int CurrentRank;
+        public int CurrentRp;
+        public int RpToNext;
 
-        R1 = 100,
+        public int[] Rp =
+        {
+        0,
+        30,
+        60,
+        90,
+        120,
+        150,
+        180,
+        210,
+        240,
+        270,
+        300,
+        360,
+        420,
+        480,
+        540,
+        600,
+        660,
+        720,
+        780,
+        840,
+        900
+        // max. rank 20. add more rp elements to increase
+        };
 
-        R2 = 200,
-
-        R3 = 300,
-
-        R4 = 400,
-
-        R5 = 500,
-
-        R6 = 600,
-
-        R7 = 700,
-
-        R8 = 800,
-
-        R9 = 900,
-
-        R10 = 1000,
-
-        R11 = 1200,
-
-        //etc
-
+        public Rank(int totalRp)
+        {
+            for (int rank = 0; rank < Rp.Length; rank++)
+            {
+                if(totalRp >= Rp[rank])
+                {
+                    CurrentRank = rank + 1; // rank up the user
+                    RpToNext = Rp[rank + 1] - totalRp;
+                    CurrentRp = totalRp - Rp[rank];
+                }
+            }
+        }
     }
 }

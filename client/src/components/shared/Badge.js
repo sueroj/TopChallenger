@@ -9,8 +9,8 @@
 import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import './css/Badge.css';
-import ModalCanvas from './ModalCanvas';
 import ChallengeModal from './ChallengeModal';
+import BadgeCanvas from './BadgeCanvas';
 import challengeType from 'common/challengeType.json';
 import tier from 'common/tier.json';
 
@@ -22,13 +22,13 @@ function Badge(props) {
     }
 
     const importAsset = (type, challengeId) => {
-        let banner = [];
+        let asset = [];
         try {
-            banner = require(`assets/${type}/${challengeId}.png`);
+            asset = require(`assets/${type}/${challengeId}.png`);
         } catch {
-            banner = require(`assets/${type}/default.png`);
+            asset = require(`assets/${type}/default.png`);
         }
-        return banner;
+        return asset;
     }
 
     function completedBadgeSelect() {
@@ -45,7 +45,8 @@ function Badge(props) {
                 default:
                     return <Image className="badge-img" src={importAsset("scheme_geometric/badges/complete", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />
             }
-        } else return <Image className="badge-img" src={importAsset("badges/complete", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />
+        } 
+        else return <Image className="badge-img" src={importAsset("badges/complete", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />
     }
 
     return (
@@ -54,7 +55,10 @@ function Badge(props) {
 
             <button className="badge-wrapper" onClick={toggleChallengeModal}>
                 {props.completed.status ? completedBadgeSelect() :
+                    // Image style badges
                     <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />}
+                    {/* // Canvas style badges
+                    // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} />} */}
                 <div className="badge-rp">{props.challenge.Rp} RP</div>
                 <div className="badge-name-header">{props.challenge.Name}</div>
             </button>

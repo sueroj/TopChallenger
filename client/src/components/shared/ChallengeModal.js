@@ -12,7 +12,6 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import './css/Badge.css';
 import Map from './Map';
-import ModalCanvas from './ModalCanvas';
 import * as challengeType from 'common/challengeType.json';
 
 function Badge(props) {
@@ -86,7 +85,7 @@ function Badge(props) {
         props.toggleChallengeModal() //close modal
     }
 
-    function convertDifficultly(difficulty) {
+    function convertDifficulty(difficulty) {
         let output = [];
         for (let i = 0; i < difficulty; i++) {
             output.push(<span>&#x2605;</span>);
@@ -95,7 +94,7 @@ function Badge(props) {
     }
 
     function formatTime(seconds) {
-        return new Date(seconds * 1000).toISOString().substr(11,8);
+        return new Date(seconds * 1000).toISOString().substr(11, 8);
     }
 
     const importAsset = (type, challengeId) => {
@@ -109,47 +108,48 @@ function Badge(props) {
     }
 
     return (
-            <Modal className="badge-modal" onHide={() => props.toggleChallengeModal()} onShow={() => verifyState()}
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <div className="badge-modal-title">
-                            {props.challenge.Name}
-                        </div>
-                    </Modal.Title>
-                </Modal.Header>
-
-                <span className="badge-modal-difficulty">Difficulty: {convertDifficultly(props.challenge.Difficulty)}</span>
-                <Modal.Body>
-                    <div id="map" className="badge-modal-map">
-                        {props.challenge.Type !== challengeType.MILESTONE ? <Map {...props} />
-                            : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
+        <Modal className="badge-modal" onHide={() => props.toggleChallengeModal()} onShow={() => verifyState()}
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered>
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    <div className="badge-modal-title">
+                        {props.challenge.Name}
                     </div>
+                </Modal.Title>
+            </Modal.Header>
 
-                    <div className="badge-modal-details">
-                        {props.challenge.Description}
-                        <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
+            <span className="badge-modal-difficulty">Difficulty: {convertDifficulty(props.challenge.Difficulty)}</span>
+            <Modal.Body>
+                <div id="map" className="badge-modal-map">
+                    {props.challenge.Type !== challengeType.MILESTONE
+                        ? <Map {...props} />
+                        : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
+                </div>
+
+                <div className="badge-modal-details">
+                    {props.challenge.Description}
+                    <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
+                </div>
+
+                {props.challenge.Type === (challengeType.TIMETRIAL || challengeType.ROUTE) ?
+                    <div className="badge-modal-times">
+                        <div className="badge-modal-medal"><Image src={importAsset("medals", "gold")} alt="gold" />{formatTime(props.challenge.TargetTime.Gold)}</div>
+                        <div className="badge-modal-medal"><Image src={importAsset("medals", "silver")} alt="silver" />{formatTime(props.challenge.TargetTime.Silver)}</div>
+                        <div className="badge-modal-medal"><Image src={importAsset("medals", "bronze")} alt="bronze" />{formatTime(props.challenge.TargetTime.Bronze)}</div>
                     </div>
+                    : null}
+            </Modal.Body>
 
-                    {props.challenge.Type === (challengeType.TIMETRIAL || challengeType.ROUTE) ?
-                        <div className="badge-modal-times">
-                            <div className="badge-modal-medal"><Image src={importAsset("medals", "gold")} alt="gold" />{formatTime(props.challenge.TargetTime.Gold)}</div>
-                            <div className="badge-modal-medal"><Image src={importAsset("medals", "silver")} alt="silver" />{formatTime(props.challenge.TargetTime.Silver)}</div>
-                            <div className="badge-modal-medal"><Image src={importAsset("medals", "bronze")} alt="bronze" />{formatTime(props.challenge.TargetTime.Bronze)}</div>
-                        </div>
-                    : null }
-                </Modal.Body>
-                
-                <Modal.Footer>
-                    {completed ? <Button variant="warning" >Challenge Completed</Button>
-                        : (tracked ? <Button variant="danger" onClick={() => UntrackChallenge(profile)}>Untrack Challenge</Button>
-                            : <Button variant="success" onClick={() => TrackChallenge(profile)}>Accept Challenge</Button>)}
-                    <Button onClick={() => props.toggleChallengeModal()}>Back</Button>
-                </Modal.Footer>
-            </Modal>
+            <Modal.Footer>
+                {completed ? <Button variant="warning" >Challenge Completed</Button>
+                    : (tracked ? <Button variant="danger" onClick={() => UntrackChallenge(profile)}>Untrack Challenge</Button>
+                        : <Button variant="success" onClick={() => TrackChallenge(profile)}>Accept Challenge</Button>)}
+                <Button onClick={() => props.toggleChallengeModal()}>Back</Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
 
