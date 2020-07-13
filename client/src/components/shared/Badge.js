@@ -57,7 +57,7 @@ function Badge(props) {
                 {props.completed.status ? completedBadgeSelect() :
                     // Image style badges
                     <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />}
-                    {/* // Canvas style badges
+                    {/* //  // Canvas style badges
                     // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} />} */}
                 <div className="badge-rp">{props.challenge.Rp} RP</div>
                 <div className="badge-name-header">{props.challenge.Name}</div>

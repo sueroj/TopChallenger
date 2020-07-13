@@ -134,7 +134,7 @@ function Badge(props) {
                     <span style={{ float: "right" }}>{props.challenge.Rp} Rank Points</span>
                 </div>
 
-                {props.challenge.Type === (challengeType.TIMETRIAL || challengeType.ROUTE) ?
+                {props.challenge.isTimed ?
                     <div className="badge-modal-times">
                         <div className="badge-modal-medal"><Image src={importAsset("medals", "gold")} alt="gold" />{formatTime(props.challenge.TargetTime.Gold)}</div>
                         <div className="badge-modal-medal"><Image src={importAsset("medals", "silver")} alt="silver" />{formatTime(props.challenge.TargetTime.Silver)}</div>

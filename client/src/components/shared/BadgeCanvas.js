@@ -43,8 +43,15 @@ function BadgeCanvas(props) {
         let context = canvas.getContext("2d");
         context.beginPath();
         // Border
-        context.arc(25,25,24,0,2*Math.PI);
-        context.strokeStyle = "#000000";
+        // context.arc(25,25,24,0,2*Math.PI);
+        // context.strokeStyle = "#000000";
+        context.moveTo(0,25);
+        context.lineTo(10,5);
+        context.lineTo(40,5);
+        context.lineTo(50,25);
+        context.lineTo(40,45);
+        context.lineTo(10,45);
+        context.lineTo(0,25);
         context.lineWidth = 2;
         context.stroke();
 

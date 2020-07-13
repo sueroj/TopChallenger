@@ -48,7 +48,7 @@ function Map(props) {
                 lineStyle(map);
                 break;
             case challengeType.ROUTE:
-                //
+                lineStyle(map);
                 break;
             case challengeType.ENDURANCE:
                 //

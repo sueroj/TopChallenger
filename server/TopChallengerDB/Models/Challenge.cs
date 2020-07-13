@@ -23,7 +23,9 @@ namespace TopChallengerDB.Models
             get => _rp; 
             set { _rp = Difficulty * 10; } }
         public string Description { get; set; }
+        public bool isTimed { get; set; }
         public int SegmentId { get; set; }
+        public int RouteId { get; set; }
         public int MovingTime { get; set; } // in seconds
         public TargetTime TargetTime { get; set; } //int seconds [Gold, Silver, Bronze]
         public float AverageSpeed { get; set; } // in meters per second
@@ -39,7 +41,21 @@ namespace TopChallengerDB.Models
 
         public void PrepareNewChallenge(Challenge challenge)
         {
-            Rp = challenge.Difficulty * 10;
+            switch (challenge.Type)
+            {
+                case Type.TimeTrial:
+                    isTimed = true;
+                    Rp = challenge.Difficulty * 10;
+                    break;
+                case Type.Route:
+                    isTimed = true;
+                    Rp = challenge.Difficulty * 10;
+                    break;
+                default:
+                    isTimed = false;
+                    Rp = challenge.Difficulty * 30;
+                    break;
+            }
         }
     }
 }

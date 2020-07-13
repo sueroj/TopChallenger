@@ -6,6 +6,7 @@
 // Tier = 2 for Time Trial.
 // Primary: MovingTime, AverageSpeed, Polyline, Lng, Lat.
 // Mix of custom and generated badges/badgeCanvas. (custom for only most popular TTs i.e. Richmond Park)
+import Polyline from '@mapbox/polyline';
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -15,15 +16,15 @@ import '../pages/css/dashboard.css';
 import { SERVER_URL } from '../api/config.json';
 import axios from 'axios';
 
-class TTLoader extends React.Component {
+class RouteLoader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             user: JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : this.props.user,
-            SegmentId: "",
+            RouteId: "",
             ChallengeId: "",
             Name: "",
-            Type: 2,
+            Type: 3,
             Tier: 0,
             Difficulty: "",
             Description: "",
@@ -96,18 +97,30 @@ class TTLoader extends React.Component {
     }
 
     getSegment(event) {
-        axios.get((`https://www.strava.com/api/v3/segments/${this.state.SegmentId}`), {
+        let geojson = [];
+        let startGeojson = [];
+        let endGeojson = [];
+
+        axios.get((`https://www.strava.com/api/v3/routes/${this.state.RouteId}`), {
             headers: { Authorization: `Bearer ${this.state.user.access_token}` },
         })
             .then((response) => {
-                console.log(response.data);
+                geojson = Polyline.toGeoJSON(response.data.map.polyline);
+                startGeojson = geojson.coordinates[0];
+                endGeojson = geojson.coordinates[geojson.coordinates.length - 1];
+
+                console.log(geojson);
+                console.log(startGeojson);
+                console.log(endGeojson);
                 this.setState({
+                    Name: response.data.name,
                     Distance: response.data.distance,
                     Polyline: response.data.map.polyline,
-                    StartLng: response.data.start_longitude,
-                    StartLat: response.data.start_latitude,
-                    EndLng: response.data.end_longitude,
-                    EndLat: response.data.end_latitude
+                    StartLng: startGeojson[0],
+                    StartLat: startGeojson[1],
+                    EndLng: endGeojson[0],
+                    EndLat: endGeojson[1],
+                    Gold: response.data.estimated_moving_time
                 });
             })
             .catch((e) => {
@@ -119,14 +132,14 @@ class TTLoader extends React.Component {
 
     render() {
         return (
-            <> <h2>Time Trial Loader</h2>
+            <> <h2>Route Loader</h2>
                 <Row>
                     <Col>
                         <div className="loader-get-segment">
                             <Form className="loader">
                                 <Form.Group controlId="formBasicText">
-                                    <Form.Control className="form-input" type="text" placeholder="Strava Segment ID" name="SegmentId" value={this.state.SegmentId} onChange={this.handleChange} />
-                                    <Form.Text className="text-muted">SegmentId: int (unique)</Form.Text>
+                                    <Form.Control className="form-input" type="text" placeholder="Strava Route ID" name="RouteId" value={this.state.RouteId} onChange={this.handleChange} />
+                                    <Form.Text className="text-muted">RouteId: int (unique)</Form.Text>
                                 </Form.Group>
                                 <Form.Group controlId="buttons">
                                     <Button variant="primary" onClick={this.getSegment}>
@@ -156,8 +169,8 @@ class TTLoader extends React.Component {
                                 <Form.Text className="text-muted">Description: string</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
-                                <Form.Control className="form-input" type="text" placeholder="Segment ID" name="SegmentId" value={this.state.SegmentId} onChange={this.handleChange} />
-                                <Form.Text className="text-muted">SegmentId: int (from Strava)</Form.Text>
+                                <Form.Control className="form-input" type="text" placeholder="Route ID" name="RouteId" value={this.state.RouteId} onChange={this.handleChange} />
+                                <Form.Text className="text-muted">RouteId: int (from Strava)</Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicText">
                                 <Form.Control className="form-input" type="text" placeholder="Gold Time" name="Gold" value={this.state.Gold} onChange={this.handleChange} />
@@ -222,4 +235,4 @@ class TTLoader extends React.Component {
     }
 }
 
-export default TTLoader;
+export default RouteLoader;

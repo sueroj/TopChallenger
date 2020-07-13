@@ -16,18 +16,11 @@ import * as tier from 'common/tier.json';
 import { rpLimit } from 'common/rpLimit';
 
 function ActivityModal(props) {
-    const [profile, setProfile] = useState(props.profile);
+    const profile = props.profile;
     const [allActivities, setAllActivities] = useState([]);
     const [numActivities, setNumActivities] = useState(0);
     const [recentEfforts, setRecentEfforts] = useState([]);
     const isSynced = props.isSynced;
-
-    //-------------------
-    // Activity check algorithm here. Each challenge type to be organized to
-    // skip redundant checks. Ex. A speed challenge should only have its speed checked
-    // elevation should be skipped. Only Milestones checked vs milestones, etc.
-    // Also include check to see if challenges are tracked before running sync algo
-    //---------------
 
     function getActivities() {
         if (isSynced === false) {
@@ -112,7 +105,12 @@ function ActivityModal(props) {
                         }
                         break;
                     case challengeType.ROUTE:
-                        // 
+                        for (let list = 0; list < allActivities.length; list++) {
+                            tierComplete = executeRouteMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                        }
+                        if (tierComplete) {
+                            isComplete = true;
+                        }
                         break;
                     case challengeType.ENDURANCE:
                         // 
@@ -167,16 +165,29 @@ function ActivityModal(props) {
 
 
     function executeExplorationMetrics(activity, trackedChallenge) {
-        let isComplete = null;
-        isComplete = passFailTargetGeojson(activity.map.summary_polyline, trackedChallenge);
-        if (isComplete) {
-            isComplete = passFailMetric(activity.distance, trackedChallenge.Distance, isComplete);
-            isComplete = passFailMetric(activity.average_speed, trackedChallenge.AverageSpeed, isComplete);
-            isComplete = passFailMetric(activity.max_speed, trackedChallenge.MaxSpeed, isComplete);
-            isComplete = passFailMetric(activity.moving_time, trackedChallenge.MovingTime, isComplete);
-            isComplete = passFailMetric(activity.total_elevation_gain, trackedChallenge.Elevation, isComplete);
+        let isMatch = null;
+        isMatch = matchTargetGeojson(activity.map.summary_polyline, trackedChallenge);
+        if (isMatch) {
+            isMatch = passFailMetric(activity.distance, trackedChallenge.Distance, isMatch);
+            isMatch = passFailMetric(activity.average_speed, trackedChallenge.AverageSpeed, isMatch);
+            isMatch = passFailMetric(activity.max_speed, trackedChallenge.MaxSpeed, isMatch);
+            isMatch = passFailMetric(activity.moving_time, trackedChallenge.MovingTime, isMatch);
+            isMatch = passFailMetric(activity.total_elevation_gain, trackedChallenge.Elevation, isMatch);
         }
-        return isComplete;
+        return isMatch;
+    }
+
+    function executeRouteMetrics(activity, trackedChallenge) {
+        let isMatch = null;
+        let currentTier = null;
+
+        isMatch = matchRouteGeojson(activity.map.summary_polyline, trackedChallenge);
+        if (isMatch) {
+            currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
+            currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
+            currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
+        }
+        return currentTier;
     }
 
     function passFailMetric(metric, target, isComplete) {
@@ -186,14 +197,59 @@ function ActivityModal(props) {
         else return isComplete;
     }
 
-    function passFailTargetGeojson(polyline, trackedChallenge) {
+    function matchRouteGeojson(polyline, trackedChallenge) {
+        let targetLng = {
+            low: [],
+            high: []
+        }
+        let targetLat = {
+            low: [],
+            high: []
+        }
+        let activityGeojson = Polyline.toGeoJSON(polyline);
+        let activity = {
+            lng: activityGeojson.coordinates.map((point) => {
+                return point[0];
+            }),
+            lat: activityGeojson.coordinates.map((point) => {
+                return point[1];
+            })
+        }
+
+        let targetGeojson = Polyline.toGeoJSON(trackedChallenge.Polyline);
+        let targetHit = [];
+        let coord = [];
+
+        for (let point = 0; point < targetGeojson.coordinates.length; point++) {
+            targetHit[point] = false;
+            coord = targetGeojson.coordinates[point];
+            targetLng.low[point] = coord[0] - 0.001;
+            targetLng.high[point] = coord[0] + 0.001;
+            targetLat.low[point] = coord[1] - 0.001;
+            targetLat.high[point] = coord[1]+ 0.001;
+        }
+
+        for (let targetPoint = 0; targetPoint < targetGeojson.coordinates.length; targetPoint++) {
+            for (let activityPoint = 0; activityPoint < activityGeojson.coordinates.length; activityPoint++){
+                if (targetLng.low[targetPoint] <= activity.lng[activityPoint] && activity.lng[activityPoint] <= targetLng.high[targetPoint]) {
+                    if (targetLat.low[targetPoint] <= activity.lat[activityPoint] && activity.lat[activityPoint] <= targetLat.high[targetPoint]) {
+                        targetHit[targetPoint] = true;
+                    }
+                }
+            }
+        }
+
+        return calcHits("all", targetHit, 90);
+    }
+
+    function matchTargetGeojson(polyline, trackedChallenge) {
         const lowLng = trackedChallenge.StartLng - 0.001;
         const highLng = trackedChallenge.StartLng + 0.001;
         const lowLat = trackedChallenge.StartLat - 0.001;
         const highLat = trackedChallenge.StartLat + 0.001;
 
-        let geojson = Polyline.toGeoJSON(polyline);
-        let route = geojson.coordinates.map((point) => {
+        let activityGeojson = Polyline.toGeoJSON(polyline);
+        let routeTaken = activityGeojson.coordinates.map((point) => {
             if (lowLng <= point[0] && point[0] <= highLng) {
                 if (lowLat <= point[1] && point[1] <= highLat) {
                     return true;
@@ -202,28 +258,51 @@ function ActivityModal(props) {
             return false;
         })
 
-        // Check for target geojson hit.
-        for (let hit = 0; hit < route.length; hit++) {
-            if (route[hit] === true) {
+        return calcHits("single", routeTaken)
+    }
+
+    function calcHits(type, routeCoordinates, minPercentHit) {
+        if (type === "single"){
+                    // Check for single target geojson hit.
+        for (let hit = 0; hit < routeCoordinates.length; hit++) {
+            if (routeCoordinates[hit] === true) {
                 return true;
             }
         }
         return false;
+        }
+
+        if (type === "all") {
+            let numHits = 0;
+            let maxHits = routeCoordinates.length;
+            // Check for minimum % target geojson match.
+            for (let hit = 0; hit < routeCoordinates.length; hit++) {
+                if (routeCoordinates[hit] === true) {
+                    numHits++;
+                }
+            }
+            console.log(numHits);
+            console.log((numHits / maxHits * 100));
+    
+            if ( (numHits / maxHits * 100) >= minPercentHit ) {
+                return true;
+            } else return false;
+        }
     }
 
     function executeTTMetrics(segmentEfforts, trackedChallenge) {
         let currentTier = null;
         for (let list = 0; list < segmentEfforts.length; list++) {
             if (segmentEfforts[list].segment.id === trackedChallenge.SegmentId) {
-                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
-                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
-                currentTier = passFailTimeMetric(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
             }
         }
         return currentTier;
     }
 
-    function passFailTimeMetric(metric, target, tier, currentTier) {
+    function passFailTime(metric, target, tier, currentTier) {
         if (metric <= target) {
             return tier;
         }
