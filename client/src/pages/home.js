@@ -4,7 +4,7 @@
 // --TBD-- 
 // AWM
 import React from 'react';
-import Login from '../components/shared/Login';
+import Login from 'components/shared/Login';
 import './css/home.css';
 
 class Home extends React.Component{

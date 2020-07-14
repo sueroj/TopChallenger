@@ -1,0 +1,9 @@
+.nearby-view {
+    height: 860px;
+    width: 100%;
+    background-color: rgb(39, 39, 39);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}

@@ -14,7 +14,7 @@ import './css/Navigation.css';
 
 function Navigation(props) {
     const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
-    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : props.user);
+    const user = JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : props.user;
 
     useEffect(() => {
         sessionTimer(sessionStorage.getItem('sessionExpire'));
@@ -28,8 +28,6 @@ function Navigation(props) {
     }, [isLoggedIn]
     );
 
-
-
     return (
 
         <Navbar bg="dark" variant="dark" expand="lg">
@@ -39,8 +37,8 @@ function Navigation(props) {
                 <Nav className="mr-auto">
                     {isLoggedIn ? <><Nav.Link href="/guide">User Guide</Nav.Link>
                         <Link to="/dashboard">Dashboard</Link>
-                        <Link to="/leaderboard">Leaderboards</Link>
-                        <Link to="/explorer">Explorer</Link></>
+                        <Link to="/explorer">Explorer</Link>
+                        <Link to="/leaderboard">Leaderboards</Link></>
                         : null}
                 </Nav>
                 {isLoggedIn ? <><Image className="nav-img" src={user.athlete.profile_medium} alt={user.athlete.firstname} roundedCircle />

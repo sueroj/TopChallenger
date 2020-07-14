@@ -15,29 +15,25 @@ function Profile(props) {
     const requiredRp = profile.CurrentRp + profile.RpToNext;
     const progression = profile.CurrentRp / requiredRp * 100;
 
-
-    return(
+    return (
         <div className="profile-background-img">
 
             <div className="profile-main-wrapper">
                 <div className="profile-name">
-                <h1>{props.user.athlete.firstname} {props.user.athlete.lastname}</h1>
+                    <h1>{props.user.athlete.firstname} {props.user.athlete.lastname}</h1>
                     <span>{props.profile.Title}</span>
                 </div>
                 <Image className="profile-img" src={props.user.athlete.profile} alt="Profile Image" roundedCircle />
             </div>
 
-                <div className="profile-rank-wrapper">
-                    
-                        <RankCanvas id={"currentRank"} rank={profile.Rank} {...props}/>
-                        <div className="profile-rank-bar">
-                            {/* Progess bar still in work. now var should be props.profile.Rp when when rank up logic is fully implemented. */}
-                            <ProgressBar className="profile-rank-bar" variant="warning" animated now={progression} />
-                            {profile.CurrentRp} / {requiredRp}
-                        </div>
-                        <RankCanvas id={"nextRank"} rank={profile.Rank+1} {...props}/>
-
+            <div className="profile-rank-wrapper">
+                <RankCanvas id={"currentRank"} rank={profile.Rank} {...props} />
+                <div className="profile-rank-bar">
+                    <ProgressBar className="profile-rank-bar" variant="warning" animated now={progression} />
+                    {profile.CurrentRp} / {requiredRp}
                 </div>
+                <RankCanvas id={"nextRank"} rank={profile.Rank + 1} {...props} />
+            </div>
         </div>
 
     );

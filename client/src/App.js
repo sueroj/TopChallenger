@@ -142,7 +142,7 @@ function getAthlete() {
                 <Leaderboard user="data"/>
               </Route>
               <Route path="/explorer">
-                <Explorer user="data"/>
+                <Explorer user={user} profile={profile} challenges={challenges}/>
               </Route>
               {/* //dev only */}
               <Route path="/loader0">

@@ -7,13 +7,13 @@
 import React, {useEffect, useState}from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import FocusView from "../components/focus/FocusView";
-import SideView from "../components/side/SideView";
+import FocusView from "components/dashboard/focus/FocusView";
+import SideView from "components/dashboard/side/SideView";
 import './css/dashboard.css';
 import axios from 'axios';
 import {SERVER_URL} from '../api/config.json';
 
-import MessageModal from '../components/focus/MessageModal';
+import MessageModal from '../components/dashboard/focus/MessageModal';
 
 
 function Dashboard(props) {

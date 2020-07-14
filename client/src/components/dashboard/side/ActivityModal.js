@@ -84,21 +84,22 @@ function ActivityModal(props) {
             if (profile.TrackedChallenges[slot]) {
                 let isComplete = null;
                 let tierComplete = null;
+                let currentTier = null;
 
                 switch (profile.TrackedChallenges[slot].Type) {
                     case challengeType.MILESTONE:
                         for (let list = 0; list < allActivities.length; list++) {
-                            isComplete = executeMilestoneMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                            isComplete = checkMilestone(allActivities[list], profile.TrackedChallenges[slot]);
                         }
                         break;
                     case challengeType.EXPLORATION:
                         for (let list = 0; list < allActivities.length; list++) {
-                            isComplete = executeExplorationMetrics(allActivities[list], profile.TrackedChallenges[slot]);
+                            isComplete = checkExploration(allActivities[list], profile.TrackedChallenges[slot]);
                         }
                         break;
-                    case challengeType.TIMETRIAL:
+                    case challengeType.TIMETRIAL: // Testing due for multiple effort tier verification
                         for (let list = 0; list < recentEfforts.length; list++) {
-                            tierComplete = executeTTMetrics(recentEfforts[list], profile.TrackedChallenges[slot]);
+                            tierComplete = checkTT(recentEfforts[list], profile.TrackedChallenges[slot]);
                         }
                         if (tierComplete) {
                             isComplete = true;
@@ -106,10 +107,13 @@ function ActivityModal(props) {
                         break;
                     case challengeType.ROUTE:
                         for (let list = 0; list < allActivities.length; list++) {
-                            tierComplete = executeRouteMetrics(allActivities[list], profile.TrackedChallenges[slot]);
-                        }
-                        if (tierComplete) {
-                            isComplete = true;
+                            tierComplete = checkRoute(allActivities[list], profile.TrackedChallenges[slot]);
+                            if (tierComplete) {
+                                currentTier = currentTier ?
+                                    currentTier < tierComplete ? currentTier : tierComplete
+                                    : tierComplete;
+                                isComplete = true;
+                            }
                         }
                         break;
                     case challengeType.ENDURANCE:
@@ -122,8 +126,8 @@ function ActivityModal(props) {
                 // Activity successfully meets criteria, remove challenge from tracked list and
                 // upload to server
                 if (isComplete === true) {
-                    if (tierComplete) {
-                        profile.TrackedChallenges[slot].Tier = tierComplete;
+                    if (currentTier) {
+                        profile.TrackedChallenges[slot].Tier = currentTier;
                     }
                     profile.Completed.push(profile.TrackedChallenges[slot]);
                     output += (profile.TrackedChallenges[slot].Name + " completed.");
@@ -141,10 +145,8 @@ function ActivityModal(props) {
     }
 
     function calcRank(profile) {
-        for (let rank = 0; rank < rpLimit.length; rank++)
-        {
-            if(profile.TotalRp >= rpLimit[rank])
-            {
+        for (let rank = 0; rank < rpLimit.length; rank++) {
+            if (profile.TotalRp >= rpLimit[rank]) {
                 profile.Rank = rank + 1; // rank up the user
                 profile.RpToNext = rpLimit[rank + 1] - profile.TotalRp;
                 profile.CurrentRp = profile.TotalRp - rpLimit[rank];
@@ -153,7 +155,7 @@ function ActivityModal(props) {
         return profile;
     }
 
-    function executeMilestoneMetrics(activity, trackedChallenge) {
+    function checkMilestone(activity, trackedChallenge) {
         let isComplete = null;
         isComplete = passFailMetric(activity.distance, trackedChallenge.Distance, isComplete);
         isComplete = passFailMetric(activity.average_speed, trackedChallenge.AverageSpeed, isComplete);
@@ -164,7 +166,7 @@ function ActivityModal(props) {
     }
 
 
-    function executeExplorationMetrics(activity, trackedChallenge) {
+    function checkExploration(activity, trackedChallenge) {
         let isMatch = null;
         isMatch = matchTargetGeojson(activity.map.summary_polyline, trackedChallenge);
         if (isMatch) {
@@ -177,12 +179,25 @@ function ActivityModal(props) {
         return isMatch;
     }
 
-    function executeRouteMetrics(activity, trackedChallenge) {
+    function checkTT(segmentEfforts, trackedChallenge) {
+        let currentTier = null;
+        for (let list = 0; list < segmentEfforts.length; list++) {
+            if (segmentEfforts[list].segment.id === trackedChallenge.SegmentId) {
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
+                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
+            }
+        }
+        return currentTier;
+    }
+
+    function checkRoute(activity, trackedChallenge) {
         let isMatch = null;
         let currentTier = null;
 
         isMatch = matchRouteGeojson(activity.map.summary_polyline, trackedChallenge);
         if (isMatch) {
+            console.log(activity);
             currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
             currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
             currentTier = passFailTime(activity.moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
@@ -195,6 +210,13 @@ function ActivityModal(props) {
             return metric >= target ? true : false;
         }
         else return isComplete;
+    }
+
+    function passFailTime(metric, target, tier, currentTier) {
+        if (metric <= target) {
+            return tier;
+        }
+        else return currentTier;
     }
 
     function matchRouteGeojson(polyline, trackedChallenge) {
@@ -217,29 +239,43 @@ function ActivityModal(props) {
         }
 
         let targetGeojson = Polyline.toGeoJSON(trackedChallenge.Polyline);
-        let targetHit = [];
+        let hitResult = [];
         let coord = [];
 
         for (let point = 0; point < targetGeojson.coordinates.length; point++) {
-            targetHit[point] = false;
+            hitResult[point] = false;
             coord = targetGeojson.coordinates[point];
             targetLng.low[point] = coord[0] - 0.001;
             targetLng.high[point] = coord[0] + 0.001;
             targetLat.low[point] = coord[1] - 0.001;
-            targetLat.high[point] = coord[1]+ 0.001;
+            targetLat.high[point] = coord[1] + 0.001;
         }
 
         for (let targetPoint = 0; targetPoint < targetGeojson.coordinates.length; targetPoint++) {
-            for (let activityPoint = 0; activityPoint < activityGeojson.coordinates.length; activityPoint++){
+            for (let activityPoint = 0; activityPoint < activityGeojson.coordinates.length; activityPoint++) {
                 if (targetLng.low[targetPoint] <= activity.lng[activityPoint] && activity.lng[activityPoint] <= targetLng.high[targetPoint]) {
                     if (targetLat.low[targetPoint] <= activity.lat[activityPoint] && activity.lat[activityPoint] <= targetLat.high[targetPoint]) {
-                        targetHit[targetPoint] = true;
+                        hitResult[targetPoint] = true;
                     }
                 }
             }
         }
 
-        return calcHits("all", targetHit, 90);
+        let numHits = 0;
+        let maxHits = hitResult.length;
+        // Check for minimum % target geojson match.
+        for (let hit = 0; hit < hitResult.length; hit++) {
+            if (hitResult[hit] === true) {
+                numHits++;
+            }
+        }
+        console.log(hitResult);
+        console.log(numHits);
+        console.log((numHits / maxHits * 100));
+
+        if ((numHits / maxHits * 100) >= 85) {
+            return true;
+        } else return false;
     }
 
     function matchTargetGeojson(polyline, trackedChallenge) {
@@ -258,55 +294,13 @@ function ActivityModal(props) {
             return false;
         })
 
-        return calcHits("single", routeTaken)
-    }
-
-    function calcHits(type, routeCoordinates, minPercentHit) {
-        if (type === "single"){
-                    // Check for single target geojson hit.
-        for (let hit = 0; hit < routeCoordinates.length; hit++) {
-            if (routeCoordinates[hit] === true) {
+        // Check for single target geojson hit.
+        for (let hit = 0; hit < routeTaken.length; hit++) {
+            if (routeTaken[hit] === true) {
                 return true;
             }
         }
         return false;
-        }
-
-        if (type === "all") {
-            let numHits = 0;
-            let maxHits = routeCoordinates.length;
-            // Check for minimum % target geojson match.
-            for (let hit = 0; hit < routeCoordinates.length; hit++) {
-                if (routeCoordinates[hit] === true) {
-                    numHits++;
-                }
-            }
-            console.log(numHits);
-            console.log((numHits / maxHits * 100));
-    
-            if ( (numHits / maxHits * 100) >= minPercentHit ) {
-                return true;
-            } else return false;
-        }
-    }
-
-    function executeTTMetrics(segmentEfforts, trackedChallenge) {
-        let currentTier = null;
-        for (let list = 0; list < segmentEfforts.length; list++) {
-            if (segmentEfforts[list].segment.id === trackedChallenge.SegmentId) {
-                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Bronze, tier.BRONZE, currentTier);
-                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Silver, tier.SILVER, currentTier);
-                currentTier = passFailTime(segmentEfforts[list].moving_time, trackedChallenge.TargetTime.Gold, tier.GOLD, currentTier);
-            }
-        }
-        return currentTier;
-    }
-
-    function passFailTime(metric, target, tier, currentTier) {
-        if (metric <= target) {
-            return tier;
-        }
-        else return currentTier;
     }
 
     function checkIfQualifies(activityList) {
