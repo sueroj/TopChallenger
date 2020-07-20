@@ -5,14 +5,14 @@ import React from 'react';
 import Filters from 'components/explorer/Filters';
 import Nearby from 'components/explorer/Nearby';
 
-function SideView(props) {
+function LeftNav(props) {
 
     return( 
             <>
-            <Filters className="side-view" {...props}/>
+            <Filters className="side-view" updateFilters={props.updateFilters}/>
             <Nearby className="side-view" {...props}/>
             </>
         ); 
     }  
 
-export default SideView;
+export default LeftNav;

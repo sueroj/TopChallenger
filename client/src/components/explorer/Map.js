@@ -3,32 +3,32 @@
 // Export: TrackedModal / Badge
 // --TBD-- 
 // Add maps for all challengeTypes, and all others TBD.
-import Polyline from '@mapbox/polyline';
 import React, { useEffect, useState } from 'react';
 import * as config from 'api/config.json';
+import Col from 'react-bootstrap/Col';
 import './css/Map.css';
+import 'pages/css/explorer.css';
 import mapboxgl from 'mapbox-gl';
 import * as challengeType from 'common/challengeType.json';
+import ChallengeModal from 'components/dashboard/shared/ChallengeModal';
+import LeftNav from "components/explorer/LeftNav";
 
 function Map(props) {
     const challenges = props.challenges;
+    const profile = props.profile;
     const [startLng, setStartLng] = useState(0.17);
     const [startLat, setStartLat] = useState(52.18);
-    const [endLng, setEndLng] = useState(null);
-    const [endLat, setEndLat] = useState(null);
-    const [polyline, setPolyline] = useState("");
     const zoom = 5;
+    const [viewModal, toggleModal] = useState(false);
+    const [viewChallenge, setViewChallenge] = useState(null);
+    const [filter, setFilter] = useState(null);
+    const [center, setCenter] = useState([]);
 
     // Hooks custom version
-    const map = React.createRef;
+    // const map = React.createRef;
     mapboxgl.accessToken = config.MAP_TOKEN;
 
     useEffect(() => {
-
-        const decodePolyline = () => {
-            console.log(Polyline.toGeoJSON(polyline));
-            return Polyline.toGeoJSON(polyline);
-        }
 
         const map = new mapboxgl.Map({
             container: 'map',
@@ -37,67 +37,107 @@ function Map(props) {
             style: 'mapbox://styles/mapbox/streets-v9'
         });
 
-        // if (props.activities.length > 0) {
-        //     setStartLng(props.activities[2].start_longitude);
-        //     setStartLat(props.activities[2].start_latitude);
-        //     setEndLng(props.activities[2].end_latlng[1]);
-        //     setEndLat(props.activities[2].end_latlng[0]);
-        //     setPolyline(props.activities[2].map.summary_polyline);
-        //     map.setCenter([startLng, startLat]);
-        //     // select map style.
-        //     lineStyle(map);
-        // }
+        map.on('load', function () {
+            let center = [startLng, startLat];
 
+            map.on('moveend', function () {
+                center = map.getCenter();
+                console.log(center);
+                listNearby(center);
+            })
 
- 
+            if (filter) {
+                loadSource(filter);
+            } else {
+                loadSource(challenges);
+            }
 
-        function lineStyle(map) {
-            createMarker(startLng, startLat, map, "#00FF00");
-            createMarker(endLng, endLat, map, "#FF0000");
-
-            map.on('load', () => {
-                createGeojsonSource(map, 'LineString', decodePolyline());
-                map.addLayer({
-                    'id': 'segment',
-                    'type': 'line',
-                    'source': 'base',
-                    'layout': {
-                        'line-join': 'round',
-                        'line-cap': 'round'
-                    },
-                    'paint': linePaint()
+            function loadSource(source){
+                source.forEach((challenge) => {
+                    if (challenge) {
+                        if (challenge.Type !== challengeType.MILESTONE) {
+                            if (challenge.Type !== challengeType.ENDURANCE) {
+                                loadBadges(challenge);
+                            }
+                        }
+                    }
                 });
-            });
-        }
-    
-        const linePaint = () => ({
-            'line-width': 2,
-            'line-color': '#FF0000',
-            'line-opacity': 0.6
+            }
+
+            function loadBadges(challenge) {
+                map.loadImage(
+                    importAsset("scheme_geometric/badges", challenge.ChallengeId),
+                    function (error, image) {
+                        if (error) throw error;
+
+                        map.addImage("img" + challenge.ChallengeId.toString(), image);
+                        createGeojsonSource(map, challenge.ChallengeId.toString(), [challenge.StartLng, challenge.StartLat])
+                        map.addLayer({
+                            'id': challenge.ChallengeId.toString(),
+                            'type': 'symbol',
+                            'source': challenge.ChallengeId.toString(),
+                            'layout': {
+                                'icon-image': "img" + challenge.ChallengeId.toString(),
+                                'icon-size': 0.5
+                            }
+                        });
+                    }
+                );
+                configurePointer(challenge.ChallengeId);
+                configureModalOnClick(challenge);
+            }
         });
 
+        function configureModalOnClick(challenge) {
+            // On click event, open challenge modal
+            map.on('click', challenge.ChallengeId.toString(), function (e) {
+                // let coordinates = e.features[0].geometry.coordinates.slice();
 
+                toggleChallengeModal(challenge);
+            })
+        }
 
-    }, [startLng, startLat, zoom, challenges]
+        function configurePointer(id) {
+            // Change the cursor to a pointer when the mouse is over the places layer.
+            map.on('mouseenter', id.toString(), function () {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+            // Change it back to a pointer when it leaves.
+            map.on('mouseleave', id.toString(), function () {
+                map.getCanvas().style.cursor = '';
+            });
+        }
+
+        // Add geolocate control to the map.
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            })
+        );
+
+    }, [startLng, startLat, filter, zoom, challenges]
     );
 
-    function createMarker(lng, lat, map, color) {
-        new mapboxgl.Marker({
-            'color': color,
-        })
-        .setLngLat([lng, lat])
-        .addTo(map);
+    const importAsset = (type, challengeId) => {
+        let banner = [];
+        try {
+            banner = require(`assets/${type}/${challengeId}.png`);
+        } catch {
+            banner = require(`assets/${type}/default.png`);
+        }
+        return banner;
     }
 
-    function createGeojsonSource(map, type, source) {
-        let geometry = (type === 'Point') ? {
-            'type': type,
+    function createGeojsonSource(map, name, source) {
+        let geometry = {
+            'type': 'Point',
             'coordinates': source
         }
-        :
-        source
 
-        map.addSource('base', {
+        map.addSource(name, {
             'type': 'geojson',
             'data': {
                 'type': 'Feature',
@@ -106,10 +146,48 @@ function Map(props) {
         });
     }
 
+    function toggleChallengeModal(challenge) {
+        setViewChallenge(challenge);
+        toggleModal(!viewModal);
+    }
+
+    const updateFilters = (filter) => {
+        let filtered = []
+        challenges.forEach((challenge) => {
+            if (challenge.Type === challengeType.EXPLORATION && filter.exploration) {
+                filtered.push(challenge);
+            }
+            if (challenge.Type === challengeType.TIMETRIAL && filter.sprints) {
+                filtered.push(challenge);
+            }
+            if (challenge.Type === challengeType.ROUTE && filter.routes) {
+                filtered.push(challenge);
+            }
+        })
+        // if (filter.completed === false) {
+        //     profile.Completed.forEach((complete) => {
+
+        //     })
+        // }
+        setFilter(filtered);
+    }
+
+    const listNearby = (center) => {
+        setCenter(center);
+    }
+
     return (
-        <div>
-            <div ref={map}></div>
-        </div>
+        <>
+            {viewModal ? <ChallengeModal show={viewModal} challenge={viewChallenge} profile={props.profile} toggleChallengeModal={toggleChallengeModal} /> : null}
+            <Col sm={2}>
+                <div className="explorer-side">
+                    <LeftNav importAsset={importAsset} updateFilters={updateFilters} toggleChallengeModal={toggleChallengeModal} challenges={challenges} filter={filter} center={center} />
+                </div>
+            </Col>
+            <Col sm={7}>
+                <div id="map" className="explorer-map"></div>
+            </Col>
+        </>
     );
 
 }

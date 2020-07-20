@@ -9,14 +9,40 @@ import Button from 'react-bootstrap/Button';
 import './css/Filters.css';
 
 function Filters(props) {
-    const [input, setInput] = useState([]);
+    const [exploration, toggleExploration] = useState(true);
+    const [sprints, toggleSprints] = useState(true);
+    const [routes, toggleRoutes] = useState(true);
+    const [completed, toggleCompleted] = useState(true);
 
-    function handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+    function handleExploration() {
+        toggleExploration(!exploration);
+        updateFilters("exploration", !exploration);
+    }
 
-        setInput(value);
+    function handleSprints() {
+        toggleSprints(!sprints);
+        updateFilters("sprints", !sprints);
+    }
+
+    function handleRoutes() {
+        toggleRoutes(!routes);
+        updateFilters("routes", !routes);
+    }
+
+    function handleCompleted() {
+        toggleCompleted(!completed);
+        updateFilters("completed", !completed);
+    }
+
+    function updateFilters(type, value) {
+        const filter = {
+            exploration: exploration,
+            sprints: sprints,
+            routes: routes,
+            completed: completed,
+            [type]: value
+        };
+        props.updateFilters(filter);
     }
 
     return (
@@ -24,19 +50,16 @@ function Filters(props) {
             <h1>Filters</h1>
 
             <Form className="">
-                <Form.Group controlId="formBasicText">
-                    <Form.Control className="form-input" type="text" placeholder="Enter Post Code" name="filter" value={input} onChange={handleChange} />
-                </Form.Group>
-                <Form.Group controlId="buttons">
-                    <Button variant="primary">
-                        Submit
-                    </Button>
+                <Form.Group controlId="filterSelect">
+                    <Form.Check type="switch" id="exploration" label="Exploration" onChange={handleExploration} checked={exploration}/>
+                    <Form.Check type="switch" id="sprints" label="Sprints" onChange={handleSprints} checked={sprints}/>
+                    <Form.Check type="switch" id="routes" label="Routes" onChange={handleRoutes} checked={routes}/>
+                    <Form.Check type="switch" id="completed" label="Completed" onChange={handleCompleted} checked={completed}/>
                 </Form.Group>
             </Form>
 
         </div>
     );
 }
-
 
 export default Filters;

@@ -7,3 +7,14 @@
     box-shadow: 2px 2px 2px black;
     color: white;
 }
+
+.nearby-list {
+    max-height: 780px;
+    overflow: hidden;
+}
+
+.side-button-wrapper {
+    display: inline;
+    text-align: left;
+    padding: 10px;
+}

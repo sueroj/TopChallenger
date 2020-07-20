@@ -6,3 +6,14 @@
    
     width: 200px;
 }
+
+.custom-switch {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.checkboxes {
+    display: block
+}

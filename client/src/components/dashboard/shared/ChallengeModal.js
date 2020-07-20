@@ -11,7 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import './css/Badge.css';
-import Map from './Map';
+import MiniMap from './MiniMap';
 import * as challengeType from 'common/challengeType.json';
 
 function Badge(props) {
@@ -123,9 +123,9 @@ function Badge(props) {
 
             <span className="badge-modal-difficulty">Difficulty: {convertDifficulty(props.challenge.Difficulty)}</span>
             <Modal.Body>
-                <div id="map" className="badge-modal-map">
+                <div id="miniMap" className="badge-modal-map">
                     {props.challenge.Type !== challengeType.MILESTONE
-                        ? <Map {...props} />
+                        ? <MiniMap {...props} />
                         : <Image className="badge-modal-map" src={importAsset("banners", props.challenge.ChallengeId)} alt={props.challenge.Name} />}
                 </div>
 

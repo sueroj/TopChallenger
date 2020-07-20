@@ -19,7 +19,7 @@ function Map(props) {
     const zoom = 11
 
     // Hooks custom version
-    const map = React.createRef;
+    const miniMap = React.createRef;
     mapboxgl.accessToken = config.MAP_TOKEN;
 
     useEffect(() => {
@@ -29,8 +29,8 @@ function Map(props) {
             return Polyline.toGeoJSON(polyline);
         }
 
-        const map = new mapboxgl.Map({
-            container: 'map',
+        const miniMap = new mapboxgl.Map({
+            container: 'miniMap',
             center: [startLng, startLat],
             zoom: zoom,
             style: 'mapbox://styles/mapbox/streets-v9'
@@ -42,13 +42,13 @@ function Map(props) {
                 //
                 break;
             case challengeType.EXPLORATION:
-                circleStyle(map);
+                circleStyle(miniMap);
                 break;
             case challengeType.TIMETRIAL:
-                lineStyle(map);
+                lineStyle(miniMap);
                 break;
             case challengeType.ROUTE:
-                lineStyle(map);
+                lineStyle(miniMap);
                 break;
             case challengeType.ENDURANCE:
                 //
@@ -58,7 +58,7 @@ function Map(props) {
         }      
 
         function circleStyle(map) {
-            map.on('load', () => {
+            miniMap.on('load', () => {
                 createGeojsonSource(map, 'Point', [startLng, startLat]);
                 map.addLayer({
                     'id': 'marker',
@@ -69,13 +69,13 @@ function Map(props) {
             });
         }
 
-        function lineStyle(map) {
-            createMarker(startLng, startLat, map, "#00FF00");
-            createMarker(endLng, endLat, map, "#FF0000");
+        function lineStyle(miniMap) {
+            createMarker(startLng, startLat, miniMap, "#00FF00");
+            createMarker(endLng, endLat, miniMap, "#FF0000");
 
-            map.on('load', () => {
-                createGeojsonSource(map, 'LineString', decodePolyline());
-                map.addLayer({
+            miniMap.on('load', () => {
+                createGeojsonSource(miniMap, 'LineString', decodePolyline());
+                miniMap.addLayer({
                     'id': 'segment',
                     'type': 'line',
                     'source': 'base',
@@ -143,7 +143,7 @@ function Map(props) {
     }
 
     return (
-        <div ref={map}></div>
+        <div ref={miniMap}></div>
     );
 
 }

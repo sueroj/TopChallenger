@@ -7,12 +7,10 @@ import React, { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import SideView from "components/dashboard/side/SideView";
-import LeftNav from "components/explorer/LeftNav";
 import Map from "../components/explorer/Map";
 import './css/explorer.css';
 import axios from 'axios';
 import { SERVER_URL } from '../api/config.json';
-
 import MessageModal from '../components/dashboard/focus/MessageModal';
 
 function Explorer(props) {
@@ -85,16 +83,9 @@ function Explorer(props) {
     <div className="explorer-content">
       <MessageModal profile={props.profile} show={messageModal} toggleMessageModal={toggleMessageModal} modalMessage={modalMessage} />
       <Row>
-        <Col sm={2}>
-          <div className="explorer-side">
-            <LeftNav user={user} profile={profile} importAsset={importAsset} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges} />
-          </div>
-        </Col>
-        <Col sm={7}>
-          <div id="map" className="explorer-map">
-            <Map challenges={challenges} />
-          </div>
-        </Col>
+
+            <Map challenges={challenges} profile={profile} importAsset={importAsset}/>
+
         <Col sm={2}>
           <div className="dashboard-side">
             <SideView user={user} profile={profile} importAsset={importAsset} updateProfile={updateProfile} showMessageModal={showMessageModal} challenges={challenges} />

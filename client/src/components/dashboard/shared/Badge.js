@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import './css/Badge.css';
 import ChallengeModal from './ChallengeModal';
-import BadgeCanvas from './BadgeCanvas';
+// import BadgeCanvas from './BadgeCanvas';
 import challengeType from 'common/challengeType.json';
 import tier from 'common/tier.json';
 
