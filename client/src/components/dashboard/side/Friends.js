@@ -21,7 +21,7 @@ class Friends extends React.Component {
     render(){
         return(
                 <div className="side-view">
-                    <h1>Friends</h1>
+                    <h1 className="headers">Friends</h1>
                 </div>     
             ); 
         }  

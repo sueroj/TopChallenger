@@ -4,6 +4,12 @@
     max-height: 1200px;
 }
 
+/* Leaderboard page */
+
+.leaderboard-header {
+    color: white;
+}
+
 /* Tools */
 
 .loader {

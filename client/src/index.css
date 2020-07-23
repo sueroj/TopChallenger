@@ -1,5 +1,5 @@
 html {
-  background-color: rgb(65, 68, 68);
+  background-color: rgb(70, 70, 70);
 }
 
 body {
@@ -8,7 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(65, 68, 68);
+  background-color: rgb(70, 70, 70);
 }
 
 code {

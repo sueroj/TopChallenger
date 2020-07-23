@@ -24,13 +24,11 @@ class Footer extends React.Component {
         return (
             <Row>
                 <Col>
-
                     <Navbar bg="dark" variant="dark" expand="lg">
                         <div className="footer">
-                            <Navbar.Brand className="footer-logo" href="/dashboard">React-Bootstrap</Navbar.Brand>
+                            <Navbar.Brand className="footer-logo" href="/dashboard">TopChallenger</Navbar.Brand>
                             <Nav className="footer-links">
-                                <><Nav.Link className="footer-links" href="/guide">User Guide</Nav.Link>
-                                    <Link className="footer-links" to="/explorer">Explorer</Link></>
+                                <Link to="/about">About</Link>
                             </Nav>
                         </div>
                     </Navbar>

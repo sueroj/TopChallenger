@@ -17,7 +17,7 @@ import MessageModal from '../components/dashboard/focus/MessageModal';
 
 
 function Dashboard(props) {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('sessionUser'))? JSON.parse(sessionStorage.getItem('sessionUser')): props.user);
+  const user = JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : props.user;
   const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('sessionProfile'))? JSON.parse(sessionStorage.getItem('sessionProfile')): props.profile);
   const [challenges, setChallenges] = useState(props.challenges);
   const [messageModal, toggleMessageModal] = useState(false);

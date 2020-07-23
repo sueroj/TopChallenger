@@ -13,19 +13,18 @@ import Preferences from 'assets/navs/preferences.png';
 import './css/Navigation.css';
 
 function Navigation(props) {
+    const serverStatus = props.serverStatus;
     const [isLoggedIn, setLoggedIn] = useState(props.isLoggedIn);
     const user = JSON.parse(sessionStorage.getItem('sessionUser')) ? JSON.parse(sessionStorage.getItem('sessionUser')) : props.user;
 
     useEffect(() => {
-        sessionTimer(sessionStorage.getItem('sessionExpire'));
-
-        function sessionTimer(sessionExpire) {
-            if (sessionExpire < Date.now())
-                setLoggedIn(false);
-            else
-                setLoggedIn(true);
+        if (user && serverStatus) {
+            setLoggedIn(true);
         }
-    }, [isLoggedIn]
+        else {
+            setLoggedIn(false);
+        }
+    }, [user, serverStatus]
     );
 
     return (
@@ -43,7 +42,8 @@ function Navigation(props) {
                 </Nav>
                 {isLoggedIn ? <><Image className="nav-img" src={user.athlete.profile_medium} alt={user.athlete.firstname} roundedCircle />
                     <Image className="nav-img" src={Preferences} alt="Preferences" />
-                    <Image alt="Sign Out" /></>
+                    {/* <Link to="/">Log Out</Link> */}
+                </>
                     : null}
             </Navbar.Collapse>
         </Navbar>

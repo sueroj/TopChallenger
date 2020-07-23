@@ -15,6 +15,7 @@ import Home from './pages/home';
 import Dashboard from './pages/dashboard';
 import Leaderboard from './pages/leaderboard';
 import Explorer from './pages/explorer';
+import About from './pages/about';
 // dev tools
 import MilestoneLoader from './common/loader0.service';
 import ExplorationLoader from './common/loader1.service';
@@ -143,6 +144,9 @@ function getAthlete() {
               </Route>
               <Route path="/explorer">
                 <Explorer user={user} profile={profile} challenges={challenges}/>
+              </Route>
+              <Route path="/about">
+                <About />
               </Route>
               {/* //dev only */}
               <Route path="/loader0">

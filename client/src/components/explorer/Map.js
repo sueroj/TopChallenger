@@ -42,7 +42,6 @@ function Map(props) {
 
             map.on('moveend', function () {
                 center = map.getCenter();
-                console.log(center);
                 listNearby(center);
             })
 
@@ -154,22 +153,37 @@ function Map(props) {
     const updateFilters = (filter) => {
         let filtered = []
         challenges.forEach((challenge) => {
-            if (challenge.Type === challengeType.EXPLORATION && filter.exploration) {
-                filtered.push(challenge);
-            }
-            if (challenge.Type === challengeType.TIMETRIAL && filter.sprints) {
-                filtered.push(challenge);
-            }
-            if (challenge.Type === challengeType.ROUTE && filter.routes) {
-                filtered.push(challenge);
-            }
+            addFilter(challenge, challengeType.EXPLORATION, filter.exploration);
+            addFilter(challenge, challengeType.TIMETRIAL, filter.sprints);
+            addFilter(challenge, challengeType.ROUTE, filter.routes);
         })
-        // if (filter.completed === false) {
-        //     profile.Completed.forEach((complete) => {
 
-        //     })
-        // }
+        if (filter.completed === false) {
+            filtered = filterCompleted(filtered, profile)
+        }
         setFilter(filtered);
+        
+        function addFilter(challenge, type, filter) {
+            if (challenge.Type === type && filter) {
+                filtered.push(challenge);
+            }
+        }
+
+        function filterCompleted(filtered, profile) {
+            let newFiltered = [];
+            filtered.forEach((challenge) => {
+                let isComplete = false;
+                profile.Completed.forEach((completed)=> {
+                    if (challenge.ChallengeId === completed.ChallengeId) {
+                        isComplete = true;
+                    }
+                })
+                if (!isComplete) {
+                 newFiltered.push(challenge);
+                }
+            })
+            return newFiltered;
+        }
     }
 
     const listNearby = (center) => {
@@ -178,7 +192,7 @@ function Map(props) {
 
     return (
         <>
-            {viewModal ? <ChallengeModal show={viewModal} challenge={viewChallenge} profile={props.profile} toggleChallengeModal={toggleChallengeModal} /> : null}
+            {viewModal ? <ChallengeModal show={viewModal} challenge={viewChallenge} profile={props.profile} toggleChallengeModal={toggleChallengeModal} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal}/> : null}
             <Col sm={2}>
                 <div className="explorer-side">
                     <LeftNav importAsset={importAsset} updateFilters={updateFilters} toggleChallengeModal={toggleChallengeModal} challenges={challenges} filter={filter} center={center} />

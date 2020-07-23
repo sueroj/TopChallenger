@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  background-color: rgb(65, 68, 68);
+  /* background-color: rgb(100, 100, 100); */
+  background-image: linear-gradient(rgb(70,70,71), rgb(126, 133, 141));
   box-shadow: inset 0 40px 20px -100px rgba(0, 0, 0, 0.35),
   inset 0 -20px 50px -100px rgba(0, 0, 0, 0.35);
 }
@@ -28,7 +29,7 @@
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
-  background-color: rgb(65, 68, 68);
+  background-image: linear-gradient(rgb(70,70,71), rgb(126, 133, 141));
 }
 
 .content {

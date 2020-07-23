@@ -21,8 +21,8 @@ function Progression(props) {
 
     return(
             <div className="side-view">
+                <h1 className="headers">Progression</h1>
                 <div className="progression-stats">
-                    <h1>Progression</h1>
                     <p>Leaderboard Rank: 1</p>
                     <p>Challenges complete: {props.profile.TotalCompleted} / {props.challenges.length}</p>
                     <p>% complete: {percentCompleted} %</p>

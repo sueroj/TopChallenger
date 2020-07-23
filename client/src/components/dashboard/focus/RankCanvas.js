@@ -17,7 +17,7 @@ function RankCanvas(props) {
         context.clearRect(0, 0, 50, 50);
         context.beginPath();
         context.arc(25,25,24,0,2*Math.PI);
-        context.strokeStyle = "#00FF00";
+        context.strokeStyle = "#FFFF00";
         context.lineWidth = 2;
         context.stroke();
         context.font = "32px Arial";

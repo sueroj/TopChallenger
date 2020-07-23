@@ -39,7 +39,7 @@ function Challenges(props) {
             <ChallengeModal profile={props.profile} challenge={tracked} show={viewChallengeModal} toggleChallengeModal={toggleChallengeModal} updateProfile={props.updateProfile} showMessageModal={props.showMessageModal}/>
 
             <div className="challenges-content">
-                <h1>Tracker</h1>
+                <h1 className="headers">Tracker</h1>
                 <div className="challenges-tracked">
                     {props.profile.TrackedChallenges.map((trackedChallenge) => {
                         return <>

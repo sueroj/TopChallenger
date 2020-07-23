@@ -29,7 +29,7 @@
 }
 
 .badge-wrapper:hover {
-    background-color: rgba(255, 68, 0, 0.275);
+    background-color: rgba(255, 120, 30, 0.275);
 }
 
 .badge-name-header {
@@ -109,7 +109,7 @@
 }
 
 .side-button-wrapper:hover {
-    background-color: rgba(255, 68, 0, 0.275);
+    background-color: rgba(255, 120, 30, 0.275);
 }
 
 .side-img-badge {

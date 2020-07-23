@@ -4,19 +4,18 @@
 // --TBD-- 
 // AWM
 import React from 'react';
+import Image from 'react-bootstrap/Image';
+import leaderboardWireFrame from 'assets/backgrounds/leaderboardWireFrame.png';
 import './css/dashboard.css';
 
-class Leaderboard extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function Leaderboard(props) {
 
-  render () {
-    return (
-        <h1>Leaderboard [{this.props.user}]</h1>
-    )
-  }
+  return (
+    <div className="leaderboards">
+      <h1 className="leaderboard-header">Leaderboard page TBD</h1>
+      <Image className="temp wireframe" src={leaderboardWireFrame} alt={"wireframe"} />
+    </div>
+  )
 }
 
 export default Leaderboard;

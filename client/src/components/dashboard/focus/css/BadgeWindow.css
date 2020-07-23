@@ -1,6 +1,6 @@
 .badge-list-wrapper {
     margin-top: 4px;
-    color: orangered;
+    color: rgb(240, 180, 140);
 }
 
 .badge-list-header {
@@ -9,8 +9,10 @@
     height: 40px;
     width: 100%;
     margin-inline: 17px;
-    border-bottom: 1px solid orangered;
+    border-bottom: 1px solid rgb(255, 120, 30);
     box-shadow: 1px 1px 1px 1px black;
+    border-radius: 3px;
+    background-color: rgb(60, 60, 60);;
 }
 
 .header-arrow-wrapper {
@@ -30,7 +32,7 @@
 }
 
 .header-arrow-wrapper:hover {
-    background-color: rgba(255, 68, 0, 0.275);
+    background-color: rgba(255, 120, 30, 0.275);
 }
 
 .header-arrow-wrapper, .header-title-wrapper, .header-stats-wrapper {

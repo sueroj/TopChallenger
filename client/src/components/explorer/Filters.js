@@ -47,7 +47,7 @@ function Filters(props) {
 
     return (
         <div className="side-view">
-            <h1>Filters</h1>
+            <h1 className="headers">Filters</h1>
 
             <Form className="">
                 <Form.Group controlId="filterSelect">

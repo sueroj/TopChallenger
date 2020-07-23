@@ -84,7 +84,7 @@ function Explorer(props) {
       <MessageModal profile={props.profile} show={messageModal} toggleMessageModal={toggleMessageModal} modalMessage={modalMessage} />
       <Row>
 
-            <Map challenges={challenges} profile={profile} importAsset={importAsset}/>
+        <Map challenges={challenges} profile={profile} importAsset={importAsset} updateProfile={updateProfile} showMessageModal={showMessageModal}/>
 
         <Col sm={2}>
           <div className="dashboard-side">

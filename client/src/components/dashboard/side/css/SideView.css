@@ -8,6 +8,14 @@
     color: white;
 }
 
+.headers {
+    margin-inline: 20px;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgb(255, 120, 30);
+    color: rgb(240, 180, 140);
+}
+
 /* Challenges View */
 
 .challenges-content {
@@ -17,7 +25,6 @@
     border-radius: 3px;
     margin-bottom: 10px;
     box-shadow: 2px 2px 2px black;
-    color: white;
 }
 
 .side-challenges-list-row {
@@ -28,7 +35,11 @@
 }
 
 .challenges-tracked {
-    margin-bottom: 90%;
+    margin-bottom: 70%;
+}
+
+.btn-success, .btn-success:hover, .btn-success:focus {
+    color: rgb(39, 39, 39);
 }
 
 .side-badge {
