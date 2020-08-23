@@ -90,8 +90,6 @@ function Map(props) {
         function configureModalOnClick(challenge) {
             // On click event, open challenge modal
             map.on('click', challenge.ChallengeId.toString(), function (e) {
-                // let coordinates = e.features[0].geometry.coordinates.slice();
-
                 toggleChallengeModal(challenge);
             })
         }

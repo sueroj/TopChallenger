@@ -1,0 +1,29 @@
+.form-group {
+    margin-inline: auto;
+}
+
+.form-input {
+   
+    width: 200px;
+}
+
+.custom-switch {
+    width: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.checkboxes {
+    display: block
+}
+
+.leaderboard-filters {
+    height: 200px;
+    width: 100%;
+    background-color: rgb(39, 39, 39);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}

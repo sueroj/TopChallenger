@@ -8,14 +8,14 @@ import Button from 'react-bootstrap/Button'
 import { CLIENT_ID, REDIRECT_URI } from '../../api/config.json';
 
 function apiAuth() {
-  try{
+  try {
     window.location.href = `https://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&approval_prompt=force&scope=activity:read&state=newauth`;
   }
-  catch(e){
+  catch (e) {
   }
   return new Promise((resolve) => setTimeout(resolve, 2000));
 }
-  
+
 function SyncButton(props) {
   const [isLoading, setLoading] = useState(false);
   const api = props.api;

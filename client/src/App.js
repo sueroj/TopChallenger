@@ -21,6 +21,7 @@ import MilestoneLoader from './common/loader0.service';
 import ExplorationLoader from './common/loader1.service';
 import TTLoader from './common/loader2.service';
 import RouteLoader from './common/loader3.service';
+import TCTest from '__tests__/App.test';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -160,6 +161,9 @@ function getAthlete() {
               </Route>
               <Route path="/loader3">
                 <RouteLoader user={user}/>
+              </Route>
+              <Route path="/test">
+                <TCTest user={user}/>
               </Route>
               <Route exact path="/">           
                 { userLoaded && profileLoaded && challengesLoaded && serverStatus ? <Redirect to="/dashboard" /> : <Home /> }

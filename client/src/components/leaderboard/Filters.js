@@ -40,7 +40,7 @@ function Filters(props) {
     }
 
     return (
-        <div className="side-view">
+        <div className="leaderboard-filters">
             <h1 className="headers">Filters</h1>
 
             <Form className="">
