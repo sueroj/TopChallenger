@@ -5,7 +5,7 @@
   </a>
 </p>
 
-## What is TC?
+## What is TopChallenger (TC)?
 
  TC is a concept feature for GPS tracking fitness apps like Strava or Garmin Connect. The app elaborates on geolocation features and segment competition to offer a variety of fitness challenges for runners and cyclists. 
  
