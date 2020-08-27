@@ -141,7 +141,7 @@ function getAthlete() {
                   <Dashboard user={user} profile={profile} challenges={challenges} />
               </Route>
               <Route path="/leaderboard">
-                <Leaderboard user="data"/>
+                <Leaderboard user={user} profile={profile} challenges={challenges}/>
               </Route>
               <Route path="/explorer">
                 <Explorer user={user} profile={profile} challenges={challenges}/>
