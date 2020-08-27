@@ -9,7 +9,7 @@
 
  TC is a concept feature for GPS tracking fitness apps like Strava or Garmin Connect. The app elaborates on geolocation features and segment competition to offer a variety of fitness challenges for runners and cyclists. 
  
- TC is built with React.js, .Net Core Web API, and MongoDB. The app uses the Strava v3 API to query user fitness activities within the last 7 days for verifying challenges.
+ Technically, TC is built with React.js, .Net Core Web API, and MongoDB. The app uses the Strava v3 API to query user fitness activities within the last 7 days for verifying challenges. Users submit their activities from Strava to complete challenges. The app checks if challenges were completed in the overall activity, meaning that users can complete challenges complementary to their normal routine.
  
 ## Why?
 
@@ -25,14 +25,20 @@ Cooperate, Compete, or go solo to complete 5 types of challenges in your local a
 
  Five primary challenge types:
 - Milestone: meet basic “firsts” in your fitness progression.
-
 - Exploration: navigate to a Point of Interest (POI) as displayed by a red circle drawn on a map.
-
 - Timed Segments: complete a segment of road or trail within the target time to earn gold, silver, or bronze medal.
-
 - Timed Route: follow a route and complete within the target time to earn gold, silver, or bronze medal.
-
 - Endurance: These challenges require the competion of multiple, difficult objectives.
+
+## What's next for the App?
+
+ TC was created and continues as learning aid, demonstration, and experimental project. It is expected that much of the codebase will undergo migration, rewrites, modernization, and major revisions.
+ 
+ However, conceptually, the project may not change much. Future development updates to the idea could include:
+ - Mobile integration for application features that operate in real time (e.g. during the fitness activity).
+ - More experimental features for fitness apps.
+ - More challenge types.
+ - Experimention with UI and presentation.
 
 ## Screenshots
 <img src="https://github.com/sueroj/TopChallenger/blob/master/screenshots/explorer_page.PNG" alt="explorer page" width="100%" />
