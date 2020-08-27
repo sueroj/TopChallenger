@@ -13,11 +13,11 @@
  
 ## Why?
 
- Existing fitness apps inspire ideas for other methods of competition besides segment-based to make them more accessible. Existing segment competition features are frequently dominated by professional or high-end athletes. These features could be improved to appeal to users of various fitness levels by slightly altering their design. TC was created to explore if these idea were plausible.
+ Existing fitness apps inspired ideas for other methods of competition besides segment-based to make them more accessible, because segment competition features are frequently dominated by professional or high-end athletes. The aim was to see if these features could be improved to appeal to users of various fitness levels by slightly altering design. TC was created to explore if these ideas were plausible.
  
 ## How?
 
- TC explores the concept of viewing segment competition in the same way that Marathons and Sportives (Gran-Fondo) views racing. In marathons or sportives, people of all levels of fitness can participate for the challenge and reward, while also offering opportunities for high-end racing.
+ TC explores a concept of viewing segment competition in the same way that Marathons and Sportives (Gran-Fondo) views racing. In marathons or sportives, people of all levels of fitness can participate for the challenge and reward, while also offering opportunities for high-end racing.
  
 ## Key Features
  
