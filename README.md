@@ -1,5 +1,5 @@
 ## TopChallenger
- Note: This project was created as learning aid, demonstration, and is a work in progress subject to frequent experimentation.
+ Note: This project was created as learning aid and concept. It is a work in progress subject to frequent experimentation.
 <p align="center">
     <img src="https://github.com/sueroj/TopChallenger/blob/master/screenshots/explorer_page.PNG" alt="TopChallenger" width="100%" />
 </p>
