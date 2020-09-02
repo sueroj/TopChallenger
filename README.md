@@ -31,7 +31,7 @@ Cooperate, Compete, or go solo to complete 5 types of challenges in your local a
 
 ## What's next for the App?
 
- TC was created and continues as learning aid, demonstration, and experimental project. It is expected that much of the codebase will undergo migration, rewrites, modernization, and major revisions.
+ TC was created and continues as learning aid, demonstration, and experimental project. It is expected that much of the codebase will undergo migration, modernization, and major revisions.
  
  However, conceptually, the project may not change much. Future development updates to the idea could include:
  - Mobile integration for application features that operate in real time (e.g. during the fitness activity).
